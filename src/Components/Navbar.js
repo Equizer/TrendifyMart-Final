@@ -1,4 +1,4 @@
-import React, { useContext, useState }from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar';
 import ProgressContext from '../context/progress/ProgressContext'
@@ -20,19 +20,10 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === '/home' ? 'active' : ''}`} aria-current="page" to="/home">Home</Link>
+                                {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/login' ? 'active' : ''}`} aria-current="page" to="/login">Login</Link>}
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} aria-current="page" to="/about">About</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} aria-current="page" to="/profile">Profile</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} aria-current="page" to="/login">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>
+                                {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/signup' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>}
                             </li>
                         </ul>
                         <Link className="navbar-brand" to="/home">TrendifyMart</Link>

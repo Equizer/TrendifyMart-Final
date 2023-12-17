@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
+  const logout = async () => {
+    localStorage.removeItem('token');
+  }
   return (
     <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
 
@@ -74,8 +77,8 @@ const Sidebar = () => {
 
 
 
-      <Link to="/logout">
-        <button className='btn btn-light container sidebar-items my-2'>
+      <Link to="/login">
+        <button className='btn btn-light container sidebar-items my-2' onClick={logout}>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-right-from-bracket mx-2"></i>

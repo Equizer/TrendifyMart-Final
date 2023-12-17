@@ -54,10 +54,10 @@ ProductItem.propTypes = {
   id: PropTypes.string.isRequired,
   image: PropTypes.string,
   name: PropTypes.string.isRequired,
-  rating: {
+  rating: PropTypes.shape({
     stars: PropTypes.number,
     count: PropTypes.number
-  },
+  }),
   priceCents: PropTypes.number.isRequired,
   // keywords: PropTypes.array
 };
