@@ -10,6 +10,7 @@ import ProgressState from './context/progress/ProgressState';
 import ProductState from './context/products/ProductState';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
+import UserState from './context/user/UserState';
 
 
 
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <ProgressState>
+      <UserState>
       <ProductState >
         <Router>
           <Navbar />
@@ -37,6 +39,7 @@ function App() {
           </div>
         </Router>
       </ProductState>
+      </UserState>
     </ProgressState>
   );
 }
