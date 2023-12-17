@@ -32,7 +32,79 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* nav {
+  border-bottom: 1px solid black;
+  z-index: 1;
+} */
+.sidebar-items {
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  font-size: 18px;
+}
+
+
+
+.sidebar-item-parent {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  column-gap: 12px;
+}
+
+.sidebar-names,
+.sidebar-icons {
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+.small-text {
+  color: #0096c7;
+font-size: 14px ;
+cursor: pointer;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.small-text:hover {
+  color: #fb8500
+}
+.large-text {
+font-size: 20px;
+}
+
+.body-content {
+  margin-top: 70px;
+}
+
+.profile-link {
+  border-radius: 1000px;
+  padding: 12px 14px;
+}
+.cart-component {
+  background-color: #ffffff;
+  height: 900px;
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5);
+}
+hr {
+  border: 1px solid black
+}
+/* 
+.bg-cart-image {
+  background-image: url('./images/Backgrounds/WhatsApp\ Image\ 2023-12-10\ at\ 7.21.48\ PM.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+
+
+.form-margin {
+  margin-top: 88px;
 }
