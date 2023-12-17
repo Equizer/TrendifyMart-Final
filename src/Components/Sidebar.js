@@ -34,7 +34,7 @@ const Sidebar = () => {
         <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
-            <i className="fa-solid fa-bookmark mx-2"></i>
+              <i className="fa-solid fa-bookmark mx-2"></i>
             </div>
             <div className="sidebar-names">Saved</div>
           </div>
@@ -75,8 +75,6 @@ const Sidebar = () => {
         </button>
       </Link>
 
-
-
       <Link to="/login">
         <button className='btn btn-light container sidebar-items my-2' onClick={logout}>
           <div className='sidebar-item-parent'>
@@ -87,6 +85,18 @@ const Sidebar = () => {
           </div>
         </button>
       </Link>
+
+      <Link to="/myshop">
+        <button className='btn btn-light container sidebar-items my-2' onClick={logout}>
+          <div className='sidebar-item-parent'>
+            <div className="sidebar-icons">
+              <i class="fa-solid fa-shop mx-2"></i>
+            </div>
+            <div className="sidebar-names">My Shop</div>
+          </div>
+        </button>
+      </Link>
+
     </div>
   )
 }

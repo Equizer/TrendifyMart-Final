@@ -30,7 +30,7 @@ const Signup = () => {
     const json = await response.json();
 
     if (json.success) {
-      localStorage.setItem('token', json.authToken);// here we could set the local storage t user but the setUser is async so it might be undefined while trying that way
+      localStorage.setItem('token', json.authToken);// the setUser is async so it might be undefined while trying that way so we have to be careful with all this
       getuserdata();
       navigate('/home');
     }

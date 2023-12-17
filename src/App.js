@@ -11,6 +11,7 @@ import ProductState from './context/products/ProductState';
 import Signup from './Components/Signup';
 import Login from './Components/Login';
 import UserState from './context/user/UserState';
+import Shop from './Components/shop/Shop';
 
 
 
@@ -34,6 +35,7 @@ function App() {
                 <Route exact path='/profile' element={<Profile />} />
                 <Route exact path='/signup' element={<Signup />} />
                 <Route exact path='/login' element={<Login />} />
+                <Route exact path='/myshop' element={<Shop />} />
               </Routes>
             </div>
           </div>
