@@ -29,7 +29,7 @@ const Navbar = () => {
                         <Link className="navbar-brand" to="/home">TrendifyMart</Link>
 
                         <div>
-                            <Link to='/profile' className="bg-info profile-link ml-2">
+                            <Link to='/profile' className="bg-info rounded-circle profile-link ml-2">
                                 <i className="fa-solid fa-user" style={{ color: "#ffffff" }}></i>
                             </Link>
                         </div>
