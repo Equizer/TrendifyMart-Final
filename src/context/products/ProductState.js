@@ -65,9 +65,8 @@ const ProductState = (props) => {
     const json = await response.json();
 
     if (json.success) {
-      setSellerProducts(sellerProducts.concat(json.products));
+      setSellerProducts(json.products);
       console.log(json.products);
-      console.log(sellerProducts);
     }
 
   }

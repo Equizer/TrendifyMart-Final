@@ -4,6 +4,7 @@ import verifiedLogo from '../../images/checkmark.png'
 import ProductContext from '../../context/products/ProductContext'
 import ProductItem from '../ProductItem'
 import AddProduct from './AddProduct'
+import SellerProduct from './SellerProduct'
 
 const Shop = () => {
 
@@ -115,7 +116,7 @@ const Shop = () => {
       </div>
       <AddProduct />
       <h1 className='mt-5'>Your Products</h1>
-      {/* <ProductItem image = {sellerProducts.image}/>  */}
+      <SellerProduct />
 
     </>
   )

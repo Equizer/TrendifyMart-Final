@@ -11,7 +11,7 @@ const Products = () => {
     <div className='container my-5  mx-5'>
       <div className='row'>
         {allProducts.map((product) => {
-          return (<ProductItem image={product.imageUrl} name={product.name} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id} key={product._id} />)
+          return (<ProductItem imageUrl={product.imageUrl} name={product.name} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id} key={product._id} />)
         })}
       </div>
     </div>

@@ -3,16 +3,17 @@ import ProductContext from '../../context/products/ProductContext';
 
 const AddProduct = () => {
   const productContext = useContext(ProductContext);
-  const { addProduct } = productContext;
+  const { addProduct, fetchSellerProducts } = productContext;
 
-  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: 'new', quantity: 1 });
+  const [conditionState, setConditionState] = useState('');
 
-  const [conditionState, setConditionState] = useState('new');
+  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, quantity: 1 });
+
 
   const closeModalRef = useRef(null);
 
   const handleConditionChange = (condition) => {
-    setConditionState({ ...productDetails, condition: condition });
+    setConditionState(condition);
     console.log(conditionState, condition);
   }
 
@@ -26,8 +27,8 @@ const AddProduct = () => {
   const handleClick = (e) => {
     e.preventDefault();
     console.log(productDetails);
-    addProduct(productDetails.name, productDetails.imageUrl, productDetails.rating, productDetails.priceCents, productDetails.keywords, productDetails.condition);
-
+    addProduct(productDetails.name, productDetails.imageUrl, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState);
+    fetchSellerProducts();
     closeModalRef.current.click();
   }
 
