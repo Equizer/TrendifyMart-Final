@@ -5,9 +5,9 @@ const AddProduct = () => {
   const productContext = useContext(ProductContext);
   const { addProduct, fetchSellerProducts } = productContext;
 
-  const [conditionState, setConditionState] = useState('');
+  const [conditionState, setConditionState] = useState('new');
 
-  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, quantity: 1 });
+  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, quantity: 1 });
 
 
   const closeModalRef = useRef(null);
@@ -27,7 +27,7 @@ const AddProduct = () => {
   const handleClick = (e) => {
     e.preventDefault();
     console.log(productDetails);
-    addProduct(productDetails.name, productDetails.imageUrl, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState);
+    addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState);
     fetchSellerProducts();
     closeModalRef.current.click();
   }
@@ -47,6 +47,13 @@ const AddProduct = () => {
                 <label htmlFor="productName" className="col-sm-2 col-form-label">Product Name:</label>
                 <div className="col-sm-10">
                   <input name="name" value={productDetails.name} type="text" className="form-control" id="productName" placeholder="Product Name..." onChange={onChange} />
+                </div>
+              </div>
+
+              <div className="row mb-3">
+                <label htmlFor="productDesc" className="col-sm-2 col-form-label">Product Description:</label>
+                <div className="col-sm-10">
+                  <input name="description" value={productDetails.description} type="text" className="form-control" id="productDesc" placeholder="Product Description..." onChange={onChange} />
                 </div>
               </div>
               <div className="row mb-3">

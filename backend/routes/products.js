@@ -23,6 +23,7 @@ router.get('/fetchallproducts', async (req, res) => {
 router.post('/addproduct', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
   body('name', 'Product name must be atleast 5 character').isLength({ min: 5 }),
+  body('description', 'Enter Product Description').notEmpty(),
   body('rating.stars', 'stars cannot be empty').notEmpty(),
   body('rating.count', 'count cannot be empty').notEmpty(),
   body('condition', 'Choose the condtion of your product').notEmpty(),
@@ -37,7 +38,7 @@ router.post('/addproduct', [
   }
 
   try {
-    const { imageUrl, name, rating, priceCents, keywords, condition } = req.body;
+    const { imageUrl, name, description, rating, priceCents, keywords, condition } = req.body;
 
     const userId = req.user.id;
 
@@ -46,7 +47,7 @@ router.post('/addproduct', [
     }
 
 
-    const product = await Product.create({ userId, imageUrl, name, rating, condition, priceCents, keywords });
+    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, priceCents, keywords });
     success = true;
     return res.json({ success, product, message: 'Product Added Successfuly!' });
 
@@ -103,6 +104,7 @@ router.put('/editproduct/:productId', [
     let newNote = {
       imageUrl: '',
       name: '',
+      description: '',
       rating: {
         stars: 0,
         count: 0,
@@ -128,6 +130,7 @@ router.put('/editproduct/:productId', [
 
     if (req.body.imageUrl) { newNote.imageUrl = req.body.imageUrl; }
     if (req.body.name) { newNote.name = req.body.name; }
+    if (req.body.description) { newNote.description = req.body.description }
     if (req.body.rating) {
       newNote.rating.stars = req.body.rating.stars;
       newNote.rating.count = req.body.rating.count;

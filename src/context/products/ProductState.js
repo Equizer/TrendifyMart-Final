@@ -24,7 +24,7 @@ const ProductState = (props) => {
     setProgress(100);
   }
 
-  const addProduct = async (name, imageUrl, rating, priceCents, keywords, condition) => {
+  const addProduct = async (name, imageUrl, description,  rating, priceCents, keywords, condition) => {
     const product = { name, imageUrl, rating, priceCents, keywords, condition };
     const response = await fetch(`${port}/api/products/addproduct`, {
       method: 'POST',
@@ -36,6 +36,7 @@ const ProductState = (props) => {
         imageUrl: imageUrl,
         name: name,
         rating: rating,
+        description: description,
         condition: condition,
         priceCents: priceCents,
         keywords: keywords
