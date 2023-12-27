@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import reactLogo from '../../images/logo.svg'
-import checkmarkImage from '../../images/checkmark.png'
+import checkmarkImage from '../images/checkmark.png'
 
 const ProductItem = (props) => {
   const limitWords = (name) => {
@@ -11,11 +10,11 @@ const ProductItem = (props) => {
   return (
     <div className='col-md-3 col-12 mb-4'>
       <div className="card">
-        <img src={require(`../../${props.image}`)} className="card-img-top" alt="Product" style={{height: '250px', padding: '10px'}}/>
+        <img src={props.imageUrl} className="card-img-top" alt="Product" style={{height: '250px', padding: '10px'}}/>
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div>
-            <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
+            <img src={require(`../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
             <span className='small-text mx-2'>{props.rating.count}</span>
           </div>
           <div className='d-flex justify-content-between mt-1'>
@@ -32,8 +31,8 @@ const ProductItem = (props) => {
             <div className='text-success mt-2' style={{ textWrap: 'nowrap' }}>
               In stock
             </div>
-            <button style={{ textWrap: 'nowrap' }} className="btn btn-primary">
-              <i className="fa-solid fa-plus mr-2"></i>
+            <button style={{ whiteSpace: 'nowrap' }} className="btn btn-primary product-item-add-button">
+              <i className="fa-solid fa-plus margin-right-5"></i>
               Add to cart
             </button>
           </div>
@@ -52,7 +51,7 @@ keywords: ['trending', 'cost effective', 'durable']
 };
 ProductItem.propTypes = {
   id: PropTypes.string.isRequired,
-  image: PropTypes.string,
+  imageUrl: PropTypes.string,
   name: PropTypes.string.isRequired,
   rating: PropTypes.shape({
     stars: PropTypes.number,

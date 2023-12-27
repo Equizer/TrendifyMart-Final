@@ -33,6 +33,10 @@ const ProductSchema = new Schema({
     type: Number,
     required: true
   },
+  condition: {
+    type: String,
+    required: true
+  },
   keywords: {
     type: Array,
     required: true

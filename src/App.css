@@ -115,6 +115,34 @@ hr {
 
 
 
-.custom-width-23 {
-  width: 23%;
+.custom-width-24 {
+  width: 24%;
+}
+
+.custom-height-416 {
+  height: 41.6%;
+}
+
+a {
+  text-decoration: auto;
+}
+
+.font-size-13 {
+  font-size: 13px;
+}
+
+.margin-right-5 {
+  margin-right: 5px;
+}
+
+.product-item-add-button{ 
+  padding-left: 10px
+}
+
+.margin-left-3 {
+  margin-left: 0.5rem;
+}
+
+.font-size-15{
+  font-size: 15px;
 }

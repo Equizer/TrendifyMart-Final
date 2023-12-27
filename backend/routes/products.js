@@ -23,7 +23,9 @@ router.get('/fetchallproducts', async (req, res) => {
 router.post('/addproduct', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
   body('name', 'Product name must be atleast 5 character').isLength({ min: 5 }),
-  body('rating', 'stars and count cannot be empty').notEmpty(),
+  body('rating.stars', 'stars cannot be empty').notEmpty(),
+  body('rating.count', 'count cannot be empty').notEmpty(),
+  body('condition', 'Choose the condtion of your product').notEmpty(),
   body('priceCents', 'Enter a price for your product').notEmpty(),
   body('keywords', 'Enter some keywords for your product').notEmpty()
 ], fetchuser, async (req, res) => {
@@ -35,7 +37,7 @@ router.post('/addproduct', [
   }
 
   try {
-    const { imageUrl, name, rating, priceCents, keywords } = req.body;
+    const { imageUrl, name, rating, priceCents, keywords, condition } = req.body;
 
     const userId = req.user.id;
 
@@ -44,7 +46,7 @@ router.post('/addproduct', [
     }
 
 
-    const product = await Product.create({ userId, imageUrl, name, rating, priceCents, keywords });
+    const product = await Product.create({ userId, imageUrl, name, rating, condition, priceCents, keywords });
     success = true;
     return res.json({ success, product, message: 'Product Added Successfuly!' });
 
@@ -87,10 +89,12 @@ router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
 // ROUTE 4 : Edit a product : ''/api/products/editproduct' Log in required ([ seller only ] [ not for users ])
 
 router.put('/editproduct/:productId', [
-  body('imageUrl', 'Enter a image URL').notEmpty(),
-  body('name', 'Title for the product must be atleast 5 Characters').isLength({ min: 5 }),
-  body('rating', 'stars and count cannot be empty').notEmpty(),
-  body('priceCents', 'Enter a price of your product').notEmpty(),
+  body('imageUrl', 'Enter an image URL').notEmpty(),
+  body('name', 'Product name must be atleast 5 character').isLength({ min: 5 }),
+  body('rating.stars', 'stars cannot be empty').notEmpty(),
+  body('rating.count', 'count cannot be empty').notEmpty(),
+  body('condition', 'Choose the condtion of your product').notEmpty(),
+  body('priceCents', 'Enter a price for your product').notEmpty(),
   body('keywords', 'Enter some keywords for your product').notEmpty()
 ], fetchuser, async (req, res) => {
   let success = false;
@@ -103,6 +107,7 @@ router.put('/editproduct/:productId', [
         stars: 0,
         count: 0,
       },
+      condition: '',
       priceCents: 0,
       keywords: []
     };
@@ -127,6 +132,7 @@ router.put('/editproduct/:productId', [
       newNote.rating.stars = req.body.rating.stars;
       newNote.rating.count = req.body.rating.count;
     }
+    if(condition) { newNote.condition = req.body.condition }
     if (req.body.priceCents) { newNote.priceCents = req.body.priceCents };
     if (req.body.keywords) { newNote.keywords = req.body.keywords };
 

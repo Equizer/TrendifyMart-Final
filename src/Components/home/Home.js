@@ -1,23 +1,16 @@
 import React, { useContext, useEffect } from 'react'
+import ProductContext from '../../context/products/ProductContext'
 import Searchbar from './Searchbar'
 import Products from './Products'
 import ProgressContext from '../../context/progress/ProgressContext'
 
 const Home = () => {
   const progressContext = useContext(ProgressContext);
+  const productContext = useContext(ProductContext);
+  const { fetchAllProducts } = productContext
   const { setProgress } = progressContext;
   useEffect(() =>{ 
-    setTimeout(() => {
-      setProgress(30);
-    }, 300);
-    setTimeout(() => {
-      setProgress(70);
-      
-    }, 600);
-    setTimeout(() => {
-          setProgress(100)
-
-    }, 1000);
+    fetchAllProducts();
   }, [])
   return (
     <div className='mx-2 body-content'>

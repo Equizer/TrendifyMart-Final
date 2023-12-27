@@ -87,10 +87,10 @@ const Sidebar = () => {
       </Link>
 
       <Link to="/myshop">
-        <button className='btn btn-light container sidebar-items my-2' onClick={logout}>
+        <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
-              <i class="fa-solid fa-shop mx-2"></i>
+              <i className="fa-solid fa-shop mx-2"></i>
             </div>
             <div className="sidebar-names">My Shop</div>
           </div>

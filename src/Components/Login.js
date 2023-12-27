@@ -21,11 +21,12 @@ const Login = () => {
     const json = await response.json();
 
     if(json.success) {
-      localStorage.setItem('token', json.authToken)
+      console.log('logged in');
+      localStorage.setItem('token', json.authToken);
       navigate('/home');
     }
     else if(json.error === 'User not found') {
-      navigate('signup');
+      navigate('/signup');
     }
   }
   return (
