@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
+import ProductContext from '../../context/products/ProductContext'
 
 const SellerProductItem = (props) => {
+
+  const productContext = useContext(ProductContext);
+  const { deleteProduct, fetchSellerProducts } = productContext;
+
   const limitWords = (name) => {
     const word = name.slice(0, 30);
-    return name.length > 30 ?  `${word}...` :  word
+    return name.length > 30 ? `${word}...` : word
   }
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    deleteProduct(props.id);
+    fetchSellerProducts();
     
   }
   return (
-<div className='col-md-3 col-12 mb-4'>
+    <div className='col-md-3 col-12 mb-4'>
       <div className="card">
-        <img src={props.imageUrl} className="card-img-top" alt="Product" style={{height: '250px', padding: '10px'}}/>
+        <img src={props.imageUrl} className="card-img-top" alt="Product" style={{ height: '250px', padding: '10px' }} />
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div>
@@ -32,11 +40,13 @@ const SellerProductItem = (props) => {
           </div>
           <p className="card-text">{props.description}</p>
           <div className='d-flex justify-content-between'>
-            <div className='text-success mt-2' style={{ textWrap: 'nowrap' }}>
-              In stock
+            <div className='mt-2' style={{ textWrap: 'nowrap' }}>
+              <span className='text-success'>In stock</span>
+              <i class="fa-solid fa-pen-to-square margin-left-7"></i>
             </div>
             <button style={{ whiteSpace: 'nowrap' }} onClick={handleClick} className="btn btn-danger product-item-add-button">
-              <i class="fa-solid fa-trash margin-right-5"></i>Delete 
+              Delete
+              <i className="fa-solid fa-trash margin-left-7"></i>
             </button>
           </div>
         </div>
@@ -57,7 +67,7 @@ SellerProductItem.defaultProps = {
 }
 
 SellerProductItem.propTypes = {
-  _id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   rating: {

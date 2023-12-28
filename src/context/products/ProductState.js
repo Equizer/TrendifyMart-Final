@@ -24,7 +24,7 @@ const ProductState = (props) => {
     setProgress(100);
   }
 
-  const addProduct = async (name, imageUrl, description,  rating, priceCents, keywords, condition) => {
+  const addProduct = async (name, imageUrl, description, rating, priceCents, keywords, condition, inStock) => {
     const product = { name, imageUrl, rating, priceCents, keywords, condition };
     const response = await fetch(`${port}/api/products/addproduct`, {
       method: 'POST',
@@ -38,6 +38,7 @@ const ProductState = (props) => {
         rating: rating,
         description: description,
         condition: condition,
+        inStock: inStock,
         priceCents: priceCents,
         keywords: keywords
       })
@@ -72,8 +73,26 @@ const ProductState = (props) => {
 
   }
 
+  const deleteProduct = async (productId) => {
+    const response = await fetch(`${port}/api/products/deleteproduct/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'auth-token': localStorage.getItem('token')
+      }
+    });
+    const json = await  response.json();
+    if (json.success) {
+      const newProducts = sellerProducts.filter((product) => { return product._id !== productId });
+      setSellerProducts(newProducts);
+      console.log("Successfully deleted product!");
+    }
+    else {
+      console.log("Error deleting product!");
+    }
+  }
+
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts }}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct }}>
       {props.children}
     </ProductContext.Provider>
   );

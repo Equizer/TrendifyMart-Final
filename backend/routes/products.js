@@ -38,7 +38,7 @@ router.post('/addproduct', [
   }
 
   try {
-    const { imageUrl, name, description, rating, priceCents, keywords, condition } = req.body;
+    const { imageUrl, name, description, rating, priceCents, keywords, condition, inStock } = req.body;
 
     const userId = req.user.id;
 
@@ -47,7 +47,7 @@ router.post('/addproduct', [
     }
 
 
-    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, priceCents, keywords });
+    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, inStock,  priceCents, keywords });
     success = true;
     return res.json({ success, product, message: 'Product Added Successfuly!' });
 
@@ -110,6 +110,7 @@ router.put('/editproduct/:productId', [
         count: 0,
       },
       condition: '',
+      inStock: true,
       priceCents: 0,
       keywords: []
     };

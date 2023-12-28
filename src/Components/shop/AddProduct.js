@@ -7,7 +7,7 @@ const AddProduct = () => {
 
   const [conditionState, setConditionState] = useState('new');
 
-  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, quantity: 1 });
+  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, quantity: 1, inStock: true });
 
 
   const closeModalRef = useRef(null);
@@ -27,7 +27,7 @@ const AddProduct = () => {
   const handleClick = (e) => {
     e.preventDefault();
     console.log(productDetails);
-    addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState);
+    addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState, productDetails.inStock);
     fetchSellerProducts();
     closeModalRef.current.click();
   }

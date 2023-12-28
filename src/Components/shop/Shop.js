@@ -2,11 +2,13 @@ import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import verifiedLogo from '../../images/checkmark.png'
 import ProductContext from '../../context/products/ProductContext'
-import ProductItem from '../ProductItem'
 import AddProduct from './AddProduct'
 import SellerProduct from './SellerProduct'
 
 const Shop = () => {
+  //  WE CAN PUT A CHECK IN OUR BACKEND TO DETERMINE WHETHER THE USER IS A SELLER OR A CONSUMER WE WILL ADD THAT IN OUR BACKEND USER MODEL WHICH WILL BE A BOOLEAN IF seller IS TRUE THAT MEANS THE USER IS A SELLER OR ELSE THEY ARE A CONSUMER 
+
+  //  WE CAN USE THE MIDDLEWARE FETCHUSER WHICH HAS OUR USER OBJECT FROM THAT WE CAN CHECK FIRST IF THE USER IS SELLER OR NOT THEN IF THEY ARE NOT WE CAN THROW AN ERROR 
 
   const productContext = useContext(ProductContext);
   const { fetchSellerProducts, sellerProducts } = productContext;

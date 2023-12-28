@@ -41,6 +41,10 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
+  inStock: {
+    type: Boolean,
+    required: true
+  },
   keywords: {
     type: Array,
     required: true
