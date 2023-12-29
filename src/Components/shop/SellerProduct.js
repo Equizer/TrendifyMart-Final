@@ -9,7 +9,7 @@ const SellerProduct = () => {
     <div className='container my-5 mx-5'>
       <div className='row'>
         {sellerProducts.map((product) => {
-          return(<SellerProductItem key={product._id} id={product._id} imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords}/>)
+          return(<SellerProductItem key={product._id} id={product._id} imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} inStock={product.inStock} condition={product.condition}/>)
         })}
       </div>
       

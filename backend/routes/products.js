@@ -47,7 +47,7 @@ router.post('/addproduct', [
     }
 
 
-    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, inStock,  priceCents, keywords });
+    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, inStock, priceCents, keywords });
     success = true;
     return res.json({ success, product, message: 'Product Added Successfuly!' });
 
@@ -136,7 +136,7 @@ router.put('/editproduct/:productId', [
       newNote.rating.stars = req.body.rating.stars;
       newNote.rating.count = req.body.rating.count;
     }
-    if(condition) { newNote.condition = req.body.condition }
+    if (condition) { newNote.condition = req.body.condition }
     if (req.body.priceCents) { newNote.priceCents = req.body.priceCents };
     if (req.body.keywords) { newNote.keywords = req.body.keywords };
 
@@ -155,8 +155,35 @@ router.put('/editproduct/:productId', [
 
 });
 
+// ROUTE 5: Edit product's stock condition 'api/products/editstock' login required ([ seller only ] [ not for users ])
 
-// ROUTE 5: Fetch seller specific products: '/api/products/fetchsellerproducts' login required  ([ seller only ] [ not for users ])
+router.put('/editstock/:productId', [body('inStock', 'Mention what to update the stock to!')], fetchuser, async (req, res) => {
+  let success = false;
+
+  try {
+    let product = await Product.findById(req.params.productId);
+
+    if (!product) {
+      return res.status(400).json({ success, error: "Product does not exist!" });
+    }
+
+    if (req.user.id !== product.userId) {
+      return res.status(400).json({ success, error: 'Not allowed' });
+    }
+
+
+    product = await Product.findByIdAndUpdate(req.params.productId, { $set: { inStock: req.body.inStock } }, { new: true, runValidators: true });
+    success = true;
+    return res.json({ success, message: 'Product Stock Updated', product })
+  } catch (error) {
+    console.error('Error: ', error);
+    return res.status(400).json({ success, error: 'Internal server error occured!' })
+  }
+
+});
+
+
+// ROUTE 6: Fetch seller specific products: '/api/products/fetchsellerproducts' login required  ([ seller only ] [ not for users ])
 
 router.get('/fetchsellerproducts', fetchuser, async (req, res) => {
   let success = false;
@@ -168,7 +195,7 @@ router.get('/fetchsellerproducts', fetchuser, async (req, res) => {
 
     return res.json({ success, products: sellerProducts });
   } catch (error) {
-    return res.status(400).json({success, error: 'Internal server error occured!'});
+    return res.status(400).json({ success, error: 'Internal server error occured!' });
   }
 })
 

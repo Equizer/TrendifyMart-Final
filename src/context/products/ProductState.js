@@ -7,6 +7,7 @@ const ProductState = (props) => {
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
 
+
   const port = 'http://localhost:5000';
   const fetchAllProducts = async () => {
     setProgress(15);
@@ -91,8 +92,26 @@ const ProductState = (props) => {
     }
   }
 
+  const editStock  = async (productId, newStockState) => {
+    const response = await fetch(`${port}/api/products/editstock/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        "auth-token": localStorage.getItem('token')
+      },
+      body: JSON.stringify({inStock: newStockState})
+    });
+    const json = await response.json();
+    if (json.success) {
+      console.log('Stock Edited', json.product.inStock);
+    }
+    else {
+      console.log('Stock not updated');
+    }
+  }
+
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct }}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock }}>
       {props.children}
     </ProductContext.Provider>
   );
