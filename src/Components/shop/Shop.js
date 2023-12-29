@@ -21,7 +21,8 @@ const Shop = () => {
 
   }
   return (
-    <>
+// JUST STORE THE USER'S seller FIELD IN THE LOCAL STORAGE
+<>
       <div className='container d-flex justify-content-between margin-top-88 py-2 px-2' style={{ height: '300px', backgroundColor: '#ced4da' }}>
         <div className='container mx-0 col-3 rounded-1' style={{ backgroundColor: 'white' }}>
           <h3 className='mb-2'>Orders</h3>

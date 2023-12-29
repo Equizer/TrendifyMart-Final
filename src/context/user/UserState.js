@@ -15,6 +15,9 @@ const UserState = (props) => {
       }
     });
     const json = await response.json();
+    if (json.success) {
+      setUser(json.user);
+    }
     console.log(json);
   }
 

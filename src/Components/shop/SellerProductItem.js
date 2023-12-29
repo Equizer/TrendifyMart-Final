@@ -2,11 +2,15 @@ import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
 import ProductContext from '../../context/products/ProductContext'
+import AlertContext from '../../context/alert/AlertContext'
 
 const SellerProductItem = (props) => {
 
   const productContext = useContext(ProductContext);
   const { deleteProduct, fetchSellerProducts, editStock } = productContext;
+  const alertContext = useContext(AlertContext);
+  const { displayAlert } = alertContext;
+
   const [stockState, setStockState] = useState(true);
 
 
@@ -14,6 +18,7 @@ const SellerProductItem = (props) => {
     const newState = stock === 'In Stock';
     editStock(props.id, newState);
     setStockState(newState);
+    displayAlert('info', 'Stock Updated SuccessFully!');
   }
 
   const limitWords = (name) => {
