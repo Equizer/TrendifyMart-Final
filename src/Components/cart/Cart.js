@@ -8,7 +8,7 @@ const Cart = () => {
     <>
       <CartHeader />
       <div className='container cart-component ml-5 bg-cart-image mt-4'>
-        <div className='d-flex justify-content-space-between'>
+        <div className='d-flex justify-content-between'>
           <div>
         <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
             <CartItem />
