@@ -2,23 +2,20 @@ import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
 import ProductContext from '../../context/products/ProductContext'
-import AlertContext from '../../context/alert/AlertContext'
 
 const SellerProductItem = (props) => {
 
   const productContext = useContext(ProductContext);
   const { deleteProduct, fetchSellerProducts, editStock } = productContext;
-  const alertContext = useContext(AlertContext);
-  const { displayAlert } = alertContext;
 
-  const [stockState, setStockState] = useState(true);
+
+  const [stockState, setStockState] = useState(props.inStock);
 
 
   const changeStockState = (stock) => {
     const newState = stock === 'In Stock';
     editStock(props.id, newState);
     setStockState(newState);
-    displayAlert('info', 'Stock Updated SuccessFully!');
   }
 
   const limitWords = (name) => {
@@ -29,9 +26,9 @@ const SellerProductItem = (props) => {
     return `${word.charAt(0).toUpperCase()}${word.slice(1)}`
   }
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    deleteProduct(props.id);
+    await deleteProduct(props.id);
     fetchSellerProducts();
   }
 
@@ -68,7 +65,7 @@ const SellerProductItem = (props) => {
           <div className='d-flex justify-content-between'>
             <div className='mt-2' style={{ textWrap: 'nowrap' }}>
               <div class="btn-group">
-                <button type="button" class={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle`} data-bs-toggle="dropdown" aria-expanded="false">
+                <button type="button" class={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
                   {stockState ? 'In Stock' : 'Out of Stock'}
                 </button>
                 <ul class="dropdown-menu">

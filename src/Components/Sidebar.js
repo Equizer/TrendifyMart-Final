@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../context/user/UserContext'
 
 const Sidebar = () => {
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
+  const [isSeller, setIsSeller] = useState(localStorage.getItem('seller'));
   const logout = async () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('seller');
+    setIsSeller(null);
   }
+  useEffect(() => {
+
+    setIsSeller(localStorage.getItem('seller'));
+  }, [user])
   return (
     <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
 
@@ -86,7 +96,7 @@ const Sidebar = () => {
         </button>
       </Link>
 
-      <Link to="/myshop">
+      {isSeller && <Link to="/myshop">
         <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
@@ -95,8 +105,7 @@ const Sidebar = () => {
             <div className="sidebar-names">My Shop</div>
           </div>
         </button>
-      </Link>
-
+      </Link>}
     </div>
   )
 }

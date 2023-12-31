@@ -6,7 +6,7 @@ const UserState = (props) => {
 
   const port = `http://localhost:5000`
 
-  const getuserdata = async () => {
+  const getUserData = async () => {
     const response = await fetch(`${port}/api/auth/getuserdetails`,{
       method: 'GET',
       headers: {
@@ -17,12 +17,13 @@ const UserState = (props) => {
     const json = await response.json();
     if (json.success) {
       setUser(json.user);
+      localStorage.setItem('seller', json.user.seller);
     }
     console.log(json);
   }
 
   return (
-    <UserContext.Provider value={{ getuserdata }}>
+    <UserContext.Provider value={{ getUserData, user, setUser }}>
       {props.children}
     </UserContext.Provider>
   )

@@ -154,4 +154,5 @@ a {
   position: fixed;
   top: 57px;
   left: 135px;
+  z-index: 1000
 }

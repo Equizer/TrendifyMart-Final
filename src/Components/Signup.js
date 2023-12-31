@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react'
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from 'react-router-dom';
+import AlertContext from '../context/alert/AlertContext'
 
 
 const Signup = () => {
   const context = useContext(UserContext);
-  const { getuserdata } = context;
+  const { getUserData } = context;
+  const alertContext = useContext(AlertContext);
+  const { displayAlert } = alertContext;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ name: '', email: '', password: '', gender: '', dob: '' });
   const port = `http://localhost:5000`
@@ -19,7 +22,7 @@ const Signup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
- 
+
     const response = await fetch(`${port}/api/auth/signup`, {
       method: "POST",
       headers: {
@@ -31,10 +34,12 @@ const Signup = () => {
 
     if (json.success) {
       localStorage.setItem('token', json.authToken);// the setUser is async so it might be undefined while trying that way so we have to be careful with all this
-      getuserdata();
+      getUserData();
+      displayAlert('info', 'Signed up Successfuly!');
       navigate('/home');
     }
     else if (json.message === "A user with this email already exists") {
+      displayAlert('danger', 'Email already exists try logging in');
       navigate('/login');
     }
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import checkmarkImage from '../images/checkmark.png'
+import checkmarkImage from '../../images/checkmark.png'
 
 const ProductItem = (props) => {
   const limitWords = (name) => {
@@ -14,7 +14,7 @@ const ProductItem = (props) => {
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div>
-            <img src={require(`../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
+            <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
             <span className='small-text mx-2'>{props.rating.count}</span>
           </div>
           <div className='d-flex justify-content-between mt-1'>
@@ -28,8 +28,8 @@ const ProductItem = (props) => {
           </div>
           <p className="card-text">{props.description}</p>
           <div className='d-flex justify-content-between'>
-            <div className='text-success mt-2' style={{ textWrap: 'nowrap' }}>
-              In stock
+            <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
+              {props.inStock ? 'In Stock' : 'Out of Stock'}
             </div>
             <button style={{ whiteSpace: 'nowrap' }} className="btn btn-primary product-item-add-button">
               <i className="fa-solid fa-plus margin-right-5"></i>

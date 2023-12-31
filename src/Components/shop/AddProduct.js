@@ -24,10 +24,10 @@ const AddProduct = () => {
   }
 
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     console.log(productDetails);
-    addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState, productDetails.inStock);
+    await addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState, productDetails.inStock);
     fetchSellerProducts();
     closeModalRef.current.click();
   }

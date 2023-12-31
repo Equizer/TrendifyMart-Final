@@ -1,9 +1,13 @@
 import React, { useContext, useState } from 'react'
 import ProductContext from './ProductContext';
 import ProgressContext from '../progress/ProgressContext';
+import AlertContext from '../../context/alert/AlertContext'
+
 const ProductState = (props) => {
   const progressContext = useContext(ProgressContext);
   const { setProgress } = progressContext;
+  const alertContext = useContext(AlertContext);
+  const { displayAlert } = alertContext;
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
 
@@ -26,6 +30,7 @@ const ProductState = (props) => {
   }
 
   const addProduct = async (name, imageUrl, description, rating, priceCents, keywords, condition, inStock) => {
+    setProgress(15);
     const product = { name, imageUrl, rating, priceCents, keywords, condition };
     const response = await fetch(`${port}/api/products/addproduct`, {
       method: 'POST',
@@ -44,19 +49,26 @@ const ProductState = (props) => {
         keywords: keywords
       })
     });
+    setProgress(45);
     const json = await response.json();
+    setProgress(80);
+
     if (json.success) {
       setProducts(products.concat(product));
       console.log(json);
       console.log(products);
+      displayAlert('success', 'Product Added SuccessFully!');
+
     }
     else if (json.error === 'Invalid token!') {
+      displayAlert('danger', 'Product was not Added!');
       console.log(json.error)
     }
-
+    setProgress(100);
   }
 
   const fetchSellerProducts = async () => {
+    setProgress(15);
     const response = await fetch(`${port}/api/products/fetchsellerproducts`, {
       method: 'GET',
       headers: {
@@ -64,13 +76,20 @@ const ProductState = (props) => {
         "auth-token": localStorage.getItem('token'),
       }
     });
+    setProgress(45);
 
     const json = await response.json();
+    setProgress(80);
 
     if (json.success) {
       setSellerProducts(json.products);
       console.log(json.products);
     }
+    else if (!json.success) {
+      displayAlert('danger', 'An error occured while fetching your products');
+    }
+    setProgress(100);
+
 
   }
 
@@ -81,33 +100,46 @@ const ProductState = (props) => {
         'auth-token': localStorage.getItem('token')
       }
     });
-    const json = await  response.json();
+    const json = await response.json();
     if (json.success) {
       const newProducts = sellerProducts.filter((product) => { return product._id !== productId });
       setSellerProducts(newProducts);
+      displayAlert('warning', 'Product Deleted SuccessFully!');
+
       console.log("Successfully deleted product!");
     }
     else {
+      displayAlert('danger', 'Product was not deleted');
+
       console.log("Error deleting product!");
     }
   }
 
-  const editStock  = async (productId, newStockState) => {
+  const editStock = async (productId, newStockState) => {
+    setProgress(15);
+
     const response = await fetch(`${port}/api/products/editstock/${productId}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
         "auth-token": localStorage.getItem('token')
       },
-      body: JSON.stringify({inStock: newStockState})
+      body: JSON.stringify({ inStock: newStockState })
     });
+    setProgress(45);
     const json = await response.json();
+    setProgress(80);
     if (json.success) {
       console.log('Stock Edited', json.product.inStock);
+      displayAlert('info', 'Stock Updated SuccessFully!');
     }
     else {
+      displayAlert('danger', 'Stock was not updated');
+
       console.log('Stock not updated');
     }
+    setProgress(100);
+
   }
 
   return (

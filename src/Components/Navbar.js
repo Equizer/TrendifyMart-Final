@@ -8,10 +8,9 @@ const Navbar = () => {
     const { progress, setProgress } = progressContext;
 
     const location = useLocation();
-    <LoadingBar progress={progress} onLoaderFinished={() => { setProgress(0) }} />
     return (
         <>
-            <LoadingBar progress={progress} onLoaderFinished={() => { setProgress(0) }} />
+            <LoadingBar progress={progress} color={'rgb(16, 121, 205)'} onLoaderFinished={() => { setProgress(0) }} />
             <nav className="navbar navbar-expand-lg bg-body-tertiary container-fluid" style={{ position: 'fixed', zIndex: 1000 }}>
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
