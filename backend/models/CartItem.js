@@ -10,9 +10,9 @@ const RatingSchema = new Schema({
     type: Number,
     required: true
   }
-});
+})
 
-const ProductSchema = new Schema({
+const CartItemSchema = new Schema({
   sellerId: {
     type: String,
     required: true
@@ -37,6 +37,14 @@ const ProductSchema = new Schema({
     type: Number,
     required: true
   },
+  quantity: {
+    type: Number,
+    default: 1
+  },
+  keywords: {
+    type: Array,
+    required: true
+  },
   condition: {
     type: String,
     required: true
@@ -45,29 +53,10 @@ const ProductSchema = new Schema({
     type: Boolean,
     required: true
   },
-  keywords: {
-    type: Array,
-    required: true
-  },
-  dateProductAdded: {
+  dateAdded: {
     type: Date,
     default: Date.now
   }
 });
-
-const Product = mongoose.model('products', ProductSchema);
-module.exports = Product;
-
-
-/* 
-this is a sample of the body for adding a product
-{
-  "imageUrl": "sampleurl",
-  "name": "Nike Cleats",
-  rating: {
-    stars: 4,
-    count: 364
-  },
-  priceCents: 1095,
-  keywords: ["nike cleats", "boots"]
-} */ 
+const CartItem = mongoose.model('cart items', CartItemSchema)
+module.exports = CartItem

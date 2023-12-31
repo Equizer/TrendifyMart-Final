@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar';
 import ProgressContext from '../context/progress/ProgressContext'
+import OffCanvas from './OffCanvas';
 const Navbar = () => {
 
     const progressContext = useContext(ProgressContext);
@@ -11,8 +12,13 @@ const Navbar = () => {
     return (
         <>
             <LoadingBar progress={progress} color={'rgb(16, 121, 205)'} onLoaderFinished={() => { setProgress(0) }} />
+            <OffCanvas />
             <nav className="navbar navbar-expand-lg bg-body-tertiary container-fluid" style={{ position: 'fixed', zIndex: 1000 }}>
                 <div className="container-fluid">
+                    <button class="btn btn-lg btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <i class="fa-solid fa-bars"></i>
+                    </button>
+                    
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

@@ -19,7 +19,7 @@ router.get('/fetchallproducts', async (req, res) => {
   }
 });
 
-// ROUTE 2: Add a product: '/api/products/addproduct' login required ([ seller only ] [ not for users ])
+// ROUTE 2: Add a product: POST : '/api/products/addproduct' login required ([ seller only ] [ not for users ])
 router.post('/addproduct', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
   body('name', 'Product name must be atleast 5 character').isLength({ min: 5 }),
@@ -40,14 +40,14 @@ router.post('/addproduct', [
   try {
     const { imageUrl, name, description, rating, priceCents, keywords, condition, inStock } = req.body;
 
-    const userId = req.user.id;
+    const sellerId = req.user.id;
 
     if (!req.user.id) {
       return res.status(400).json({ success, error: 'Not allowed' });
     }
 
 
-    const product = await Product.create({ userId, imageUrl, name, description, rating, condition, inStock, priceCents, keywords });
+    const product = await Product.create({ sellerId, imageUrl, name, description, rating, condition, inStock, priceCents, keywords });
     success = true;
     return res.json({ success, product, message: 'Product Added Successfuly!' });
 
@@ -57,7 +57,7 @@ router.post('/addproduct', [
   }
 });
 
-// Route 3 : Delete a product : '/api/products/deleteproduct' login required ([ seller only ] [ not for users ])
+// Route 3 : Delete a product : DELETE :  '/api/products/deleteproduct' login required ([ seller only ] [ not for users ])
 
 router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
 
@@ -69,7 +69,7 @@ router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
     if (!productToDelete) {
       return res.status(400).json({ success, error: 'The product you are trying to delete does not exist!' })
     }
-    if (req.user.id !== productToDelete.userId) {
+    if (req.user.id !== productToDelete.sellerId) {
       return res.status(401).json({ success, error: 'Not allowed!' });
     }
 
@@ -87,7 +87,7 @@ router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
 });
 
 
-// ROUTE 4 : Edit a product : ''/api/products/editproduct' Log in required ([ seller only ] [ not for users ])
+// ROUTE 4 : Edit a product : PUT :  '/api/products/editproduct' Log in required ([ seller only ] [ not for users ])
 
 router.put('/editproduct/:productId', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
@@ -125,7 +125,7 @@ router.put('/editproduct/:productId', [
       return res.status(400).json({ success, error: 'Product not found!' });
     }
 
-    if (!productToEdit.userId === req.user.id) {
+    if (!productToEdit.sellerId === req.user.id) {
       return res.status(400).json({ success, error: 'Not Allowed!' });
     }
 
@@ -155,7 +155,7 @@ router.put('/editproduct/:productId', [
 
 });
 
-// ROUTE 5: Edit product's stock condition 'api/products/editstock' login required ([ seller only ] [ not for users ])
+// ROUTE 5: Edit product's stock condition : PUT : 'api/products/editstock' login required ([ seller only ] [ not for users ])
 
 router.put('/editstock/:productId', [body('inStock', 'Mention what to update the stock to!')], fetchuser, async (req, res) => {
   let success = false;
@@ -167,7 +167,7 @@ router.put('/editstock/:productId', [body('inStock', 'Mention what to update the
       return res.status(400).json({ success, error: "Product does not exist!" });
     }
 
-    if (req.user.id !== product.userId) {
+    if (req.user.id !== product.sellerId) {
       return res.status(400).json({ success, error: 'Not allowed' });
     }
 
@@ -183,21 +183,24 @@ router.put('/editstock/:productId', [body('inStock', 'Mention what to update the
 });
 
 
-// ROUTE 6: Fetch seller specific products: '/api/products/fetchsellerproducts' login required  ([ seller only ] [ not for users ])
+// ROUTE 6: Fetch seller specific products: GET :  '/api/products/fetchsellerproducts' login required  ([ seller only ] [ not for users ])
 
 router.get('/fetchsellerproducts', fetchuser, async (req, res) => {
   let success = false;
 
   try {
 
-    let sellerProducts = await Product.find({ userId: req.user.id });
+    let sellerProducts = await Product.find({ sellerId: req.user.id });
     success = true;
 
     return res.json({ success, products: sellerProducts });
   } catch (error) {
     return res.status(400).json({ success, error: 'Internal server error occured!' });
   }
-})
+});
+
+
+
 
 
 
