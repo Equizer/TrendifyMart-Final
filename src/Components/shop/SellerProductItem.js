@@ -6,10 +6,10 @@ import ProductContext from '../../context/products/ProductContext'
 const SellerProductItem = (props) => {
 
   const productContext = useContext(ProductContext);
-  const { deleteProduct, fetchSellerProducts, editStock } = productContext;
+  const { sellerProducts, deleteProduct, fetchSellerProducts, editStock } = productContext;
 
 
-  const [stockState, setStockState] = useState(props.inStock);
+  const [stockState, setStockState] = useState(null);
 
 
   const changeStockState = (stock) => {
@@ -34,9 +34,10 @@ const SellerProductItem = (props) => {
 
 
   // we used useEffect hook becuz we want the stock to display what the stock is passed to the SellerProductItem from SellerProduct when the page first mounts/loads
+  // in the dependency array sellerProducts is mentioned so whenever that state changes the component should setStockState again to the latest stock status or else while navigating back to shop component shows wrong stock status
   useEffect(() => {
     setStockState(props.inStock);
-  }, []);
+  }, [sellerProducts]);
 
 
   return (
