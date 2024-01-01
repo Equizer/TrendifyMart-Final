@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import CartHeader from './CartHeader'
 import CartItem from './CartItem'
 import OrderSummary from './OrderSummary'
+import CartContext from '../../context/cart/CartContext'
 
 const Cart = () => {
+  const cartContext = useContext(CartContext);
+  const { fetchCartItems, cartItems } = cartContext;
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
   return (
     <>
       <CartHeader />
       <div className='container cart-component ml-5 bg-cart-image mt-4'>
         <div className='d-flex justify-content-between'>
           <div>
-        <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
-            <CartItem />
+            <h2 className='container py-3 fw-bold pt-4'>Items:</h2>{cartItems.map((cartItem) => {
+              return ( <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} /> )
+            })
+            }
           </div>
           <div>
             <OrderSummary />

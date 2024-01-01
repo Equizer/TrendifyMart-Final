@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CartContext from './CartContext'
 
 const CartState = (props) => {
-  const [cartItem, setCartItem] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+
+  const port = 'http://localHost:5000';
+
   const fetchCartItems = async () => {
-    const response = await fetch();
+    const response = await fetch(`${port}/api/cartitems/fetchcartitems`, {
+      method: "GET",
+      headers: {
+        "auth-token": localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+    setCartItems(json.allProducts)
+    console.log(json);
   }
   return (
-    <CartContext.Provider value={{cartItem, setCartItem}}>
+    <CartContext.Provider value={{ cartItems, setCartItems, fetchCartItems }}>
       {props.children}
     </CartContext.Provider>
   )

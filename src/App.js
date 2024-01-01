@@ -14,6 +14,7 @@ import Login from './Components/Login';
 import UserState from './context/user/UserState';
 import Shop from './Components/shop/Shop';
 import Alert from './Components/Alert';
+import CartState from './context/cart/CartState';
 
 
 
@@ -24,27 +25,28 @@ function App() {
       <ProgressState>
         <UserState>
           <ProductState >
-            <Router>
-              <Navbar />
-              <div className='d-flex justify-content-start'>
-                <div>
-                  <Sidebar />
+            <CartState>
+              <Router>
+                <Navbar />
+                <div className='d-flex justify-content-start'>
+                  <div>
+                    <Sidebar />
+                  </div>
+                  <div className='container'>
+                    <Alert />
+                    <Routes>
+                      <Route exact path='/home' element={<Home />} />
+                      <Route exact path='/about' element={<About />} />
+                      <Route exact path='/cart' element={<Cart />} />
+                      <Route exact path='/profile' element={<Profile />} />
+                      <Route exact path='/signup' element={<Signup />} />
+                      <Route exact path='/login' element={<Login />} />
+                      <Route exact path='/myshop' element={<Shop />} />
+                    </Routes>
+                  </div>
                 </div>
-                <div className='container'>
-                  <Alert />
-
-                  <Routes>
-                    <Route exact path='/home' element={<Home />} />
-                    <Route exact path='/about' element={<About />} />
-                    <Route exact path='/cart' element={<Cart />} />
-                    <Route exact path='/profile' element={<Profile />} />
-                    <Route exact path='/signup' element={<Signup />} />
-                    <Route exact path='/login' element={<Login />} />
-                    <Route exact path='/myshop' element={<Shop />} />
-                  </Routes>
-                </div>
-              </div>
-            </Router>
+              </Router>
+            </CartState>
           </ProductState>
         </UserState>
       </ProgressState>
