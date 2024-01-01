@@ -50,7 +50,7 @@ count: 0
 keywords: ['trending', 'cost effective', 'durable']
 };
 ProductItem.propTypes = {
-  _id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   imageUrl: PropTypes.string,
   name: PropTypes.string.isRequired,
   rating: PropTypes.shape({

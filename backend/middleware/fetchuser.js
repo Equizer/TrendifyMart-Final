@@ -7,7 +7,7 @@ const fetchuser =  (req, res, next) => {
   const token = req.header('auth-token');
 
   if (!token) {
-    return res.status(401).json({ success, error: 'Invalid token!' });
+    return res.status(401).json({ success, error: 'No token found!' });
   }
 
   try {

@@ -114,6 +114,10 @@ router.get('/getuserdetails', fetchuser, async (req, res) => {
   try {
     const userId = req.user.id;
 
+    if (!userId) {
+      return res.status(400).json({ success, error: 'No user ID found' })
+    }
+
     const user = await User.findById(userId).select('-password');
 
     if (!user) {
@@ -131,7 +135,7 @@ router.get('/getuserdetails', fetchuser, async (req, res) => {
 //ROUTE 4: Delete user: DELETE 'api/auth/deleteuser' login required
 router.delete('/deleteuser', fetchuser, async (req, res) => {
   let success = false;
-  
+
   try {
     const userId = req.user.id;
 

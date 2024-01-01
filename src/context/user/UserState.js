@@ -7,7 +7,8 @@ const UserState = (props) => {
   const port = `http://localhost:5000`
 
   const getUserData = async () => {
-    const response = await fetch(`${port}/api/auth/getuserdetails`,{
+    try {
+          const response = await fetch(`${port}/api/auth/getuserdetails`,{
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -17,9 +18,12 @@ const UserState = (props) => {
     const json = await response.json();
     if (json.success) {
       setUser(json.user);
-      localStorage.setItem('seller', json.user.seller);
+      localStorage.setItem('user', JSON.stringify(json.user));
     }
-    console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (
