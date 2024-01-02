@@ -6,7 +6,7 @@ const OrderSummary = () => {
     // , border: '1px solid rgba(0, 0, 0, 0.125)', borderRadius: '4px', 
 
     // if we want a light green bg for checkout we can change it to backgroundColor: '#d8f3dc' 
-    <div className='pb-3 pt-4' style={{ width: '500px', backgroundColor: '#ffffff' }}>
+    <div className='pb-3 pt-4 border-top-radius-25' style={{ width: '500px', backgroundColor: '#ffffff' }}>
       <h2 className='text-center mb-3 pt-1 fw-bold'>Order Summary</h2>
 
       <div className="container">

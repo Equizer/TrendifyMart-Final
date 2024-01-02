@@ -28,12 +28,12 @@ const Signup = () => {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, gender: credentials.gender, dob: credentials.dob })
+      body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password, gender: credentials.gender, dob: credentials.dob, seller: false })
     });
     const json = await response.json();
 
     if (json.success) {
-      localStorage.setItem('token', json.authToken);// the setUser is async so it might be undefined while trying that way so we have to be careful with all this
+      localStorage.setItem('token', json.authToken); // the setUser is async so it might be undefined while trying that way so we have to be careful with all this
       getUserData();
       displayAlert('info', 'Signed up Successfuly!');
       navigate('/home');

@@ -16,8 +16,11 @@ const Cart = () => {
       <div className='container cart-component ml-5 bg-cart-image mt-4'>
         <div className='d-flex justify-content-between'>
           <div>
-            <h2 className='container py-3 fw-bold pt-4'>Items:</h2>{cartItems.map((cartItem) => {
-              return ( <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} /> )
+            <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
+            {cartItems.length === 0 ? <div className="mx-2 fw-bold" >No items to display in Cart</div> : cartItems.map((cartItem) => {
+              return (
+                <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} id={cartItem._id} key={cartItem._id} />
+              )
             })
             }
           </div>

@@ -5,13 +5,18 @@ import UserContext from '../context/user/UserContext'
 const Sidebar = () => {
   const userContext = useContext(UserContext);
   const { user, setUser } = userContext;
+  const [isSeller, setIsSeller] = useState(false);
   const logout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('seller');
     setUser([]);
   }
   useEffect(() => {
+    const seller = localStorage.getItem('seller') === 'true';
+    setIsSeller(seller);
   }, [user]);
+  
   return (
     <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
 
@@ -82,7 +87,7 @@ const Sidebar = () => {
         </button>
       </Link>
 
-      { <Link to="/myshop">
+      { isSeller && <Link to="/myshop">
         <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">

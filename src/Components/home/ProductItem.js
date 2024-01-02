@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
+import CartContext from '../../context/cart/CartContext'
 
 const ProductItem = (props) => {
+  const cartContext = useContext(CartContext);
+  const { addToCart } = cartContext;
   const limitWords = (name) => {
     const word = name.slice(0, 30);
     return name.length > 30 ?  `${word}...` :  word
@@ -31,7 +34,7 @@ const ProductItem = (props) => {
             <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
               {props.inStock ? 'In Stock' : 'Out of Stock'}
             </div>
-            <button style={{ whiteSpace: 'nowrap' }} className="btn btn-primary product-item-add-button">
+            <button style={{ whiteSpace: 'nowrap' }} onClick={() => { addToCart(props.id) }} className="btn btn-primary product-item-add-button">
               <i className="fa-solid fa-plus margin-right-5"></i>
               Add to cart
             </button>

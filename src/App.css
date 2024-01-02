@@ -95,6 +95,11 @@
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
+.border-top-radius-25 {
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+}
+
 hr {
   border: 1px solid black
 }
