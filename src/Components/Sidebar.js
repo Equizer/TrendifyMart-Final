@@ -5,7 +5,7 @@ import CartContext from '../context/cart/CartContext'
 
 const Sidebar = () => {
   const cartContext = useContext(CartContext);
-  const { cartItems } = cartContext;
+  const { cartItems, setCartItems } = cartContext;
   const userContext = useContext(UserContext);
   const { user, setUser } = userContext;
   const [isSeller, setIsSeller] = useState(false);
@@ -19,6 +19,7 @@ const Sidebar = () => {
     const seller = localStorage.getItem('seller') === 'true';
     setIsSeller(seller);
   }, [user]);
+
   
   return (
     <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
@@ -39,7 +40,7 @@ const Sidebar = () => {
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons pos-rel">
               <i className="fa-solid fa-cart-shopping mx-2"></i>
-              <div className="display-cart-quantity rounded-circle text-center bg-primary text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>
+              {localStorage.getItem('token') && <div className="display-cart-quantity rounded-circle text-center bg-primary text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>}
             </div>
             <div className="sidebar-names">Cart</div>
           </div>

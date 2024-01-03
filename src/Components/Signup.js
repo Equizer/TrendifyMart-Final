@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import UserContext from '../context/user/UserContext';
 import { useNavigate } from 'react-router-dom';
 import AlertContext from '../context/alert/AlertContext'
+import CartContext from '../context/cart/CartContext';
 
 
 const Signup = () => {
@@ -9,6 +10,8 @@ const Signup = () => {
   const { getUserData } = context;
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
+  const cartContext = useContext(CartContext);
+  const { fetchCartItems } = cartContext;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ name: '', email: '', password: '', gender: '', dob: '' });
   const port = `http://localhost:5000`
@@ -35,6 +38,7 @@ const Signup = () => {
     if (json.success) {
       localStorage.setItem('token', json.authToken); // the setUser is async so it might be undefined while trying that way so we have to be careful with all this
       getUserData();
+      fetchCartItems();// we are running this function here becuz of we dont do that here then if after logging in we directlygo to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
       displayAlert('info', 'Signed up Successfuly!');
       navigate('/home');
     }

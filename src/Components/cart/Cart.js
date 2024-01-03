@@ -1,35 +1,28 @@
-import React, { useContext, useEffect } from 'react'
-import CartHeader from './CartHeader'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import CartItem from './CartItem'
-import OrderSummary from './OrderSummary'
 import CartContext from '../../context/cart/CartContext'
 
 const Cart = () => {
   const cartContext = useContext(CartContext);
-  const { fetchCartItems, cartItems } = cartContext;
-  useEffect(() => {
-    fetchCartItems();
-  }, []);
+  const { cartItems } = cartContext;
   return (
-    <>
-      <CartHeader />
-      <div className='container cart-component ml-5 bg-cart-image mt-4'>
-        <div className='d-flex justify-content-between'>
-          <div>
-            <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
-            {cartItems.length === 0 ? <div className="mx-2 fw-bold" >No items to display in Cart</div> : cartItems.map((cartItem) => {
-              return (
-                <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} id={cartItem._id} key={cartItem._id} />
-              )
-            })
-            }
-          </div>
-          <div>
-            <OrderSummary />
-          </div>
+    <div>
+      <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
+      {localStorage.getItem('token') ? cartItems.length === 0 ? <div className="mx-2 fw-bold" >No items to display in Cart</div> : cartItems.map((cartItem) => {
+        return (
+          <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} id={cartItem._id} key={cartItem._id} />
+        )
+      }) : <div class="card text-bg-info mb-3" style={{ "max-width": "18rem" }}>
+        <div class="card-header">You are not Signed in!</div>
+        <div class="card-body">
+          <h5 class="card-title">Authentication Required</h5>
+          <p class="card-text">Login or Signup to access your Cart.</p>
+          <Link className='btn btn-primary' to="/login">Login</Link>
+          <Link className='btn btn-primary mx-2' to="/signup">Signup</Link>
         </div>
-      </div>
-    </>
+      </div>}
+    </div>
   )
 }
 

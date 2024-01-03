@@ -44,7 +44,7 @@ router.post('/addtocart/:productId', [
     }
 
 
-    // WE CAN USE THE PRODUCT ID THAT WE HAVE SAVED WITH EVERY CART ITEM TO CHECK BEFORE ADDING THE CART ITEM IF THE ITEM ALREADY EXISTS AND IF THE PRODUCT WE ARE TRYING TO ADD ALREADY EXISTS THEN WE CAN NOT ADD THE CARTITEM BUT JUST INCREMENT THE QUANTITY BY 1
+    // TODO - ( TO AVOID DUPLICATED ITEMS IN THE CART WE CAN DO THE FOLLOWING ) WE CAN USE THE PRODUCT ID THAT WE HAVE SAVED WITH EVERY CART ITEM TO CHECK BEFORE ADDING THE CART ITEM IF THE ITEM ALREADY EXISTS AND IF THE PRODUCT WE ARE TRYING TO ADD ALREADY EXISTS THEN WE CAN NOT ADD THE CARTITEM BUT JUST INCREMENT THE QUANTITY BY 1
 
     product = {
       productId: product._id,
@@ -97,7 +97,7 @@ router.delete('/deletefromcart/:productId', fetchuser, async (req, res) => {
 
 // ROUTE 4: Edit Cart item's quantity : PUT '/api/cartitems/editquantity' login required
 
-router.put('/editquantity/productId', [
+router.put('/editquantity/:productId', [
   body('quantity', 'Enter quantity!').notEmpty()
 ], fetchuser, async (req, res) => {
   let success = false;
@@ -105,6 +105,9 @@ router.put('/editquantity/productId', [
     const errors = validationResult(req);
     if (!errors.isEmpty) {
       return res.status(400).json({ success, error: errors.array() });
+    }
+    if (req.body.quantity <= 0) {
+      return res.status(400).json({ success, error: 'Cannot set the quantity to negative or null' })
     }
 
     let product = await CartItem.findById(req.params.productId);
@@ -117,8 +120,11 @@ router.put('/editquantity/productId', [
       return res.status(400).json({ success, error: 'Not Allowed!' });
     }
 
-    //                                    TODO
+    product = await CartItem.findByIdAndUpdate(req.params.productId, { $set: { quantity: req.body.quantity }},  { new: true, runValidations: true }) /*new: true: When new is set to true, the findByIdAndUpdate() method returns the updated document after the update operation has been applied. By default, without new: true, it returns the document as it was before the update.
+    runValidators: true: Setting runValidators to true ensures that Mongoose runs any validation checks defined in the schema before performing the update. These validations can include checking for required fields, data types, custom validators, and other constraints specified in the schema. If any of these validations fail, the update operation will be rejected, and the document won't be updated.*/
 
+    success =true;
+    return res.json({ success, message: 'Cart quantity updated', product });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ success, error: 'Internal server error occured!' });

@@ -60,9 +60,24 @@ const CartState = (props) => {
     }
   }
 
+  // EDIT ITEM'S QUANTITY IN CART 
+
+  const editQuantity = async (productId, quantity) => {
+    const response = await fetch(`${port}/api/cartitems/editquantity/${productId}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+        "auth-token": localStorage.getItem('token')
+      },
+      body: JSON.stringify({ quantity: quantity })
+    });
+    const json = await response.json();
+    console.log(json);
+  }
+
 
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, fetchCartItems, addToCart, deleteFromCart }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, fetchCartItems, addToCart, deleteFromCart, editQuantity }}>
       {props.children}
     </CartContext.Provider>
   )

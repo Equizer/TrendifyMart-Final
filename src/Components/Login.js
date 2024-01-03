@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AlertContext from '../context/alert/AlertContext'
 import UserContext  from '../context/user/UserContext'
+import CartContext from '../context/cart/CartContext';
 
 
 const Login = () => {
@@ -9,6 +10,8 @@ const Login = () => {
   const { displayAlert } = alertContext;
   const userContext = useContext(UserContext);
   const { getUserData } = userContext;
+  const cartContext = useContext(CartContext);
+  const { fetchCartItems } = cartContext;
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const port = 'http://localhost:5000';
   const navigate = useNavigate();
@@ -31,8 +34,8 @@ const Login = () => {
       console.log('logged in');
       localStorage.setItem('token', json.authToken);
       getUserData();
+      fetchCartItems(); // we are running this function here becuz of we dont do that here then if after logging in we directlygo to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
       displayAlert('success', 'Logged In!');
-
       navigate('/home');
     }
     else if (json.error === 'User not found') {
