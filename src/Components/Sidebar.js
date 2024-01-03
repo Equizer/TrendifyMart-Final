@@ -5,7 +5,7 @@ import CartContext from '../context/cart/CartContext'
 
 const Sidebar = () => {
   const cartContext = useContext(CartContext);
-  const { cartItems, setCartItems } = cartContext;
+  const { cartItems, fetchCartItems } = cartContext;
   const userContext = useContext(UserContext);
   const { user, setUser } = userContext;
   const [isSeller, setIsSeller] = useState(false);
@@ -15,12 +15,19 @@ const Sidebar = () => {
     localStorage.removeItem('seller');
     setUser([]);
   }
+
+  useEffect(() => {
+    // if we dont fetch using the useEffect whenever the sidebar component mounts the number of items in the cart wil not be displayed it will  be either null or 0 
+    fetchCartItems();
+  }, []);
+
   useEffect(() => {
     const seller = localStorage.getItem('seller') === 'true';
     setIsSeller(seller);
   }, [user]);
 
-  
+
+
   return (
     <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
 
@@ -92,7 +99,7 @@ const Sidebar = () => {
         </button>
       </Link>
 
-      { isSeller && <Link to="/myshop">
+      {isSeller && <Link to="/myshop">
         <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">

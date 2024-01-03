@@ -2,12 +2,24 @@ import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
 import CartContext from '../../context/cart/CartContext'
+import AlertContext from '../../context/alert/AlertContext'
 
 const ProductItem = (props) => {
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
+  const alertContext = useContext(AlertContext);
+  const { displayAlert } = alertContext;
 
   const [quantityState, setQuantityState] = useState(1);
+
+  const handleAddToCart = () => {
+    if (localStorage.getItem('token')) {
+      addToCart(props.id, quantityState)
+    }
+    else {
+      displayAlert('info', 'Please Login or Signup to add products to cart')
+    }
+  }
 
   const changeQuantity = (event) => {
     const newQuantity = parseInt(event.target.value);
@@ -53,7 +65,7 @@ const ProductItem = (props) => {
             <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
               {props.inStock ? 'In Stock' : 'Out of Stock'}
             </div>
-            <button style={{ whiteSpace: 'nowrap' }} onClick={() => { addToCart(props.id, quantityState) }} className="btn btn-primary product-item-add-button">
+            <button style={{ whiteSpace: 'nowrap' }} onClick={handleAddToCart} className="btn btn-primary product-item-add-button">
               <i className="fa-solid fa-plus margin-right-5"></i>
               Add to cart
             </button>

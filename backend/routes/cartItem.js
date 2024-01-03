@@ -27,16 +27,23 @@ router.get('/fetchcartitems', fetchuser, async (req, res) => {
 // ROUTE 2: Add a product to Cart: '/api/cartitems/addtocart' login required   
 
 router.post('/addtocart/:productId', [
-  // body('quantity', 'Enter the quantity of the product').notEmpty()
+  body('quantity', 'Enter the quantity of the product').notEmpty()
 ], fetchuser, async (req, res) => {
   let success = false;
   try {
-    // const errors = validationResult(req);
+    const errors = validationResult(req);
 
-    // if (!errors.isEmpty()) {
-    //   return res.status(400).json({ success, error: errors.array() })
-    // }
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success, error: errors.array() })
+    }
     let product = await Product.findById(req.params.productId);
+
+    let allProducts = await CartItem.find({ userId: req.user.id });  // TODO: now we have to find a way to iterate thru the allProduct array and if we find product._id matches one of the allProduct productId field then we just need to increment the quantity and not add the entire product again (try if fetch works here and if it does we can use the endpoint that edits quantity and we will provide that endpoint to increment the quantity by one idk if it would work but just suggesting just do it when we have time I KNOW WE ARE THE BEST!)  
+    // here we have a problem that .find is gonna give us the first document with that product id but it could be that the cart has 2 same product like 2 users have same product in the cart and second user tries to add the product again to the cart and if in the cart item schema we recieve the other user's product then the product will be added again in the cart item
+    // if (req.user.id === cartProduct.userId) {
+    //   return res.status(400).json({ success, error: 'Product Already exists in the cart' });
+    // }
+
 
 
     if (!product) {
@@ -120,10 +127,10 @@ router.put('/editquantity/:productId', [
       return res.status(400).json({ success, error: 'Not Allowed!' });
     }
 
-    product = await CartItem.findByIdAndUpdate(req.params.productId, { $set: { quantity: req.body.quantity }},  { new: true, runValidations: true }) /*new: true: When new is set to true, the findByIdAndUpdate() method returns the updated document after the update operation has been applied. By default, without new: true, it returns the document as it was before the update.
+    product = await CartItem.findByIdAndUpdate(req.params.productId, { $set: { quantity: req.body.quantity } }, { new: true, runValidations: true }) /*new: true: When new is set to true, the findByIdAndUpdate() method returns the updated document after the update operation has been applied. By default, without new: true, it returns the document as it was before the update.
     runValidators: true: Setting runValidators to true ensures that Mongoose runs any validation checks defined in the schema before performing the update. These validations can include checking for required fields, data types, custom validators, and other constraints specified in the schema. If any of these validations fail, the update operation will be rejected, and the document won't be updated.*/
 
-    success =true;
+    success = true;
     return res.json({ success, message: 'Cart quantity updated', product });
   } catch (error) {
     console.log(error);
