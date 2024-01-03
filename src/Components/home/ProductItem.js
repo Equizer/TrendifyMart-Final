@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
 import CartContext from '../../context/cart/CartContext'
@@ -6,14 +6,21 @@ import CartContext from '../../context/cart/CartContext'
 const ProductItem = (props) => {
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
+
+  const [quantityState, setQuantityState] = useState(1);
+
+  const changeQuantity = (event) => {
+    const newQuantity = parseInt(event.target.value);
+    setQuantityState(newQuantity);
+  }
   const limitWords = (name) => {
     const word = name.slice(0, 30);
-    return name.length > 30 ?  `${word}...` :  word
+    return name.length > 30 ? `${word}...` : word
   }
   return (
     <div className='col-md-3 col-12 mb-4'>
       <div className="card">
-        <img src={props.imageUrl} className="card-img-top" alt="Product" style={{height: '250px', padding: '10px'}}/>
+        <img src={props.imageUrl} className="card-img-top" alt="Product" style={{ height: '250px', padding: '10px' }} />
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div>
@@ -24,6 +31,18 @@ const ProductItem = (props) => {
             <div className="text-success large-text">
               ${(props.priceCents / 100).toFixed(2)}
             </div>
+            <select onChange={changeQuantity}>
+              <option value="1" key={1}>1</option>
+              <option value="2" key={2}>2</option>
+              <option value="3" key={3}>3</option>
+              <option value="4" key={4}>4</option>
+              <option value="5" key={5}>5</option>
+              <option value="6" key={6}>6</option>
+              <option value="7" key={7}>7</option>
+              <option value="8" key={8}>8</option>
+              <option value="9" key={9}>9</option>
+              <option value="10" key={10}>10</option>
+            </select>
             <div style={{ textWrap: 'nowrap' }}>
               <img src={checkmarkImage} style={{ height: '20px' }} className='mx-1' alt="Verified Seller" />
               Verified Seller
@@ -34,7 +53,7 @@ const ProductItem = (props) => {
             <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
               {props.inStock ? 'In Stock' : 'Out of Stock'}
             </div>
-            <button style={{ whiteSpace: 'nowrap' }} onClick={() => { addToCart(props.id) }} className="btn btn-primary product-item-add-button">
+            <button style={{ whiteSpace: 'nowrap' }} onClick={() => { addToCart(props.id, quantityState) }} className="btn btn-primary product-item-add-button">
               <i className="fa-solid fa-plus margin-right-5"></i>
               Add to cart
             </button>
@@ -45,12 +64,12 @@ const ProductItem = (props) => {
   )
 }
 ProductItem.defaultProps = {
-image: '',
-rating: {
-stars: 0,
-count: 0
-},
-keywords: ['trending', 'cost effective', 'durable']
+  image: '',
+  rating: {
+    stars: 0,
+    count: 0
+  },
+  keywords: ['trending', 'cost effective', 'durable']
 };
 ProductItem.propTypes = {
   id: PropTypes.string.isRequired,

@@ -1,8 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
+import CartContext from '../context/cart/CartContext'
 
 const Sidebar = () => {
+  const cartContext = useContext(CartContext);
+  const { cartItems } = cartContext;
   const userContext = useContext(UserContext);
   const { user, setUser } = userContext;
   const [isSeller, setIsSeller] = useState(false);
@@ -34,8 +37,9 @@ const Sidebar = () => {
       <Link to="/cart">
         <button className='btn btn-light container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
-            <div className="sidebar-icons">
+            <div className="sidebar-icons pos-rel">
               <i className="fa-solid fa-cart-shopping mx-2"></i>
+              <div className="display-cart-quantity rounded-circle text-center bg-primary text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>
             </div>
             <div className="sidebar-names">Cart</div>
           </div>

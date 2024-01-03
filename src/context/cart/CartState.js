@@ -28,12 +28,14 @@ const CartState = (props) => {
 
   // ADD A PRODUCT TO CART 
 
-  const addToCart = async (productId) => {
+  const addToCart = async (productId, quantityState) => {
     const response = await fetch(`${port}/api/cartitems/addtocart/${productId}`, {
       method: 'POST',
       headers: {
+        "Content-type": "application/json",
         'auth-token': localStorage.getItem('token')
-      }
+      },
+      body: JSON.stringify({ quantity: quantityState })
     });
     const json = await response.json();
     if (json.success) {
@@ -41,7 +43,6 @@ const CartState = (props) => {
       displayAlert('success', 'Product added to Cart');
       console.log(json);
     }
-
   }
 
   // DELETE A PRODUCT FROM CART

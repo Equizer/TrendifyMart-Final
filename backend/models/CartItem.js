@@ -13,6 +13,10 @@ const RatingSchema = new Schema({
 })
 
 const CartItemSchema = new Schema({
+  productId: {
+    type: String,
+    required: true
+  },
   sellerId: {
     type: String,
     required: true
@@ -43,7 +47,7 @@ const CartItemSchema = new Schema({
   },
   quantity: {
     type: Number,
-    default: 1
+    required: true
   },
   keywords: {
     type: Array,

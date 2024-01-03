@@ -166,3 +166,17 @@ a {
   left: 135px;
   z-index: 1000
 }
+.pos-rel {
+position: relative;
+display: inline-block;
+}
+
+
+.display-cart-quantity {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  top: -5px;
+  right: -14px;
+  font-size: 13px;
+}

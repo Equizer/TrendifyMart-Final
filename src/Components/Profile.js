@@ -5,10 +5,10 @@ const Profile = () => {
 
   useEffect(() => {
   setProfileUser({ 
-    name: JSON.parse(localStorage.getItem('user')).name,
-    email: JSON.parse(localStorage.getItem('user')).email,
-    dob: JSON.parse(localStorage.getItem('user')).dob,
-    gender: JSON.parse(localStorage.getItem('user')).gender
+    name: JSON.parse(localStorage.getItem('user')).name || '',
+    email: JSON.parse(localStorage.getItem('user')).email || '',
+    dob: JSON.parse(localStorage.getItem('user')).dob || '',
+    gender: JSON.parse(localStorage.getItem('user')).gender || ''
  });
   });
   return (
