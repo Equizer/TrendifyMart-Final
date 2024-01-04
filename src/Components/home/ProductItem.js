@@ -6,15 +6,16 @@ import AlertContext from '../../context/alert/AlertContext'
 
 const ProductItem = (props) => {
   const cartContext = useContext(CartContext);
-  const { addToCart } = cartContext;
+  const { addToCart, fetchCartItems } = cartContext;
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
 
   const [quantityState, setQuantityState] = useState(1);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (localStorage.getItem('token')) {
-      addToCart(props.id, quantityState)
+      await addToCart(props.id, quantityState);
+      fetchCartItems(); // if we dont fetch cart items after adding the product then a error will occur stating that some value is undefined at our time it was cannot read properties of undefined reading imageUrl. 
     }
     else {
       displayAlert('info', 'Please Login or Signup to add products to cart')

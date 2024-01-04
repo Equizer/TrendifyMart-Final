@@ -47,8 +47,8 @@ const CartState = (props) => {
 
   // DELETE A PRODUCT FROM CART
 
-  const deleteFromCart = async (productId) => {
-    const response = await fetch(`${port}/api/cartitems/deletefromcart/${productId}`, {
+  const deleteFromCart = async (cartItemId) => {
+    const response = await fetch(`${port}/api/cartitems/deletefromcart/${cartItemId}`, {
       method: 'DELETE',
       headers: {
         'auth-token': localStorage.getItem('token'),
@@ -62,8 +62,8 @@ const CartState = (props) => {
 
   // EDIT ITEM'S QUANTITY IN CART 
 
-  const editQuantity = async (productId, quantity) => {
-    const response = await fetch(`${port}/api/cartitems/editquantity/${productId}`, {
+  const editQuantity = async (cartItemId, quantity) => {
+    const response = await fetch(`${port}/api/cartitems/editquantity/${cartItemId}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

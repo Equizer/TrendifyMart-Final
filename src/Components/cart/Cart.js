@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import CartItem from './CartItem'
 import CartContext from '../../context/cart/CartContext'
@@ -6,12 +6,15 @@ import CartContext from '../../context/cart/CartContext'
 const Cart = () => {
   const cartContext = useContext(CartContext);
   const { cartItems } = cartContext;
+  useEffect(() => {
+    console.log(cartItems);
+  })
   return (
     <div>
       <h2 className='container py-3 fw-bold pt-4'>Items:</h2>
       {localStorage.getItem('token') ? cartItems.length === 0 ? <div className="mx-2 fw-bold" >No items to display in Cart</div> : cartItems.map((cartItem) => {
         return (
-          <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} id={cartItem._id} key={cartItem._id} />
+          <CartItem imageUrl={cartItem.imageUrl} name={cartItem.name} description={cartItem.description} rating={cartItem.rating} priceCents={cartItem.priceCents} quantity={cartItem.quantity} keywords={cartItem.keywords} condition={cartItem.condition} inStock={cartItem.inStock} cartItemId={cartItem._id} key={cartItem._id} />
         )
       }) : <div class="card text-bg-info mb-3" style={{ "max-width": "18rem" }}>
         <div class="card-header">You are not Signed in!</div>

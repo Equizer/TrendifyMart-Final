@@ -53,14 +53,16 @@ const ProductState = (props) => {
     const json = await response.json();
     setProgress(80);
 
-    if (json.success) {
+    if (json.added) {
       setProducts(products.concat(product));
+    }
+
+    if (json.success) {
       console.log(json);
       console.log(products);
       displayAlert('success', 'Product Added SuccessFully!');
-
     }
-    else if (json.error === 'Invalid token!') {
+    else if (json.error === 'No token found!') {
       displayAlert('danger', 'Product was not Added!');
       console.log(json.error)
     }

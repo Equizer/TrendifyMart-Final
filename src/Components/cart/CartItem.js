@@ -5,13 +5,13 @@ const CartItem = (props) => {
     const cartContext = useContext(CartContext);
     const { deleteFromCart, fetchCartItems, editQuantity } = cartContext;
     const handleDeleteButton = async () => {
-        await deleteFromCart(props.id);
+        await deleteFromCart(props.cartItemId);
         fetchCartItems();
     }
 
     const handleIncreaseQuantity = async (e) => {
         e.preventDefault();
-        await editQuantity(props.id, props.quantity + 1);
+        await editQuantity(props.cartItemId, props.quantity + 1);
         fetchCartItems();
     }
 
@@ -19,7 +19,7 @@ const CartItem = (props) => {
         //  acording to the following code we must only decrease the quantity if the quantity is 2 or more already if it is 1 and user tries to delete it then it should actually delete the item
         if (props.quantity > 1) {
         e.preventDefault();
-        await editQuantity(props.id, props.quantity - 1);
+        await editQuantity(props.cartItemId, props.quantity - 1);
         fetchCartItems();            
         }
         // in the below condition we cannot say when props.quantity === 0 we should delete the item becuz when the quantity is 1 and user clicks on decrease button it should delete the product
