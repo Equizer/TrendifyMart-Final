@@ -20,7 +20,7 @@ import SellerSignup from './Components/SellerSignup'
 
 
 function App() {
-
+// remember we have a field seller in our user so we can let the seller make a seller account even if they are not logged in or signed up as browsing thru products doesnt need authentications at all adding product to cart does so may be actually not wanna let the seller add products to the cart so using the user in the local storage we can determine whether to display  user info in profile using the fetchuserdata or using the fetchsellerdata also we can determine as in if we want to fetch cart items or not we will save that seller boolean in seller schema as well as user schema 
   return (
     <AlertState>
       <ProgressState>

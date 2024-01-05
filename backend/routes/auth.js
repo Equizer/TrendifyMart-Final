@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const User = require('../models/User');
+const Seller = require('../models/Seller')
 const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -10,7 +11,7 @@ const fetchuser = require('../middleware/fetchuser')
 // Route 1: Create a user - POST '/api/auth/signup' no login required
 
 router.post('/signup', [
-  body('name',).isLength({ min: 4 }),
+  body('name', 'Name must contain atleast 4 characters').isLength({ min: 4 }),
   body('email', 'Invalid Email').isEmail(),
   body('password', 'Password must contain atleast 6 characters').isLength({ min: 6 }),
   body('gender', 'Enter your gender').notEmpty(),
@@ -155,5 +156,62 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
   }
 });
 
+
+// ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no log in required
+
+router.post('/sellersignup',[
+  body('firstName', 'First name must contain ateast 2 characters').isLength({ min: 2 }),
+  body('lastName', 'Last name must contain ateast 2 characters').isLength({ min: 2 }),
+  body('shopName', 'Shop name must contain ateast 2 characters ').isLength({ min: 2 }),
+  body('email', 'Enter a valid email').isEmail(),
+  body('password', 'Password must contain ateast 6 characters').isLength({ min: 6 }),
+  body('type', 'Enter your type of business').notEmpty(),
+  body('state', 'Enter your state').notEmpty(),
+  body('contactNumber', 'Contact Number must be atleast 5 numbers').isLength({ min: 5 })
+], async (req, res) => {
+  const JWT_SECRET =  'equizer&pro';
+  let success = false;
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success, error: errors.array() });
+    }
+    const { firstName, lastName, shopName, email, password, type, state, contactNumber, dateJoined } = req.body;
+
+    let seller = await Seller.findOne({email: email});
+    if (seller) {
+      return res.status(400).json({ success, error: 'A user with this email already exists' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+  seller = Seller.create({
+    firstName: firstName,
+    lastName: lastName,
+    shopName: shopName,
+    email: email,
+    password: hashedPassword,
+    type: type,
+    state: state,
+    contactNumber: contactNumber,
+    dateJoined: dateJoined
+  });
+
+  const data = {
+    user: {
+      id: seller._id
+    }
+  };
+  const authToken = jwt.sign(data, JWT_SECRET);
+  success = true;
+  return res.json({ success, authToken, message: 'User registered!' });
+
+
+  } catch (error) {
+    console.log("Error", error);
+    return res.status(500).json({ success, error: 'Interval server error occured' });
+  }
+});
 
 module.exports = router;

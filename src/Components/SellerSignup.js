@@ -2,32 +2,83 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const SellerSignup = () => {
-  const [sellerCredentials, setSellerCredentials] = useState({fs: "", ls: "", type: "", shopName: "", state: "", contact: null});
+  const [sellerCredentials, setSellerCredentials] = useState({ firstName: "", lastName: "", password: "", email: "", type: "", shopName: "", state: "", contactNumber: null });
+
+
+  const sellerSignup = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localHost:5000/api/auth/sellersignup', {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: sellerCredentials.firstName,
+        lastName: sellerCredentials.lastName,
+        shopName: sellerCredentials.shopName,
+        email: sellerCredentials.email,
+        password: sellerCredentials.password,
+        type: sellerCredentials.type,
+        state: sellerCredentials.state,
+        contactNumber: sellerCredentials.contactNumber
+      })
+    });
+    const json = await response.json();
+    if (json.success) {
+      localStorage.setItem('sellerToken', json.authToken)
+    }
+    console.log(json)
+  }
 
   const onChange = (event) => {
     event.preventDefault();
-    setSellerCredentials({ ...sellerCredentials,  [event.target.name]: event.target.value })
-
+    setSellerCredentials({ ...sellerCredentials, [event.target.name]: event.target.value })
+    console.log(sellerCredentials);
   }
   return (
     <form className="row g-3 needs-validation margin-top-88" novalidate>
       <div className="col-md-4">
-        <label htmlFor="validationCustom01" className="form-label">First name</label>
-        <input type="text" className="form-control" id="validationCustom01" required  onChange={onChange} name="fs" value={sellerCredentials.fs}/>
+        <label htmlFor="firstName" className="form-label">First name</label>
+        <input type="text" className="form-control" id="firstName" required onChange={onChange} name="firstName" value={sellerCredentials.firstName} />
         <div className="valid-feedback">
           Looks good!
         </div>
       </div>
       <div className="col-md-4">
-        <label htmlFor="validationCustom02" className="form-label">Last name</label>
-        <input type="text" className="form-control" id="validationCustom02" required  onChange={onChange} name="ls" value={sellerCredentials.ls}/>
+        <label htmlFor="lastName" className="form-label">Last name</label>
+        <input type="text" className="form-control" id="lastName" required onChange={onChange} name="lastName" value={sellerCredentials.lastName} />
         <div className="valid-feedback">
           Looks good!
         </div>
       </div>
-      <div class="col-md-3">
+
+      <div className="col-md-4">
+        <label htmlFor="shopName" className="form-label">Shop name</label>
+        <input type="text" className="form-control" id="shopName" required onChange={onChange} name="shopName" value={sellerCredentials.shopName} />
+        <div className="invalid-feedback">
+          Please provide a Shop name.
+        </div>
+      </div>
+
+      <div className="col-md-6">
+        <label htmlFor="email" className="form-label">Email</label>
+        <input type="email" className="form-control" id="email" required onChange={onChange} name="email" value={sellerCredentials.email} />
+        <div className="invalid-feedback">
+          Please provide a valid email.
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" className="form-control" id="password" required onChange={onChange} name="password" value={sellerCredentials.password} />
+        <div class="invalid-feedback">
+          Please select a business type.
+        </div>
+      </div>
+
+      <div class="col-md-4">
         <label for="validationCustom04" class="form-label">Choose your business type</label>
-        <select class="form-select" id="validationCustom04" required onChange={onChange}name="type"  value={sellerCredentials.type}>
+        <select class="form-select" id="validationCustom04" required onChange={onChange} name="type" value={sellerCredentials.type}>
           <option selected disabled value="">Choose...</option>
           <option value="company">Company</option>
           <option value="individual">Individual</option>
@@ -36,16 +87,10 @@ const SellerSignup = () => {
           Please select a business type.
         </div>
       </div>
-      <div className="col-md-3">
-        <label htmlFor="validationCustom03" className="form-label">Shop name</label>
-        <input type="text" className="form-control" id="validationCustom03" required  onChange={onChange} name="shopName" value={sellerCredentials.shopName}/>
-        <div className="invalid-feedback">
-          Please provide a Shop name.
-        </div>
-      </div>
-      <div className="col-md-3">
-        <label htmlFor="validationCustom04" className="form-label">State</label>
-        <select className="form-select" id="validationCustom04" required onChange={onChange} name="state" value={sellerCredentials.state} >
+
+      <div className="col-md-4">
+        <label htmlFor="dropdown" className="form-label">State</label>
+        <select className="form-select" id="dropdown" required onChange={onChange} name="state" value={sellerCredentials.state} >
           <option selected disabled value="">Choose...</option>
           <option value="alabama">Alabama</option>
           <option value="alaska">Alaska</option>
@@ -106,7 +151,7 @@ const SellerSignup = () => {
         <label htmlFor="validationCustomContact" className="form-label">Contact number</label>
         <div className="input-group has-validation">
           <span className="input-group-text" id="inputGroupPrepend">+1</span>
-          <input type="tel" className="form-control" id="validationCustomContact" aria-describedby="inputGroupPrepend" required name=""  onChange={onChange} value={sellerCredentials.contact}/>
+          <input type="tel" className="form-control" id="validationCustomContact" aria-describedby="inputGroupPrepend" required name="contactNumber" onChange={onChange} value={sellerCredentials.contactNumber} />
           <div className="invalid-feedback">
             Please enter your Contact Number
           </div>
@@ -124,7 +169,7 @@ const SellerSignup = () => {
         </div>
       </div>
       <div className="col-12">
-        <button className="btn btn-primary" type="submit">Submit form</button>
+        <button className="btn btn-primary" type="submit" onClick={sellerSignup}>Submit form</button>
       </div>
     </form>
   )
