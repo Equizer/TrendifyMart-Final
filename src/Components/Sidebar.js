@@ -29,10 +29,10 @@ const Sidebar = () => {
 
 
   return (
-    <div className="text-dark bg-light" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
+    <div className="text-dark bg-primary" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
 
       <Link to='/home'>
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-house mx-2"></i>
@@ -43,11 +43,11 @@ const Sidebar = () => {
       </Link>
 
       <Link to="/cart">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons pos-rel">
               <i className="fa-solid fa-cart-shopping mx-2"></i>
-              {localStorage.getItem('token') && <div className="display-cart-quantity rounded-circle text-center bg-primary text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>}
+              {localStorage.getItem('token') && <div className="display-cart-quantity rounded-circle text-center bg-dark text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>}
             </div>
             <div className="sidebar-names">Cart</div>
           </div>
@@ -55,7 +55,7 @@ const Sidebar = () => {
       </Link>
 
       <Link to="/saved">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-bookmark mx-2"></i>
@@ -67,7 +67,7 @@ const Sidebar = () => {
 
 
       <Link to="/settings">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-gear mx-2"></i>
@@ -78,7 +78,7 @@ const Sidebar = () => {
       </Link>
 
       <Link to="/about">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-circle-info mx-2"></i>
@@ -89,7 +89,7 @@ const Sidebar = () => {
       </Link>
 
       <Link to="/profile">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-user mx-2"></i>
@@ -100,7 +100,7 @@ const Sidebar = () => {
       </Link>
 
       {isSeller && <Link to="/myshop">
-        <button className='btn btn-light container sidebar-items my-2'>
+        <button className='btn btn-primary container sidebar-items my-2'>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-shop mx-2"></i>
@@ -111,7 +111,7 @@ const Sidebar = () => {
       </Link>}
 
       <Link to="/login">
-        <button className='btn btn-light container sidebar-items my-2' onClick={logout}>
+        <button className='btn btn-primary container sidebar-items my-2' onClick={logout}>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
               <i className="fa-solid fa-right-from-bracket mx-2"></i>

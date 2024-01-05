@@ -17,9 +17,9 @@ const Navbar = () => {
         <>
             <LoadingBar progress={progress} color={'rgb(16, 121, 205)'} onLoaderFinished={() => { setProgress(0) }} />
             <OffCanvas />
-            <nav className="navbar navbar-expand-lg bg-body-tertiary container-fluid" style={{ position: 'fixed', zIndex: 1000 }}>
+            <nav className="navbar navbar-expand-lg bg-primary container-fluid" style={{ position: 'fixed', zIndex: 1000 }}>
                 <div className="container-fluid">
-                    <button className="btn btn-lg btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <button className="btn btn-lg btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
                     <i className="fa-solid fa-bars"></i>
                     </button>
                     
@@ -35,6 +35,7 @@ const Navbar = () => {
                                 {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/signup' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>}
                             </li>
                         </ul>
+                        <Link className='btn btn-dark mx-3' to="/sellersignup">Seller Signup</Link>
                         <Link className="navbar-brand" to="/home">TrendifyMart</Link>
 
                         <div>
