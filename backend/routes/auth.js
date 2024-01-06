@@ -62,7 +62,7 @@ router.post('/signup', [
   }
 });
 
-// ROUTE 2: Log in - GET: 'api/auth/login no seller / buyer login required
+// ROUTE 2: Log in - POST: 'api/auth/login no seller / buyer login required
 
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
@@ -159,7 +159,7 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
 
 // ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no seller / buyer log in required
 
-router.post('/sellersignup',[
+router.post('/sellersignup', [
   body('firstName', 'First name must contain ateast 2 characters').isLength({ min: 2 }),
   body('lastName', 'Last name must contain ateast 2 characters').isLength({ min: 2 }),
   body('shopName', 'Shop name must contain ateast 2 characters ').isLength({ min: 2 }),
@@ -169,7 +169,7 @@ router.post('/sellersignup',[
   body('state', 'Enter your state').notEmpty(),
   body('contactNumber', 'Contact Number must be atleast 5 numbers').isLength({ min: 5 })
 ], async (req, res) => {
-  const JWT_SECRET =  'equizer&pro';
+  const JWT_SECRET = 'equizer&pro';
   let success = false;
   try {
     const errors = validationResult(req);
@@ -178,34 +178,34 @@ router.post('/sellersignup',[
     }
     const { firstName, lastName, shopName, email, password, type, state, contactNumber, dateJoined } = req.body;
 
-    let seller = await Seller.findOne({email: email});
+    let seller = await Seller.findOne({ email: email });
     if (seller) {
       return res.status(400).json({ success, error: 'A user with this email already exists' });
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    
-  seller = Seller.create({
-    firstName: firstName,
-    lastName: lastName,
-    shopName: shopName,
-    email: email,
-    password: hashedPassword,
-    type: type,
-    state: state,
-    contactNumber: contactNumber,
-    dateJoined: dateJoined
-  });
 
-  const data = {
-    user: {
-      id: seller._id
-    }
-  };
-  const authToken = jwt.sign(data, JWT_SECRET);
-  success = true;
-  return res.json({ success, authToken, message: 'User registered!' });
+    seller = await Seller.create({
+      firstName: firstName,
+      lastName: lastName,
+      shopName: shopName,
+      email: email,
+      password: hashedPassword,
+      type: type,
+      state: state,
+      contactNumber: contactNumber,
+      dateJoined: dateJoined
+    });
+
+    const data = {
+      user: {
+        id: seller._id
+      }
+    };
+    const authToken = jwt.sign(data, JWT_SECRET);
+    success = true;
+    return res.json({ success, authToken, message: 'User registered!' });
 
 
   } catch (error) {
@@ -215,6 +215,51 @@ router.post('/sellersignup',[
 });
 
 
-// ROUTE 6: Seller Login : GET: 'api/auth/sellerlogin' no seller / buyer login required 
+// ROUTE 6: Seller Login : POST: 'api/auth/sellerlogin' no seller / buyer login required 
+
+router.post('/sellerlogin', [
+  body('email', 'Enter a valid email').isEmail(),
+  body('password', 'Enter your password').notEmpty()
+], async (req, res) => {
+  const JWT_TOKEN = 'equizer&pro';
+  let success = false;
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success, error: errors.array() })
+    }
+    const { email, password } = req.body;
+
+    const seller = await Seller.findOne({ email });
+
+    if (!seller) {
+      return res.json({ success, error: 'Seller not found' });
+    }
+    const comparePassword = await bcrypt.compare(password, seller.password);
+
+    if (!comparePassword) {
+      return res.status(400).json({ success, error: 'Invalid email or password' });
+    }
+    const data = {
+      seller: {
+        id: seller._id
+      }
+    }
+    const authToken = jwt.sign(data, JWT_TOKEN);
+
+    success = true;
+
+    return res.json({ success, message: 'Logged in Successfuly', authToken });
+  } catch (error) {
+    console.log("Error", error);
+    return res.status(500).json({ success, error: 'Interval server error occured' });
+  }
+
+});
+
+// ROUTE 7: Fetch Seller Details : GET 'api/auth/fetchsellerdetails' Seller login required
+
+router.get('/fetchsellerdetails')
 
 module.exports = router;

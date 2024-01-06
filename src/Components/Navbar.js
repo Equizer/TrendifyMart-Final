@@ -35,7 +35,7 @@ const Navbar = () => {
                                 {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/signup' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>}
                             </li>
                         </ul>
-                        <Link className='btn btn-dark mx-3' to="/sellersignup">Seller Signup</Link>
+                        { !localStorage.getItem('sellerToken') && <Link className='btn btn-dark mx-3' to="/sellerlogin">Seller Login</Link>}
                         <Link className="navbar-brand" to="/home">TrendifyMart</Link>
 
                         <div>

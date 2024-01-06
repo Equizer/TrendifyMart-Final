@@ -13,6 +13,7 @@ const Sidebar = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('seller');
+    localStorage.removeItem('sellerToken')
     setUser([]);
   }
 

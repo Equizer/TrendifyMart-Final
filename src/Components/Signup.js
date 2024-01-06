@@ -52,6 +52,7 @@ const Signup = () => {
 
   return (
     <form className='form-margin' onSubmit={handleSubmit}>
+      <h2>Signup</h2>
       <div className="mb-3">
         <label htmlFor="exampleInputName" className="form-label">Name</label>
         <input name="name" value={credentials.name} type="text" className="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder='Name...' onChange={onChange} required minLength={3} />

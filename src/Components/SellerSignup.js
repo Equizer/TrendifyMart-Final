@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const SellerSignup = () => {
   const [sellerCredentials, setSellerCredentials] = useState({ firstName: "", lastName: "", password: "", email: "", type: "", shopName: "", state: "", contactNumber: null });
+const navigate = useNavigate();
 
-
-  const sellerSignup = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const response = await fetch('http://localHost:5000/api/auth/sellersignup', {
       method: "POST",
@@ -25,7 +25,8 @@ const SellerSignup = () => {
     });
     const json = await response.json();
     if (json.success) {
-      localStorage.setItem('sellerToken', json.authToken)
+      localStorage.setItem('sellerToken', json.authToken);
+      navigate('/myshop');
     }
     console.log(json)
   }
@@ -36,7 +37,8 @@ const SellerSignup = () => {
     console.log(sellerCredentials);
   }
   return (
-    <form className="row g-3 needs-validation margin-top-88" novalidate>
+    <form className="row g-3 needs-validation form-margin" novalidate onSubmit={handleSignup}>
+      <h2>Seller Signup</h2>
       <div className="col-md-4">
         <label htmlFor="firstName" className="form-label">First name</label>
         <input type="text" className="form-control" id="firstName" required onChange={onChange} name="firstName" value={sellerCredentials.firstName} />
@@ -71,6 +73,7 @@ const SellerSignup = () => {
       <div class="col-md-6">
         <label for="password" class="form-label">Password</label>
         <input type="password" className="form-control" id="password" required onChange={onChange} name="password" value={sellerCredentials.password} />
+        <div id="emailHelp" class="form-text">Password must contain atleast 6 characters</div>
         <div class="invalid-feedback">
           Please select a business type.
         </div>
@@ -169,7 +172,9 @@ const SellerSignup = () => {
         </div>
       </div>
       <div className="col-12">
-        <button className="btn btn-primary" type="submit" onClick={sellerSignup}>Submit form</button>
+        <button className="btn btn-primary" type="submit">Signup</button>
+      <span className='mx-3'>Already have an acount? <Link to="/sellerlogin">Log in</Link></span>
+
       </div>
     </form>
   )

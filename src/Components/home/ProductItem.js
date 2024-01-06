@@ -12,6 +12,8 @@ const ProductItem = (props) => {
 
   const [quantityState, setQuantityState] = useState(1);
 
+
+
   const handleAddToCart = async () => {
     if (localStorage.getItem('token')) {
       await addToCart(props.id, quantityState);
@@ -66,7 +68,7 @@ const ProductItem = (props) => {
             <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
               {props.inStock ? 'In Stock' : 'Out of Stock'}
             </div>
-            <button style={{ whiteSpace: 'nowrap' }} onClick={handleAddToCart} className="btn btn-primary product-item-add-button">
+            <button type="button" style={{ whiteSpace: 'nowrap' }} onClick={handleAddToCart} className="btn btn-primary product-item-add-button" data-toggle="popover" title="Popover title" data-content="Popover content">
               <i className="fa-solid fa-plus margin-right-5"></i>
               Add to cart
             </button>

@@ -45,6 +45,7 @@ const Login = () => {
   }
   return (
     <form className='form-margin' onSubmit={handleSubmit}>
+      <h2>Login</h2>
       <div className="mb-3">
         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
         <input type="email" name="email" value={credentials.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={onChange} required />
