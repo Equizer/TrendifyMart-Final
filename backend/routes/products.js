@@ -5,7 +5,7 @@ const Product = require('../models/Product');
 const { body, validationResult } = require('express-validator');
 
 
-// ROUTE 1: Fetch all the products: GET: /api/products/fetchallproducts' login required 
+// ROUTE 1: Fetch all the products: GET: /api/products/fetchallproducts' no seller / buyer login required 
 
 router.get('/fetchallproducts', async (req, res) => {
   let success = false;
@@ -19,7 +19,7 @@ router.get('/fetchallproducts', async (req, res) => {
   }
 });
 
-// ROUTE 2: Add a product: POST : '/api/products/addproduct' login required ([ seller only ] [ not for users ])
+// ROUTE 2: Add a product: POST : '/api/products/addproduct'  buyer login required ([ seller only ] [ not for buyers ])
 router.post('/addproduct', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
   body('name', 'Product name must be atleast 5 character').isLength({ min: 5 }),
@@ -57,7 +57,7 @@ router.post('/addproduct', [
   }
 });
 
-// Route 3 : Delete a product : DELETE :  '/api/products/deleteproduct' login required ([ seller only ] [ not for users ])
+// Route 3 : Delete a product : DELETE :  '/api/products/deleteproduct' seller login required ([ seller only ] [ not for buyers ])
 
 router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
 
@@ -87,7 +87,7 @@ router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
 });
 
 
-// ROUTE 4 : Edit a product : PUT :  '/api/products/editproduct' Log in required ([ seller only ] [ not for users ])
+// ROUTE 4 : Edit a product : PUT :  '/api/products/editproduct' seller Log in required ([ seller only ] [ not for buyer ])
 
 router.put('/editproduct/:productId', [
   body('imageUrl', 'Enter an image URL').notEmpty(),
@@ -155,7 +155,7 @@ router.put('/editproduct/:productId', [
 
 });
 
-// ROUTE 5: Edit product's stock condition : PUT : 'api/products/editstock' login required ([ seller only ] [ not for users ])
+// ROUTE 5: Edit product's stock condition : PUT : 'api/products/editstock' seller login required ([ seller only ] [ not for buyer ])
 
 router.put('/editstock/:productId', [body('inStock', 'Mention what to update the stock to!')], fetchuser, async (req, res) => {
   let success = false;
@@ -183,7 +183,7 @@ router.put('/editstock/:productId', [body('inStock', 'Mention what to update the
 });
 
 
-// ROUTE 6: Fetch seller specific products: GET :  '/api/products/fetchsellerproducts' login required  ([ seller only ] [ not for users ])
+// ROUTE 6: Fetch seller specific products: GET :  '/api/products/fetchsellerproducts' seller login required  ([ seller only ] [ not for buyer ])
 
 router.get('/fetchsellerproducts', fetchuser, async (req, res) => {
   let success = false;

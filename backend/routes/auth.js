@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser')
 
 
-// Route 1: Create a user - POST '/api/auth/signup' no login required
+// Route 1: Create a user - POST '/api/auth/signup' no seller / buyer login required
 
 router.post('/signup', [
   body('name', 'Name must contain atleast 4 characters').isLength({ min: 4 }),
@@ -62,7 +62,7 @@ router.post('/signup', [
   }
 });
 
-// ROUTE 2: Log in - GET: 'api/auth/login no login required
+// ROUTE 2: Log in - GET: 'api/auth/login no seller / buyer login required
 
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
@@ -107,7 +107,7 @@ router.post('/login', [
   }
 });
 
-// ROUTE 3: get user details: GET 'api/auth/getuserdetails' login required
+// ROUTE 3: get user details: GET 'api/auth/getuserdetails'  buyer login required
 
 router.get('/getuserdetails', fetchuser, async (req, res) => {
 
@@ -133,7 +133,7 @@ router.get('/getuserdetails', fetchuser, async (req, res) => {
   }
 });
 
-//ROUTE 4: Delete user: DELETE 'api/auth/deleteuser' login required
+//ROUTE 4: Delete user: DELETE 'api/auth/deleteuser'  buyer login required
 router.delete('/deleteuser', fetchuser, async (req, res) => {
   let success = false;
 
@@ -157,7 +157,7 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
 });
 
 
-// ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no log in required
+// ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no seller / buyer log in required
 
 router.post('/sellersignup',[
   body('firstName', 'First name must contain ateast 2 characters').isLength({ min: 2 }),
@@ -213,5 +213,8 @@ router.post('/sellersignup',[
     return res.status(500).json({ success, error: 'Interval server error occured' });
   }
 });
+
+
+// ROUTE 6: Seller Login : GET: 'api/auth/sellerlogin' no seller / buyer login required 
 
 module.exports = router;

@@ -6,7 +6,7 @@ const Product = require('../models/Product');
 const { body, validationResult } = require('express-validator');
 
 
-// ROUTE 1: Fetch Cart Items (according to seller) : GET : '/api/cartitems/fetchcartitems' login required   
+// ROUTE 1: Fetch Cart Items (according to seller) : GET : '/api/cartitems/fetchcartitems' buyer login required   
 router.get('/fetchcartitems', fetchuser, async (req, res) => {
   let success = false;
   try {
@@ -24,7 +24,7 @@ router.get('/fetchcartitems', fetchuser, async (req, res) => {
 
 
 
-// ROUTE 2: Add a product to Cart: '/api/cartitems/addtocart' login required   
+// ROUTE 2: Add a product to Cart: '/api/cartitems/addtocart' buyer login required   
 
 router.post('/addtocart/:productId', [
   body('quantity', 'Enter the quantity of the product').notEmpty()
@@ -81,7 +81,7 @@ router.post('/addtocart/:productId', [
   }
 });
 
-// ROUTE 3: Delete a product from Cart: DELETE: '/api/cartitems/deletefromcart' login required
+// ROUTE 3: Delete a product from Cart: DELETE: '/api/cartitems/deletefromcart'  buyer login required
 
 router.delete('/deletefromcart/:cartItemId', fetchuser, async (req, res) => {
   let success = false;
@@ -103,7 +103,7 @@ router.delete('/deletefromcart/:cartItemId', fetchuser, async (req, res) => {
   }
 });
 
-// ROUTE 4: Edit Cart item's quantity : PUT '/api/cartitems/editquantity' login required
+// ROUTE 4: Edit Cart item's quantity : PUT '/api/cartitems/editquantity'  buyer login required
 
 router.put('/editquantity/:cartItemId', [
   body('quantity', 'Enter quantity!').notEmpty()
