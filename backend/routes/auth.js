@@ -238,7 +238,7 @@ router.post('/sellerlogin', [
       return res.status(400).json({ success, error: 'Invalid email or password' });
     }
     const data = {
-      seller: {
+      user: {
         id: seller._id
       }
     }
@@ -256,6 +256,20 @@ router.post('/sellerlogin', [
 
 // ROUTE 7: Fetch Seller Details : GET 'api/auth/fetchsellerdetails' Seller login required
 
-router.get('/fetchsellerdetails')
+router.get('/fetchsellerdetails', fetchuser, async (req, res) => {
+  let success = false;
+  try {
+    const user =  await Seller.findById(req.user.id);
+
+    if (!user) {
+      return res.status(400).json({ success, error: 'Seller not found' });
+    }
+    success = true;
+    return res.json({ success, message: 'Details Fetched', user })
+  } catch (error) {
+    console.log("Error", error);
+    return res.status(500).json({ success, error: 'Interval server error occured' });
+  }
+})
 
 module.exports = router;
