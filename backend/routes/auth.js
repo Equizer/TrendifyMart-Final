@@ -10,7 +10,7 @@ require('dotenv').config({ path: './backend/.env' });
 const secretKey = process.env.JWT_SECRET;
 
 
-// Route 1: Create a user - POST '/api/auth/signup' no seller / buyer login required
+// Route 1: Create a user - POST '/api/auth/signup' no seller / buyer login required  | not for seller
 
 router.post('/signup', [
   body('name', 'Name must contain atleast 4 characters').isLength({ min: 4 }),
@@ -62,7 +62,7 @@ router.post('/signup', [
   }
 });
 
-// ROUTE 2: Log in - POST: 'api/auth/login no seller / buyer login required
+// ROUTE 2: Log in - POST: 'api/auth/login no seller / buyer login required  | not for seller
 
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
@@ -106,7 +106,7 @@ router.post('/login', [
   }
 });
 
-// ROUTE 3: get user details: GET 'api/auth/getuserdetails'  buyer login required
+// ROUTE 3: get user details: GET 'api/auth/getuserdetails'  buyer login required  | not for seller
 
 router.get('/getuserdetails', fetchuser, async (req, res) => {
 
@@ -132,7 +132,8 @@ router.get('/getuserdetails', fetchuser, async (req, res) => {
   }
 });
 
-//ROUTE 4: Delete user: DELETE 'api/auth/deleteuser'  buyer login required
+//ROUTE 4: Delete user: DELETE 'api/auth/deleteuser'  buyer login required | not for seller
+
 router.delete('/deleteuser', fetchuser, async (req, res) => {
   let success = false;
 
@@ -156,7 +157,8 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
 });
 
 
-// ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no seller / buyer log in required
+// ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no seller / buyer log in required  | not for bouyer
+
 router.post('/sellersignup', [
   body('firstName', 'First name must contain ateast 2 characters').isLength({ min: 2 }),
   body('lastName', 'Last name must contain ateast 2 characters').isLength({ min: 2 }),
@@ -212,7 +214,8 @@ router.post('/sellersignup', [
 });
 
 
-// ROUTE 6: Seller Login : POST: 'api/auth/sellerlogin' no seller / buyer login required 
+// ROUTE 6: Seller Login : POST: 'api/auth/sellerlogin' no seller / buyer login required   | not for bouyer
+
 
 router.post('/sellerlogin', [
   body('email', 'Enter a valid email').isEmail(),
@@ -254,12 +257,12 @@ router.post('/sellerlogin', [
 
 });
 
-// ROUTE 7: Fetch Seller Details : GET 'api/auth/fetchsellerdetails' Seller login required
+// ROUTE 7: Fetch Seller Details : GET 'api/auth/fetchsellerdetails' Seller login required | not for bouyer
 
 router.get('/fetchsellerdetails', fetchuser, async (req, res) => {
   let success = false;
   try {
-    const user =  await Seller.findById(req.user.id);
+    const user = await Seller.findById(req.user.id);
 
     if (!user) {
       return res.status(400).json({ success, error: 'Seller not found' });
@@ -270,6 +273,31 @@ router.get('/fetchsellerdetails', fetchuser, async (req, res) => {
     console.log("Error", error);
     return res.status(500).json({ success, error: 'Interval server error occured' });
   }
-})
+});
+
+// ROUTE 8: Delete a seller account : DELETE: 'api/auth/deleteseller' Seller login required | not for bouyer
+
+router.delete('/deleteseller', fetchuser, async (req, res) => {
+  let success = false;
+  try {
+    const userId = req.user.id;
+
+    let seller = await Seller.findById(userId);
+    if (!seller) {
+      return res.status(400).json({ success, error: 'Seller not found!' });
+    }
+
+    seller = await Seller.findByIdAndDelete(userId);
+    success = true;
+
+    return res.json({ success, message: 'Seller Account Deleted!', deletedSeller: seller });
+
+  } catch (error) {
+    console.log("Error", error);
+    return res.status(500).json({ success, error: 'Interval server error occured' });
+  }
+
+});
+
 
 module.exports = router;

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const SellerSignup = () => {
+
   const [sellerCredentials, setSellerCredentials] = useState({ firstName: "", lastName: "", password: "", email: "", type: "", shopName: "", state: "", contactNumber: null });
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -173,7 +174,7 @@ const navigate = useNavigate();
       </div>
       <div className="col-12">
         <button className="btn btn-primary" type="submit">Signup</button>
-      <span className='mx-3'>Already have an acount? <Link to="/sellerlogin">Log in</Link></span>
+        <span className='mx-3'>Already have an acount? <Link to="/sellerlogin">Log in</Link></span>
 
       </div>
     </form>

@@ -4,6 +4,7 @@ import verifiedLogo from '../../images/checkmark.png'
 import ProductContext from '../../context/products/ProductContext'
 import AddProduct from './AddProduct'
 import SellerProduct from './SellerProduct'
+import SellerContext from '../../context/seller/SellerContext'
 
 const Shop = () => {
   //  WE CAN PUT A CHECK IN OUR BACKEND TO DETERMINE WHETHER THE USER IS A SELLER OR A CONSUMER WE WILL ADD THAT IN OUR BACKEND USER MODEL WHICH WILL BE A BOOLEAN IF seller IS TRUE THAT MEANS THE USER IS A SELLER OR ELSE THEY ARE A CONSUMER 
@@ -12,8 +13,11 @@ const Shop = () => {
 
   const productContext = useContext(ProductContext);
   const { fetchSellerProducts, sellerProducts } = productContext;
+  const sellerContext = useContext(SellerContext);
+  const { fetchSellerDetails } = sellerContext;
 
   useEffect(() => {
+    fetchSellerDetails();
     fetchSellerProducts();
   }, [])
 
