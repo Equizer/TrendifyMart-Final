@@ -6,6 +6,8 @@ const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser')
+require('dotenv').config({ path: './backend/.env' });
+const secretKey = process.env.JWT_SECRET;
 
 
 // Route 1: Create a user - POST '/api/auth/signup' no seller / buyer login required
@@ -17,8 +19,6 @@ router.post('/signup', [
   body('gender', 'Enter your gender').notEmpty(),
   body('dob', 'Enter your Date of Birth').notEmpty()
 ], async (req, res) => {
-  // const secret = process.env.JWT_SECRET;
-  const JWT_SECRET = 'equizer&pro';
   let success = false;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -50,7 +50,7 @@ router.post('/signup', [
         id: user._id
       }
     }
-    const authToken = jwt.sign(data, JWT_SECRET);
+    const authToken = jwt.sign(data, secretKey);
 
     success = true;
 
@@ -69,7 +69,6 @@ router.post('/login', [
   body('password', 'password cannot be empty').notEmpty()
 ], async (req, res) => {
 
-  const JWT_SECRET = 'equizer&pro';
   let success = false;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -95,7 +94,7 @@ router.post('/login', [
       }
     }
 
-    const authToken = jwt.sign(data, JWT_SECRET);
+    const authToken = jwt.sign(data, secretKey);
 
     success = true;
 
@@ -148,7 +147,7 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
     success = true;
     userToDelete = await User.findByIdAndDelete(userId);
 
-    return res.status(400).json({ success, message: 'User Deleted', deletedUser: userToDelete });
+    return res.json({ success, message: 'User Deleted', deletedUser: userToDelete });
 
   } catch (error) {
     console.log("Error", error);
@@ -158,7 +157,6 @@ router.delete('/deleteuser', fetchuser, async (req, res) => {
 
 
 // ROUTE 5: Seller Sign up : POST 'api/auth/sellersignup' no seller / buyer log in required
-
 router.post('/sellersignup', [
   body('firstName', 'First name must contain ateast 2 characters').isLength({ min: 2 }),
   body('lastName', 'Last name must contain ateast 2 characters').isLength({ min: 2 }),
@@ -169,7 +167,6 @@ router.post('/sellersignup', [
   body('state', 'Enter your state').notEmpty(),
   body('contactNumber', 'Contact Number must be atleast 5 numbers').isLength({ min: 5 })
 ], async (req, res) => {
-  const JWT_SECRET = 'equizer&pro';
   let success = false;
   try {
     const errors = validationResult(req);
@@ -203,9 +200,9 @@ router.post('/sellersignup', [
         id: seller._id
       }
     };
-    const authToken = jwt.sign(data, JWT_SECRET);
+    const authToken = jwt.sign(data, secretKey);
     success = true;
-    return res.json({ success, authToken, message: 'User registered!' });
+    return res.json({ success, authToken, message: 'Seller registered!' });
 
 
   } catch (error) {
@@ -221,7 +218,6 @@ router.post('/sellerlogin', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Enter your password').notEmpty()
 ], async (req, res) => {
-  const JWT_TOKEN = 'equizer&pro';
   let success = false;
   try {
     const errors = validationResult(req);
@@ -246,7 +242,7 @@ router.post('/sellerlogin', [
         id: seller._id
       }
     }
-    const authToken = jwt.sign(data, JWT_TOKEN);
+    const authToken = jwt.sign(data, secretKey);
 
     success = true;
 

@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config({ path: './backend/.env' });
+const secretKey = process.env.JWT_SECRET;
 
 const JWT_SECRET = 'equizer&pro';
 
@@ -11,7 +13,7 @@ const fetchuser =  (req, res, next) => {
   }
 
   try {
-    const data = jwt.verify(token, JWT_SECRET);
+    const data = jwt.verify(token, secretKey);
     req.user = data.user;
 
     next();
