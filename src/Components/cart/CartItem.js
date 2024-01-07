@@ -6,13 +6,13 @@ const CartItem = (props) => {
     const { deleteFromCart, fetchCartItems, editQuantity } = cartContext;
     const handleDeleteButton = async () => {
         await deleteFromCart(props.cartItemId);
-        fetchCartItems();
+        localStorage.getItem('token') && fetchCartItems();
     }
 
     const handleIncreaseQuantity = async (e) => {
         e.preventDefault();
         await editQuantity(props.cartItemId, props.quantity + 1);
-        fetchCartItems();
+        localStorage.getItem('token') && fetchCartItems();
     }
 
     const handleDecreaseQuantity = async (e) => {
@@ -20,7 +20,7 @@ const CartItem = (props) => {
         if (props.quantity > 1) {
         e.preventDefault();
         await editQuantity(props.cartItemId, props.quantity - 1);
-        fetchCartItems();            
+        localStorage.getItem('token') && fetchCartItems();            
         }
         // in the below condition we cannot say when props.quantity === 0 we should delete the item becuz when the quantity is 1 and user clicks on decrease button it should delete the product
         else if(props.quantity === 1) {

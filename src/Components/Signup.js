@@ -38,7 +38,7 @@ const Signup = () => {
     if (json.success) {
       localStorage.setItem('token', json.authToken); // the setUser is async so it might be undefined while trying that way so we have to be careful with all this
       getUserData();
-      fetchCartItems();// we are running this function here becuz of we dont do that here then if after logging in we directlygo to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
+      localStorage.getItem('token') && fetchCartItems();// we are running this function here becuz of we dont do that here then if after logging in we directly go to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
       displayAlert('info', 'Signed up Successfuly!');
       navigate('/home');
     }

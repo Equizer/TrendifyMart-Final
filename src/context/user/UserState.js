@@ -19,7 +19,6 @@ const UserState = (props) => {
     if (json.success) {
       setUser(json.user);
       localStorage.setItem('user', JSON.stringify(json.user));
-      localStorage.setItem('sellerStatus', JSON.stringify(json.user.seller));
     }
     } catch (error) {
       console.log(error);

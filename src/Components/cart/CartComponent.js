@@ -9,7 +9,7 @@ const CartComponent = () => {
   const cartContext = useContext(CartContext);
   const { fetchCartItems } = cartContext;
   useEffect( () => {
-    fetchCartItems();
+    localStorage.getItem('token') && fetchCartItems();
   }, []);
   return (
     <>

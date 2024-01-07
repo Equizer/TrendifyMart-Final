@@ -2,30 +2,34 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
 import CartContext from '../context/cart/CartContext'
+import SellerContext from '../context/seller/SellerContext'
 
 const Sidebar = () => {
   const cartContext = useContext(CartContext);
   const { cartItems, fetchCartItems } = cartContext;
   const userContext = useContext(UserContext);
   const { user, setUser } = userContext;
-  const [isSeller, setIsSeller] = useState(false);
+  const sellerContext = useContext(SellerContext);
+  const { seller, setSeller } = sellerContext;
+  const [isSeller, setIsSeller] = useState(true);
   const logout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('seller');
     localStorage.removeItem('sellerToken')
     setUser([]);
+    setSeller([]);
   }
 
   useEffect(() => {
     // if we dont fetch using the useEffect whenever the sidebar component mounts the number of items in the cart wil not be displayed it will  be either null or 0 
-    fetchCartItems();
+    localStorage.getItem('token') && fetchCartItems();
   }, []);
 
   useEffect(() => {
-    const seller = localStorage.getItem('seller') === 'true';
-    setIsSeller(seller);
-  }, [user]);
+    const sellerLS = localStorage.getItem('sellerToken') === 'true';
+    setIsSeller(sellerLS);
+  }, [seller]);
 
 
 

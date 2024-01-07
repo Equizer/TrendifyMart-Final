@@ -14,19 +14,16 @@ const AddProduct = () => {
 
   const handleConditionChange = (condition) => {
     setConditionState(condition);
-    console.log(conditionState, condition);
   }
 
 
   const onChange = (event) => {
     setProductDetails({ ...productDetails, [event.target.name]: event.target.value });
-    console.log(productDetails);
   }
 
 
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log(productDetails);
     await addProduct(productDetails.name, productDetails.imageUrl, productDetails.description, productDetails.rating, productDetails.priceCents, productDetails.keywords, conditionState, productDetails.inStock);
     fetchSellerProducts();
     closeModalRef.current.click();

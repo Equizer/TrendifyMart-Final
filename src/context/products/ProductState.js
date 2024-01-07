@@ -25,7 +25,6 @@ const ProductState = (props) => {
     const json = await response.json();
     setProgress(80);
     setProducts(json.allProducts);
-    console.log(json);
     setProgress(100);
   }
 
@@ -36,7 +35,7 @@ const ProductState = (props) => {
       method: 'POST',
       headers: {
         "Content-type": "application/json",
-        "auth-token": localStorage.getItem('token')
+        "auth-token": localStorage.getItem('sellerToken')
       },
       body: JSON.stringify({
         imageUrl: imageUrl,
@@ -58,13 +57,10 @@ const ProductState = (props) => {
     }
 
     if (json.success) {
-      console.log(json);
-      console.log(products);
       displayAlert('success', 'Product Added SuccessFully!');
     }
     else if (json.error === 'No token found!') {
       displayAlert('danger', 'Product was not Added!');
-      console.log(json.error)
     }
     setProgress(100);
   }
@@ -74,8 +70,7 @@ const ProductState = (props) => {
     const response = await fetch(`${port}/api/products/fetchsellerproducts`, {
       method: 'GET',
       headers: {
-        "Content-type": "application/json",
-        "auth-token": localStorage.getItem('token'),
+        "auth-token": localStorage.getItem('sellerToken')
       }
     });
     setProgress(45);
@@ -85,7 +80,6 @@ const ProductState = (props) => {
 
     if (json.success) {
       setSellerProducts(json.products);
-      console.log(json.products);
     }
     else if (!json.success) {
       displayAlert('danger', 'An error occured while fetching your products');
@@ -99,7 +93,7 @@ const ProductState = (props) => {
     const response = await fetch(`${port}/api/products/deleteproduct/${productId}`, {
       method: 'DELETE',
       headers: {
-        'auth-token': localStorage.getItem('token')
+        'auth-token': localStorage.getItem('sellerToken')
       }
     });
     const json = await response.json();
@@ -107,13 +101,9 @@ const ProductState = (props) => {
       const newProducts = sellerProducts.filter((product) => { return product._id !== productId });
       setSellerProducts(newProducts);
       displayAlert('warning', 'Product Deleted SuccessFully!');
-
-      console.log("Successfully deleted product!");
     }
     else {
       displayAlert('danger', 'Product was not deleted');
-
-      console.log("Error deleting product!");
     }
   }
 
@@ -124,7 +114,7 @@ const ProductState = (props) => {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
-        "auth-token": localStorage.getItem('token')
+        "auth-token": localStorage.getItem('sellerToken')
       },
       body: JSON.stringify({ inStock: newStockState })
     });
@@ -132,13 +122,10 @@ const ProductState = (props) => {
     const json = await response.json();
     setProgress(80);
     if (json.success) {
-      console.log('Stock Edited', json.product.inStock);
       displayAlert('info', 'Stock Updated SuccessFully!');
     }
     else {
       displayAlert('danger', 'Stock was not updated');
-
-      console.log('Stock not updated');
     }
     setProgress(100);
 

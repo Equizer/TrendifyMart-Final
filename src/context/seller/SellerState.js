@@ -16,7 +16,7 @@ const SellerState = (props) => {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem('seller', JSON.stringify(json.user))
-      console.log(json);
+      setSeller(JSON.stringify(json.user));
     }
   }
 
@@ -30,11 +30,10 @@ const SellerState = (props) => {
     });
     const json = await response.json();
     if (json.success) {
-      console.log(json);
     }
   }
   return (
-    <SellerContext.Provider value={{ deleteSeller, fetchSellerDetails }}>
+    <SellerContext.Provider value={{ seller, setSeller, deleteSeller, fetchSellerDetails }}>
       {props.children}
     </SellerContext.Provider>
   )

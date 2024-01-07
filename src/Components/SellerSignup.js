@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import SellerContext from '../context/seller/SellerContext';
 
 const SellerSignup = () => {
-
+const sellerContext = useContext(SellerContext);
+const { fetchSellerDetails } = sellerContext;
   const [sellerCredentials, setSellerCredentials] = useState({ firstName: "", lastName: "", password: "", email: "", type: "", shopName: "", state: "", contactNumber: null });
   const navigate = useNavigate();
 
@@ -27,6 +29,7 @@ const SellerSignup = () => {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem('sellerToken', json.authToken);
+      fetchSellerDetails();
       navigate('/myshop');
     }
     console.log(json)
@@ -71,23 +74,23 @@ const SellerSignup = () => {
         </div>
       </div>
 
-      <div class="col-md-6">
-        <label for="password" class="form-label">Password</label>
+      <div className="col-md-6">
+        <label for="password" className="form-label">Password</label>
         <input type="password" className="form-control" id="password" required onChange={onChange} name="password" value={sellerCredentials.password} />
-        <div id="emailHelp" class="form-text">Password must contain atleast 6 characters</div>
-        <div class="invalid-feedback">
+        <div id="emailHelp" className="form-text">Password must contain atleast 6 characters</div>
+        <div className="invalid-feedback">
           Please select a business type.
         </div>
       </div>
 
-      <div class="col-md-4">
-        <label for="validationCustom04" class="form-label">Choose your business type</label>
-        <select class="form-select" id="validationCustom04" required onChange={onChange} name="type" value={sellerCredentials.type}>
+      <div className="col-md-4">
+        <label for="validationCustom04" className="form-label">Choose your business type</label>
+        <select className="form-select" id="validationCustom04" required onChange={onChange} name="type" value={sellerCredentials.type}>
           <option selected disabled value="">Choose...</option>
           <option value="company">Company</option>
           <option value="individual">Individual</option>
         </select>
-        <div class="invalid-feedback">
+        <div className="invalid-feedback">
           Please select a business type.
         </div>
       </div>

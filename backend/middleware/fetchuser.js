@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: './backend/.env' });
 const secretKey = process.env.JWT_SECRET;
 
-const JWT_SECRET = 'equizer&pro';
-
 const fetchuser =  (req, res, next) => {
   let success = false;
   const token = req.header('auth-token');

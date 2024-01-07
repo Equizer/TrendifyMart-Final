@@ -1,9 +1,13 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import SellerContext from '../context/seller/SellerContext';
 
 const SellerLogin = () => {
+  const sellerContext = useContext(SellerContext);
+  const { fetchSellerDetails } = sellerContext;
   const [sellerCredentials, setSellerCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+
   const onChange = (event) => {
     setSellerCredentials({ ...sellerCredentials, [event.target.name]: event.target.value });
   }
@@ -15,11 +19,14 @@ const SellerLogin = () => {
       headers: {
         "Content-type": "application/json"
       },
-      body: JSON.stringify({email: sellerCredentials.email, password: sellerCredentials.password})
+      body: JSON.stringify({ email: sellerCredentials.email, password: sellerCredentials.password })
     });
     const json = await response.json();
     if (json.success) {
       localStorage.setItem('sellerToken', json.authToken);
+      fetchSellerDetails();
+
+
       navigate('/myshop');
     }
   }
@@ -32,7 +39,7 @@ const SellerLogin = () => {
       </div>
       <div className="mb-3">
         <label for="exampleInputPassword1" className="form-label">Password</label>
-        <input type="password" name="password" value={sellerCredentials.password} className="form-control" id="exampleInputPassword1" onChange={onChange}/>
+        <input type="password" name="password" value={sellerCredentials.password} className="form-control" id="exampleInputPassword1" onChange={onChange} />
       </div>
       <button type="submit" className="btn btn-primary">Login</button>
       <span className='mx-3'>Don't have an account? <Link to="/sellersignup">Sign up</Link></span>

@@ -34,7 +34,7 @@ const Login = () => {
       console.log('logged in');
       localStorage.setItem('token', json.authToken);
       getUserData();
-      fetchCartItems(); // we are running this function here becuz of we dont do that here then if after logging in we directlygo to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
+      localStorage.getItem('token') && fetchCartItems(); // we are running this function here becuz of we dont do that here then if after logging in we directlygo to cart then an error stating that cartItems.map is not a function this error occurs when the map function is used on a variable that is not an array. 
       displayAlert('success', 'Logged In!');
       navigate('/home');
     }

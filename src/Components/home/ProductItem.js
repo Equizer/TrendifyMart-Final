@@ -17,7 +17,7 @@ const ProductItem = (props) => {
   const handleAddToCart = async () => {
     if (localStorage.getItem('token')) {
       await addToCart(props.id, quantityState);
-      fetchCartItems(); // if we dont fetch cart items after adding the product then a error will occur stating that some value is undefined at our time it was cannot read properties of undefined reading imageUrl. 
+      localStorage.getItem('token') && fetchCartItems(); // if we dont fetch cart items after adding the product then a error will occur stating that some value is undefined at our time it was cannot read properties of undefined reading imageUrl. 
     }
     else {
       displayAlert('info', 'Please Login or Signup to add products to cart')
