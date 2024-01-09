@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fetchuser = require('../middleware/fetchuser');
+const checkSellerStatus = require('../middleware/checkSellerStatus');
 const Product = require('../models/Product');
 const { body, validationResult } = require('express-validator');
 
@@ -29,7 +30,7 @@ router.post('/addproduct', [
   body('condition', 'Choose the condtion of your product').notEmpty(),
   body('priceCents', 'Enter a price for your product').notEmpty(),
   body('keywords', 'Enter some keywords for your product').notEmpty()
-], fetchuser, async (req, res) => {
+], fetchuser, checkSellerStatus, async (req, res) => {
   let success = false;
   const errors = validationResult(req);
 
@@ -59,7 +60,7 @@ router.post('/addproduct', [
 
 // Route 3 : Delete a product : DELETE :  '/api/products/deleteproduct' seller login required ([ seller only ] [ not for buyers ])
 
-router.delete('/deleteproduct/:productId', fetchuser, async (req, res) => {
+router.delete('/deleteproduct/:productId', fetchuser, checkSellerStatus, async (req, res) => {
 
   let success = false;
 
@@ -97,7 +98,7 @@ router.put('/editproduct/:productId', [
   body('condition', 'Choose the condtion of your product').notEmpty(),
   body('priceCents', 'Enter a price for your product').notEmpty(),
   body('keywords', 'Enter some keywords for your product').notEmpty()
-], fetchuser, async (req, res) => {
+], fetchuser, checkSellerStatus, async (req, res) => {
   let success = false;
   try {
     const errors = validationResult(req);
@@ -157,7 +158,7 @@ router.put('/editproduct/:productId', [
 
 // ROUTE 5: Edit product's stock condition : PUT : 'api/products/editstock' seller login required ([ seller only ] [ not for buyer ])
 
-router.put('/editstock/:productId', [body('inStock', 'Mention what to update the stock to!')], fetchuser, async (req, res) => {
+router.put('/editstock/:productId', [body('inStock', 'Mention what to update the stock to!')], fetchuser, checkSellerStatus, async (req, res) => {
   let success = false;
 
   try {
@@ -179,13 +180,12 @@ router.put('/editstock/:productId', [body('inStock', 'Mention what to update the
     console.error('Error: ', error);
     return res.status(400).json({ success, error: 'Internal server error occured!' })
   }
-
 });
 
 
 // ROUTE 6: Fetch seller specific products: GET :  '/api/products/fetchsellerproducts' seller login required  ([ seller only ] [ not for buyer ])
 
-router.get('/fetchsellerproducts', fetchuser, async (req, res) => {
+router.get('/fetchsellerproducts', fetchuser, checkSellerStatus, async (req, res) => {
   let success = false;
 
   try {
