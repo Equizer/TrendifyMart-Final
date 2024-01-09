@@ -11,14 +11,15 @@ const Sidebar = () => {
   const { user, setUser } = userContext;
   const sellerContext = useContext(SellerContext);
   const { seller, setSeller } = sellerContext;
-  const [isSeller, setIsSeller] = useState(true);
+  const [isSeller, setIsSeller] = useState(false);
   const logout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('seller');
     localStorage.removeItem('sellerToken')
     setUser([]);
-    setSeller([]);
+    setSeller({});
+    setIsSeller(false);
   }
 
   useEffect(() => {
@@ -27,8 +28,12 @@ const Sidebar = () => {
   }, []);
 
   useEffect(() => {
-    const sellerLS = localStorage.getItem('sellerToken') === 'true';
-    setIsSeller(sellerLS);
+    if (localStorage.getItem('sellerToken')) {
+      setIsSeller(true)
+    }
+    else {
+      setSeller(false);
+    }
   }, [seller]);
 
 
@@ -47,17 +52,30 @@ const Sidebar = () => {
         </button>
       </Link>
 
-      <Link to="/cart">
-        <button className='btn btn-primary container sidebar-items my-2'>
-          <div className='sidebar-item-parent'>
-            <div className="sidebar-icons pos-rel">
-              <i className="fa-solid fa-cart-shopping mx-2"></i>
-              {localStorage.getItem('token') && <div className="display-cart-quantity rounded-circle text-center bg-dark text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>}
+      {localStorage.getItem('sellerToken') ?
+        isSeller && <Link to="/myshop">
+          <button className='btn btn-primary container sidebar-items my-2'>
+            <div className='sidebar-item-parent'>
+              <div className="sidebar-icons">
+                <i className="fa-solid fa-shop mx-2"></i>
+              </div>
+              <div className="sidebar-names">My Shop</div>
             </div>
-            <div className="sidebar-names">Cart</div>
-          </div>
-        </button>
-      </Link>
+          </button>
+        </Link>
+        :
+        <Link to="/cart">
+          <button className='btn btn-primary container sidebar-items my-2'>
+            <div className='sidebar-item-parent'>
+              <div className="sidebar-icons pos-rel">
+                <i className="fa-solid fa-cart-shopping mx-2"></i>
+                {localStorage.getItem('token') && <div className="display-cart-quantity rounded-circle text-center bg-dark text-light d-flex justify-content-center align-items-center">{cartItems.length}</div>}
+              </div>
+              <div className="sidebar-names">Cart</div>
+            </div>
+          </button>
+        </Link>
+      }
 
       <Link to="/saved">
         <button className='btn btn-primary container sidebar-items my-2'>
@@ -103,17 +121,6 @@ const Sidebar = () => {
           </div>
         </button>
       </Link>
-
-      {isSeller && <Link to="/myshop">
-        <button className='btn btn-primary container sidebar-items my-2'>
-          <div className='sidebar-item-parent'>
-            <div className="sidebar-icons">
-              <i className="fa-solid fa-shop mx-2"></i>
-            </div>
-            <div className="sidebar-names">My Shop</div>
-          </div>
-        </button>
-      </Link>}
 
       <Link to="/login">
         <button className='btn btn-primary container sidebar-items my-2' onClick={logout}>

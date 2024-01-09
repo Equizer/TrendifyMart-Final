@@ -262,7 +262,7 @@ router.post('/sellerlogin', [
 router.get('/fetchsellerdetails', fetchuser, async (req, res) => {
   let success = false;
   try {
-    const user = await Seller.findById(req.user.id);
+    const user = await Seller.findById(req.user.id, '-password');
 
     if (!user) {
       return res.status(400).json({ success, error: 'Seller not found' });

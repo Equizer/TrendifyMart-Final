@@ -75,7 +75,7 @@ const { fetchSellerDetails } = sellerContext;
       </div>
 
       <div className="col-md-6">
-        <label for="password" className="form-label">Password</label>
+        <label htmlFor="password" className="form-label">Password</label>
         <input type="password" className="form-control" id="password" required onChange={onChange} name="password" value={sellerCredentials.password} />
         <div id="emailHelp" className="form-text">Password must contain atleast 6 characters</div>
         <div className="invalid-feedback">
@@ -84,7 +84,7 @@ const { fetchSellerDetails } = sellerContext;
       </div>
 
       <div className="col-md-4">
-        <label for="validationCustom04" className="form-label">Choose your business type</label>
+        <label htmlFor="validationCustom04" className="form-label">Choose your business type</label>
         <select className="form-select" id="validationCustom04" required onChange={onChange} name="type" value={sellerCredentials.type}>
           <option selected disabled value="">Choose...</option>
           <option value="company">Company</option>

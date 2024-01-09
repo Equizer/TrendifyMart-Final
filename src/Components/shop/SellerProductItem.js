@@ -65,13 +65,13 @@ const SellerProductItem = (props) => {
           <p className="card-text">{props.description}</p>
           <div className='d-flex justify-content-between'>
             <div className='mt-2' style={{ textWrap: 'nowrap' }}>
-              <div class="btn-group">
-                <button type="button" class={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
+              <div className="btn-group">
+                <button type="button" className={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
                   {stockState ? 'In Stock' : 'Out of Stock'}
                 </button>
-                <ul class="dropdown-menu">
-                  <li><span class="dropdown-item text-success" onClick={() => { changeStockState('In Stock') }}>In Stock</span></li>
-                  <li><span class="dropdown-item text-danger" onClick={() => { changeStockState('Out of Stock') }}>Out of Stock</span></li>
+                <ul className="dropdown-menu">
+                  <li><span className="dropdown-item text-success" onClick={() => { changeStockState('In Stock') }}>In Stock</span></li>
+                  <li><span className="dropdown-item text-danger" onClick={() => { changeStockState('Out of Stock') }}>Out of Stock</span></li>
                 </ul>
               </div>
             </div>

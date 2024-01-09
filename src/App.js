@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './Components/home/Home';
 import CartComponent from './Components/cart/CartComponent';
-import Profile from './Components/Profile';
+import Profile from './Components/profile/Profile';
 import Sidebar from './Components/Sidebar';
 import ProgressState from './context/progress/ProgressState';
 import ProductState from './context/products/ProductState';
