@@ -1,6 +1,5 @@
 import React, { useState, useRef, useContext } from 'react'
 import ProductContext from '../../context/products/ProductContext';
-import EditProduct from './EditProduct';
 
 const AddProduct = () => {
   const productContext = useContext(ProductContext);
@@ -108,7 +107,6 @@ const AddProduct = () => {
         </div>
       </div>
     </div>
-    <EditProduct />
     </>
   )
 }
