@@ -1,5 +1,6 @@
 import React, { useState, useRef, useContext } from 'react'
 import ProductContext from '../../context/products/ProductContext';
+import EditProduct from './EditProduct';
 
 const AddProduct = () => {
   const productContext = useContext(ProductContext);
@@ -31,6 +32,7 @@ const AddProduct = () => {
 
 
   return (
+    <>
     <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div className="modal-dialog modal-xl">
         <div className="modal-content">
@@ -106,6 +108,8 @@ const AddProduct = () => {
         </div>
       </div>
     </div>
+    <EditProduct />
+    </>
   )
 }
 

@@ -63,7 +63,7 @@ const SellerProductItem = (props) => {
             </div>
           </div>
           <p className="card-text">{props.description}</p>
-          <div className='d-flex justify-content-between'>
+          <div className='d-flex justify-content-between align-items-center'>
             <div className='mt-2' style={{ textWrap: 'nowrap' }}>
               <div className="btn-group">
                 <button type="button" className={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
@@ -75,10 +75,13 @@ const SellerProductItem = (props) => {
                 </ul>
               </div>
             </div>
-            <button style={{ whiteSpace: 'nowrap' }} onClick={handleClick} className="btn btn-danger product-item-add-button">
+            <div>
+            <button style={{ whiteSpace: 'nowrap' }} onClick={handleClick} className="btn btn-danger product-item-add-button mx-2">
               Delete
               <i className="fa-solid fa-trash margin-left-7"></i>
             </button>
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-pen-to-square"></i></button>
+            </div>
           </div>
         </div>
       </div>
@@ -101,10 +104,10 @@ SellerProductItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  rating: {
+  rating: PropTypes.shape({
     stars: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired
-  },
+  }).isRequired,
   priceCents: PropTypes.number.isRequired,
 }
 

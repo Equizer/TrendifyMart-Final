@@ -3,7 +3,6 @@ import About from './Components/About';
 import Navbar from './Components/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './Components/home/Home';
-import CartComponent from './Components/cart/CartComponent';
 import Profile from './Components/profile/Profile';
 import Sidebar from './Components/Sidebar';
 import ProgressState from './context/progress/ProgressState';
@@ -18,6 +17,7 @@ import CartState from './context/cart/CartState';
 import SellerSignup from './Components/SellerSignup'
 import SellerLogin from './Components/SellerLogin';
 import SellerState from './context/seller/SellerState';
+import EditProfile from './Components/shop/EditProduct';
 
 
 
@@ -40,8 +40,8 @@ function App() {
                       <Alert />
                       <Routes>
                         <Route exact path='/home' element={<Home />} />
-                        <Route exact path='/about' element={<About />} />
-                        <Route exact path='/cart' element={<CartComponent />} />
+                        <Route exact path='/about' element={<EditProfile />} />
+                        <Route exact path='/cart' element={<About />} />
                         <Route exact path='/profile' element={<Profile />} />
                         <Route exact path='/signup' element={<Signup />} />
                         <Route exact path='/login' element={<Login />} />
