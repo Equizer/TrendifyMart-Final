@@ -12,6 +12,14 @@ const SellerProductItem = (props) => {
 
   const [stockState, setStockState] = useState(null);
 
+  const product = {
+    name: props.name,
+    description: props.description,
+    imageUrl: props.imageUrl,
+    rating: props.rating,
+    condition: props.condition,
+    inStock: props.inStock
+  }
 
   const changeStockState = (stock) => {
     const newState = stock === 'In Stock';
@@ -82,13 +90,13 @@ const SellerProductItem = (props) => {
                   Delete
                   <i className="fa-solid fa-trash margin-left-7"></i>
                 </button>
-                <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal"><i className="fa-solid fa-pen-to-square"></i></button>
+                <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal" onClick={() => { props.handleUpdateProduct(product) }}><i className="fa-solid fa-pen-to-square"></i></button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <EditProduct key={props.id} id={props.id} imageUrl={props.imageUrl} name={props.name} description={props.description} rating={props.rating} priceCents={props.priceCents} keywords={props.keywords} inStock={props.inStock} condition={props.condition} />
+      {/* <EditProduct key={props.id} id={props.id} imageUrl={props.imageUrl} name={props.name} description={props.description} rating={props.rating} priceCents={props.priceCents} keywords={props.keywords} inStock={props.inStock} condition={props.condition} /> */}
     </>
   )
 }

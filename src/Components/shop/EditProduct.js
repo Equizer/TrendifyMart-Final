@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 
 const EditProduct = (props) => {
   const [conditionState, setConditionState] = useState('new');
-  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 0, count: 0 }, priceCents: 0, keywords: "", condition: conditionState, inStock: true });  const closeRef = useRef(null);
 
   const handleSave = () => {
     closeRef.current.click();
@@ -14,10 +13,6 @@ const EditProduct = (props) => {
   const onChange = (event) => {
     setProductDetails({...productDetails, [event.target.name]: event.target.value});
   }
-
-  useEffect(() => {
-    setProductDetails({name: props.name, imageUrl: props.imageUrl, description: props.description, rating: { stars: props.rating.stars, count: props.rating.count}, priceCents: props.priceCents, keywords: props.keywords, condition: props.condition, inStock: true });
-  }, [])
   return (
     <>
       <div className="modal fade" id="myModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
