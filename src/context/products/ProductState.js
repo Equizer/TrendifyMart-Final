@@ -107,6 +107,36 @@ const ProductState = (props) => {
     }
   }
 
+  const editProduct = async (product) => {
+    const response = await fetch(`${port}/api/products/editproduct/${product._id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        "auth-token": localStorage.getItem('sellerToken')
+      },
+      body: JSON.stringify({
+        name: product.name,
+        description: product.description,
+        imageUrl: product.imageUrl,
+        rating: {
+          stars: product.rating.stars,
+          count: product.rating.count
+        },
+        priceCents: product.priceCents,
+        keywords: product.keywords,
+        condition: product.condition,
+        inStock: product.inStock
+      })
+    });
+    const json = await response.json();
+    if (json.success) {
+      console.log('Product Edited')
+    }
+    else {
+      console.log(json.error, 'Product not Edited!')
+    }
+  }
+
   const editStock = async (productId, newStockState) => {
     setProgress(15);
 
@@ -132,7 +162,7 @@ const ProductState = (props) => {
   }
 
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock }}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct }}>
       {props.children}
     </ProductContext.Provider>
   );

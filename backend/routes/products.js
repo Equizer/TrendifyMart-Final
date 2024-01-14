@@ -97,7 +97,8 @@ router.put('/editproduct/:productId', [
   body('rating.count', 'count cannot be empty').notEmpty(),
   body('condition', 'Choose the condtion of your product').notEmpty(),
   body('priceCents', 'Enter a price for your product').notEmpty(),
-  body('keywords', 'Enter some keywords for your product').notEmpty()
+  body('keywords', 'Enter some keywords for your product').notEmpty(),
+  body('inStock', 'Enter stock status for the product').notEmpty()
 ], fetchuser, checkSellerStatus, async (req, res) => {
   let success = false;
   try {
@@ -137,7 +138,7 @@ router.put('/editproduct/:productId', [
       newNote.rating.stars = req.body.rating.stars;
       newNote.rating.count = req.body.rating.count;
     }
-    if (condition) { newNote.condition = req.body.condition }
+    if (req.body.condition) { newNote.condition = req.body.condition }
     if (req.body.priceCents) { newNote.priceCents = req.body.priceCents };
     if (req.body.keywords) { newNote.keywords = req.body.keywords };
 

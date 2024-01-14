@@ -13,6 +13,7 @@ const SellerProductItem = (props) => {
   const [stockState, setStockState] = useState(null);
 
   const product = {
+    _id: props.id,
     name: props.name,
     description: props.description,
     imageUrl: props.imageUrl,
@@ -20,6 +21,9 @@ const SellerProductItem = (props) => {
     condition: props.condition,
     inStock: props.inStock
   }
+  useEffect(() => {
+    console.log(product);
+  },[])
 
   const changeStockState = (stock) => {
     const newState = stock === 'In Stock';
@@ -40,7 +44,6 @@ const SellerProductItem = (props) => {
     await deleteProduct(props.id);
     fetchSellerProducts();
   }
-
 
   // we used useEffect hook becuz we want the stock to display what the stock is passed to the SellerProductItem from SellerProduct when the page first mounts/loads
   // in the dependency array sellerProducts is mentioned so whenever that state changes the component should setStockState again to the latest stock status or else while navigating back to shop component shows wrong stock status
@@ -76,13 +79,18 @@ const SellerProductItem = (props) => {
             <div className='d-flex justify-content-between align-items-center'>
               <div className='mt-2' style={{ textWrap: 'nowrap' }}>
                 <div className="btn-group">
-                  <button type="button" className={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
+                  {/* <button type="button" className={`btn btn-light text-${stockState ? 'success' : 'danger'} dropdown-toggle ${stockState}`} data-bs-toggle="dropdown" aria-expanded="false">
                     {stockState ? 'In Stock' : 'Out of Stock'}
-                  </button>
-                  <ul className="dropdown-menu">
+                  </button> */}
+                  {/* <ul className="dropdown-menu">
                     <li><span className="dropdown-item text-success" onClick={() => { changeStockState('In Stock') }}>In Stock</span></li>
                     <li><span className="dropdown-item text-danger" onClick={() => { changeStockState('Out of Stock') }}>Out of Stock</span></li>
-                  </ul>
+                  </ul> */}
+                  <select className={`text-${stockState ? 'success' : 'danger'}`} onClick={(e) => { changeStockState(e.target.value) }}>
+                    <option>{stockState ? 'In Stock' : 'Out of Stock'}</option>
+                    <option className='text-success' value="In Stock">In Stock</option>
+                    <option className='text-danger' value={"Out of Stock"}>Out of Stock</option>
+                  </select>
                 </div>
               </div>
               <div>
@@ -96,7 +104,6 @@ const SellerProductItem = (props) => {
           </div>
         </div>
       </div>
-      {/* <EditProduct key={props.id} id={props.id} imageUrl={props.imageUrl} name={props.name} description={props.description} rating={props.rating} priceCents={props.priceCents} keywords={props.keywords} inStock={props.inStock} condition={props.condition} /> */}
     </>
   )
 }
