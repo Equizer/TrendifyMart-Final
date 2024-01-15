@@ -14,6 +14,7 @@ const SellerProduct = () => {
 
   const handleUpdateProduct = (currentProduct) => {
     setProductDetails({ _id: currentProduct._id, name: currentProduct.name, description: currentProduct.description, imageUrl: currentProduct.imageUrl, rating: currentProduct.rating, condition: conditionState, inStock: currentProduct.inStock, priceCents: currentProduct.priceCents, keywords: currentProduct.keywords });
+    console.log(currentProduct.condition)
   }
 
   return (
@@ -21,11 +22,11 @@ const SellerProduct = () => {
       <div className='container my-5 mx-5'>
         <div className='row'>
           {sellerProducts.map((product) => {
-            return (<SellerProductItem key={product._id} id={product._id} imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} inStock={product.inStock} condition={product.condition} handleUpdateProduct={handleUpdateProduct} conditionState={conditionState}/>)
+            return (<SellerProductItem key={product._id} id={product._id} imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} inStock={product.inStock} condition={product.condition} handleUpdateProduct={handleUpdateProduct} conditionState={conditionState} />)
           })}
         </div>
       </div>
-    <EditProduct productDetails={productDetails} setProductDetails={setProductDetails} conditionState={conditionState} setConditionState={setConditionState}/>
+      <EditProduct productDetails={productDetails} setProductDetails={setProductDetails} conditionState={conditionState} setConditionState={setConditionState} />
     </>
   )
 }
