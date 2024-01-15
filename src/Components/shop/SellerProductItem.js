@@ -18,12 +18,11 @@ const SellerProductItem = (props) => {
     description: props.description,
     imageUrl: props.imageUrl,
     rating: props.rating,
-    condition: props.condition,
-    inStock: props.inStock
+    condition: props.conditionState,
+    inStock: props.inStock,
+    priceCents: props.priceCents,
+    keywords: props.keywords
   }
-  useEffect(() => {
-    console.log(product);
-  },[])
 
   const changeStockState = (stock) => {
     const newState = stock === 'In Stock';
