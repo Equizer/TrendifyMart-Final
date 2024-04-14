@@ -13,7 +13,8 @@ const fetchuser =  (req, res, next) => {
   try {
     const data = jwt.verify(token, secretKey);
     req.user = data.user;
-
+    success = true;
+    
     next();
   } catch (error) {
     return res.status(400).json({ success, error: 'Interval server error occured' });

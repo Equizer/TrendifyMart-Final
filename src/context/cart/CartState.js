@@ -36,6 +36,7 @@ const CartState = (props) => {
         'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ quantity: quantityState })
+      
     });
     const json = await response.json();
     if (json.success) {

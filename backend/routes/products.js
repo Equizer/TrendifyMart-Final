@@ -191,7 +191,7 @@ router.get('/fetchsellerproducts', fetchuser, checkSellerStatus, async (req, res
 
   try {
 
-    let sellerProducts = await Product.find({ sellerId: req.user.id });
+    const sellerProducts = await Product.find({ sellerId: req.user.id });
     success = true;
 
     return res.json({ success, products: sellerProducts });

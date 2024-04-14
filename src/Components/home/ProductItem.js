@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import checkmarkImage from '../../images/checkmark.png'
 import CartContext from '../../context/cart/CartContext'
 import AlertContext from '../../context/alert/AlertContext'
+import BookmarkedContext from '../../context/bookmarked/BookmarkedContext'
 
 const ProductItem = (props) => {
   const cartContext = useContext(CartContext);
   const { addToCart, fetchCartItems } = cartContext;
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
-
+  const bookmarkedContext = useContext(BookmarkedContext);
+  const { addBookmark } = bookmarkedContext;
   const [quantityState, setQuantityState] = useState(1);
 
 
@@ -20,7 +22,13 @@ const ProductItem = (props) => {
       localStorage.getItem('token') && fetchCartItems(); // if we dont fetch cart items after adding the product then a error will occur stating that some value is undefined at our time it was cannot read properties of undefined reading imageUrl. 
     }
     else {
-      displayAlert('info', 'Please Login or Signup to add products to cart')
+      displayAlert('info', 'To start adding products to your cart, log in or sign up as a buyer.')
+    }
+  }
+
+  const handleBookmark = async () => {
+    if (localStorage.getItem('token')) {
+      await addBookmark(props.id, quantityState);
     }
   }
 
@@ -38,9 +46,12 @@ const ProductItem = (props) => {
         <img src={props.imageUrl} className="card-img-top" alt="Product" style={{ height: '250px', padding: '10px' }} />
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
-          <div>
-            <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
-            <span className='small-text mx-2'>{props.rating.count}</span>
+          <div className='d-flex justify-content-between align-items-center'>
+            <div>
+              <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
+              <span className='small-text mx-2'>{props.rating.count}</span>
+            </div>
+            <div><button className='btn btn-white' onClick={handleBookmark}><i class="fa-regular fa-bookmark"></i></button></div>
           </div>
           <div className='d-flex justify-content-between mt-1'>
             <div className="text-success large-text">
@@ -97,6 +108,8 @@ ProductItem.propTypes = {
   priceCents: PropTypes.number.isRequired,
   // keywords: PropTypes.array
 };
+
+// product sample
 // {
 //   "id": "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
 //   "image": "images/products/athletic-cotton-socks-6-pairs.jpg",

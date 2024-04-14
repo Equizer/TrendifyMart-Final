@@ -18,6 +18,8 @@ import SellerSignup from './Components/SellerSignup'
 import SellerLogin from './Components/SellerLogin';
 import SellerState from './context/seller/SellerState';
 import EditProfile from './Components/shop/EditProduct';
+import CartComponent from './Components/cart/CartComponent'
+import BookmarkedState from './context/bookmarked/BookmarkedState'
 
 
 
@@ -29,6 +31,7 @@ function App() {
           <UserState>
             <ProductState>
               <CartState>
+                <BookmarkedState>
                 <Router>
                   <Navbar />
                   <div className='d-flex justify-content-start'>
@@ -39,8 +42,8 @@ function App() {
                       <Alert />
                       <Routes>
                         <Route exact path='/home' element={<Home />} />
-                        <Route exact path='/about' element={<EditProfile />} />
-                        <Route exact path='/cart' element={<About />} />
+                        <Route exact path='/about' element={<About />} />
+                        <Route exact path='/cart' element={<CartComponent />} />
                         <Route exact path='/profile' element={<Profile />} />
                         <Route exact path='/signup' element={<Signup />} />
                         <Route exact path='/login' element={<Login />} />
@@ -51,6 +54,7 @@ function App() {
                     </div>
                   </div>
                 </Router>
+                </BookmarkedState>
               </CartState>
             </ProductState>
           </UserState>

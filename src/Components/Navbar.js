@@ -29,13 +29,13 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/login' ? 'active' : ''}`} aria-current="page" to="/login">Login</Link>}
+                                {!localStorage.getItem('token') && !localStorage.getItem('sellerToken') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/login' ? 'active' : ''}`} aria-current="page" to="/login">Login</Link>}
                             </li>
                             <li className="nav-item">
-                                {!localStorage.getItem('token') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/signup' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>}
+                                {!localStorage.getItem('token')  && !localStorage.getItem('sellerToken') && <Link className={`btn btn-primary mx-1 ${location.pathname === '/signup' ? 'active' : ''}`} aria-current="page" to="/signup">Signup</Link>}
                             </li>
                         </ul>
-                        { !localStorage.getItem('sellerToken') && <Link className='btn btn-dark mx-3' to="/sellerlogin">Seller Login</Link>}
+                        { !localStorage.getItem('sellerToken') && !localStorage.getItem('token') && <Link className='btn btn-dark mx-3' to="/sellerlogin">Seller Login</Link>}
                         <Link className="navbar-brand" to="/home">TrendifyMart</Link>
 
                         <div>

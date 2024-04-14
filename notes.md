@@ -7,4 +7,8 @@
 1. One thing that i noticed while working with react is that setState is a async function so we should avoid sending states into http request as it might send in he not updated value causing a delay in sending and unexpected output so we can use that in jsx becuz the state causes re-render so using it in jsx will cause a re-render whenever the state changes even though it takes some moments but if we send them in http requests it might send it before the state is changed
  - Therefore, we should always use the most updated values in while passing in functions and http requests to make sure the newest value is sent in the payload/arguments.
  
- 2. when we are running functions for adding editing deleting something and we need to fetch data display after these functions it is a good practice to use await mark the function async and the function in which the function is used as well then we can ensure that fetching data is runs only after a certain function completes becuz sometimes fetching data was running before the product was added .
+ 2. when we are running functions for adding editing deleting something and we need to fetch data display after these functions it is a good practice to use await mark the function async and the function in which the function is used as well then we can ensure that fetching data is runs only after a certain function completes becuz sometimes fetching data was running before the product was added.
+
+
+
+

@@ -6,7 +6,7 @@ const Product = require('../models/Product');
 const { body, validationResult } = require('express-validator');
 
 
-// ROUTE 1: Fetch Cart Items (according to seller) : GET : '/api/cartitems/fetchcartitems' buyer login required   
+// ROUTE 1: Fetch Cart Items (buyer specific items) : GET : '/api/cartitems/fetchcartitems' buyer login required   
 router.get('/fetchcartitems', fetchuser, async (req, res) => {
   let success = false;
   try {
@@ -50,7 +50,7 @@ router.post('/addtocart/:productId', [
     if (existingCartItem) {
       const cartItem = await CartItem.findByIdAndUpdate(existingCartItem._id, { $set: { quantity: existingCartItem.quantity + parseInt(req.body.quantity) } }, { new: true });
       success = true;
-      return res.json({ success, message: 'Product already existed in the cart so the quantity incremented!', cartItem, added: false }) // added is sent so that we can find if the product was added or just the quantity was increased 
+      return res.json({ success, message: 'Product already existed in the cart so the quantity incremented!', cartItem, added: false }) // added boolean is sent so that we can find if the product was added or just the quantity was increased 
     }
     else {
       productToAdd = {
