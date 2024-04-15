@@ -20,7 +20,7 @@ import SellerState from './context/seller/SellerState';
 import EditProfile from './Components/shop/EditProduct';
 import CartComponent from './Components/cart/CartComponent'
 import BookmarkedState from './context/bookmarked/BookmarkedState'
-import Saved from './Components/Saved';
+import Saved from './Components/saved/Saved';
 
 
 

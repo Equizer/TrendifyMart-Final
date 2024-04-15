@@ -15,7 +15,13 @@ const BookmarkedState = (props) => {
       }
     });
     const json = await response.json();
-    console.log(json);
+
+
+    if (json.success) {
+      setBookmarkedItems(json.allBookmarkedItems);
+
+    }
+    console.log(bookmarkedItems);
   }
 
 
