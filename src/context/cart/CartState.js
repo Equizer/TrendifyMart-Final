@@ -41,8 +41,11 @@ const CartState = (props) => {
     const json = await response.json();
     if (json.success) {
       setCartItems(cartItems.concat(json.product));
-      displayAlert('success', 'Product added to Cart');
+      displayAlert('success', 'Product added to cart');
       console.log(json);
+    }
+    else {
+      displayAlert('warning', 'Product was not added to cart')
     }
   }
 
