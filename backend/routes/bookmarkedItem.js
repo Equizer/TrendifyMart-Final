@@ -5,9 +5,9 @@ const { body, validationResult } = require('express-validator');
 const BookmarkedItem = require('../models/BookmarkedItem');
 const Product = require('../models/Product');
 
-// ROUTE 1: Fetch user specific bookmarked items  GET '/api/bookmarkeditems/fetchbookmarkeditems'
+// ROUTE 1: Fetch user specific bookmarked items  GET '/api/bookmarkeditems/fetchuserbookmarkeditems'
 
-router.get('/fetchbookmarkeditems', fetchuser, async (req, res) => {
+router.get('/fetchuserbookmarkeditems', fetchuser, async (req, res) => {
   let success = false;
   try {
     const allBookmarkedItems = await BookmarkedItem.find({ userId: req.user.id });

@@ -20,6 +20,7 @@ import SellerState from './context/seller/SellerState';
 import EditProfile from './Components/shop/EditProduct';
 import CartComponent from './Components/cart/CartComponent'
 import BookmarkedState from './context/bookmarked/BookmarkedState'
+import Saved from './Components/Saved';
 
 
 
@@ -44,6 +45,7 @@ function App() {
                         <Route exact path='/home' element={<Home />} />
                         <Route exact path='/about' element={<About />} />
                         <Route exact path='/cart' element={<CartComponent />} />
+                        <Route exact path='/saved' element={<Saved/>} />
                         <Route exact path='/profile' element={<Profile />} />
                         <Route exact path='/signup' element={<Signup />} />
                         <Route exact path='/login' element={<Login />} />

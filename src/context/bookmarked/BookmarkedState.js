@@ -7,6 +7,18 @@ const BookmarkedState = (props) => {
 
   const port = 'http://localHost:5000';
 
+  const fetchUserBookmarkedItems = async () => {
+    const response = await fetch(`${port}/api/bookmarkeditems/fetchuserbookmarkeditems`, {
+      method: 'GET',
+      headers: {
+        'auth-token': localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+    console.log(json);
+  }
+
+
   const addBookmark = async (productId, quantity) => {
     const response = await fetch(`${port}/api/bookmarkeditems/addbookmark/${productId}`, {
       method: 'POST',
@@ -23,7 +35,7 @@ const BookmarkedState = (props) => {
     }
   }
 
-  return (<BookmarkedContext.Provider value={{ bookmarkedItems, addBookmark }}>
+  return (<BookmarkedContext.Provider value={{ bookmarkedItems, addBookmark, fetchUserBookmarkedItems }}>
     {props.children}
   </BookmarkedContext.Provider>)
 }
