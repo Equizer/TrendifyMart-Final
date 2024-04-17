@@ -24,8 +24,9 @@ router.get('/fetchuserbookmarkeditems', fetchuser, async (req, res) => {
 router.post('/addbookmark/:productId', fetchuser, [
   body('quantity', 'Please select a quantity').notEmpty()
 ], async (req, res) => {
+  let success = false;
+
   try {
-    let success = false;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -38,27 +39,38 @@ router.post('/addbookmark/:productId', fetchuser, [
       return res.status(400).json({ success, error: 'Product does not exists!' });
     }
 
-    const productToAdd = {
-      productId: product._id,
-      sellerId: product.sellerId,
-      userId: req.user.id,
-      imageUrl: product.imageUrl,
-      name: product.name,
-      description: product.description,
-      rating: {
-        stars: product.rating.stars,
-        count: product.rating.count
-      },
-      priceCents: product.priceCents,
-      quantity: req.body.quantity,
-      keywords: product.keywords,
-      condition: product.condition,
-      inStock: product.inStock,
-    };
+    let bookmarkedOrNot = await BookmarkedItem.findOne({ productId: req.params.productId });
 
-    const addProduct = await BookmarkedItem.create(productToAdd);
-    success = true;
-    res.json({ success, message: 'Product Bookmarked!', addProduct })
+    if (!bookmarkedOrNot) {
+
+      const productToAdd = {
+        productId: product._id,
+        sellerId: product.sellerId,
+        userId: req.user.id,
+        imageUrl: product.imageUrl,
+        name: product.name,
+        description: product.description,
+        rating: {
+          stars: product.rating.stars,
+          count: product.rating.count
+        },
+        priceCents: product.priceCents,
+        quantity: req.body.quantity,
+        keywords: product.keywords,
+        condition: product.condition,
+        inStock: product.inStock,
+      };
+
+      const addProduct = await BookmarkedItem.create(productToAdd);
+      success = true;
+      return res.json({ success, message: 'Product Bookmarked!', addProduct })
+    }
+
+    else {
+      const removeBookmark = await BookmarkedItem.findByIdAndDelete(bookmarkedOrNot._id,{ new: true } )
+      return res.json({ message: "Bookmark Removed", removedBookmark: removeBookmark });
+    }
+
   } catch (error) {
     return res.status(400).json({ success, error: error.message, 'message': 'error occured' });
   }

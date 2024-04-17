@@ -11,7 +11,7 @@ const ProductItem = (props) => {
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
   const bookmarkedContext = useContext(BookmarkedContext);
-  const { addBookmark } = bookmarkedContext;
+  const { addBookmark, bookmarkState } = bookmarkedContext;
   const [quantityState, setQuantityState] = useState(1);
 
 
