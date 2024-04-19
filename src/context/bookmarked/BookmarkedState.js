@@ -35,7 +35,7 @@ const BookmarkedState = (props) => {
     }
   }
 
-  return (<BookmarkedContext.Provider value={{ bookmarkedItems, addBookmark, fetchUserBookmarkedItems }}>
+  return (<BookmarkedContext.Provider value={{ bookmarkedItems, addBookmark, fetchUserBookmarkedItems, setBookmarkedItems }}>
     {props.children}
   </BookmarkedContext.Provider>)
 }

@@ -67,8 +67,9 @@ router.post('/addbookmark/:productId', fetchuser, [
     }
 
     else {
-      const removeBookmark = await BookmarkedItem.findByIdAndDelete(bookmarkedOrNot._id,{ new: true } )
-      return res.json({ message: "Bookmark Removed", removedBookmark: removeBookmark });
+      const removeBookmark = await BookmarkedItem.findByIdAndDelete(bookmarkedOrNot._id,{ new: true })
+      success = true
+      return res.json({ success, message: "Bookmark Removed", removedBookmark: removeBookmark });
     }
 
   } catch (error) {

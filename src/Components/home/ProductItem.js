@@ -11,7 +11,7 @@ const ProductItem = (props) => {
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
   const bookmarkedContext = useContext(BookmarkedContext);
-  const { addBookmark, bookmarkState } = bookmarkedContext;
+  const { addBookmark, bookmarkState, fetchUserBookmarkedItems } = bookmarkedContext;
   const [quantityState, setQuantityState] = useState(1);
 
 
@@ -29,6 +29,7 @@ const ProductItem = (props) => {
   const handleBookmark = async () => {
     if (localStorage.getItem('token')) {
       await addBookmark(props.id, quantityState);
+      await fetchUserBookmarkedItems();
     }
   }
 

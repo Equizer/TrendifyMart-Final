@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import UserContext from '../context/user/UserContext'
 import CartContext from '../context/cart/CartContext'
 import SellerContext from '../context/seller/SellerContext'
+import BookmarkContext from '../context/bookmarked/BookmarkedContext'
 
 const Sidebar = () => {
   const cartContext = useContext(CartContext);
@@ -12,6 +13,8 @@ const Sidebar = () => {
   const sellerContext = useContext(SellerContext);
   const { seller, setSeller } = sellerContext;
   const [isSeller, setIsSeller] = useState(false);
+  const bookmarkContext = useContext(BookmarkContext);
+  const { setBookmarkedItems } = bookmarkContext
   const logout = async () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -20,6 +23,8 @@ const Sidebar = () => {
     setUser([]);
     setSeller({});
     setIsSeller(false);
+    setBookmarkedItems([]);
+    
   }
 
   useEffect(() => {
