@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import BookmarkedContext from './BookmarkedContext'
+import AlertContext from '../alert/AlertContext';
 
 const BookmarkedState = (props) => {
   const [bookmarkedItems, setBookmarkedItems] = useState([]);
+  const alertContext = useContext(AlertContext);
+  const { displayAlert } = alertContext;
   const port = 'http://localHost:5000';
+
   
   const fetchUserBookmarkedItems = async () => {
     const response = await fetch(`${port}/api/bookmarkeditems/fetchuserbookmarkeditems`, {
@@ -32,6 +36,8 @@ const BookmarkedState = (props) => {
     if (json.success) {
       setBookmarkedItems(bookmarkedItems.concat(json.addProduct));
       console.log(bookmarkedItems);
+      displayAlert('success', json.message);
+
     }
   }
 
