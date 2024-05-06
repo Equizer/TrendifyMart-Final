@@ -22,7 +22,7 @@ const ProductItem = (props) => {
       localStorage.getItem('token') && fetchCartItems(); // if we dont fetch cart items after adding the product then a error will occur stating that some value is undefined at our time it was cannot read properties of undefined reading imageUrl. 
     }
     else {
-      displayAlert('info', 'To start adding products to your cart, log in or sign up as a buyer.')
+      displayAlert('info', 'To start adding products to your Cart, log in or sign up as a buyer.')
     }
   }
 
@@ -30,6 +30,9 @@ const ProductItem = (props) => {
     if (localStorage.getItem('token')) {
       await addBookmark(props.id, quantityState);
       await fetchUserBookmarkedItems();
+    }
+    else {
+      displayAlert('warning', 'To start Bookmarking items, log in or sign up as a buyer')
     }
   }
 

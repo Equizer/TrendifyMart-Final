@@ -37,7 +37,6 @@ const BookmarkedState = (props) => {
       setBookmarkedItems(bookmarkedItems.concat(json.addProduct));
       console.log(bookmarkedItems);
       displayAlert('success', json.message);
-
     }
   }
 
