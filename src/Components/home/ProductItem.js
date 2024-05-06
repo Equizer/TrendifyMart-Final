@@ -52,7 +52,7 @@ const ProductItem = (props) => {
               <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
               <span className='small-text mx-2'>{props.rating.count}</span>
             </div>
-            <div><button className='btn btn-white' onClick={handleBookmark}><i class="fa-regular fa-bookmark"></i></button></div>
+            <div><button className='btn btn-white' onClick={handleBookmark}><i class={`fa-${props.isBookmarked ? 'solid' : 'regular'} fa-bookmark`}></i></button></div>
           </div>
           <div className='d-flex justify-content-between mt-1'>
             <div className="text-success large-text">

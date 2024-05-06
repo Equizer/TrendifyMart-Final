@@ -77,4 +77,5 @@ router.post('/addbookmark/:productId', fetchuser, [
   }
 });
 
+
 module.exports = router;

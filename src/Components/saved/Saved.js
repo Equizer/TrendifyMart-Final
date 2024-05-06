@@ -23,7 +23,7 @@ const Saved = () => {
       {localStorage.getItem('token') ? <div className="container my-5 mx-5">
         <div className="row">
           {bookmarkedItems.length === 0 ? <div><h3>No Bookmarked Items</h3><h5 className="mt-4">Go to <Link to="/home" className="btn btn-primary">Home</Link> to add bookmarks</h5></div> : bookmarkedItems.map((item) => {
-            return item && <ProductItem name={item.name} imageUrl={item.imageUrl} description={item.description} rating={item.rating} priceCents={item.priceCents} keywords={item.keywords} id={item.productId} key={item._id} inStock={item.inStock} />
+            return item && <ProductItem name={item.name} imageUrl={item.imageUrl} description={item.description} rating={item.rating} priceCents={item.priceCents} keywords={item.keywords} id={item.productId} key={item._id} inStock={item.inStock} isBookmarked={true}/>
             // One thing to note here is now we are sending item.productId instead of item._id as we search with the product's id before adding to the cart and in this case the product's id is productId unlike in the file Product.js where the product's id was _id
           })}
         </div>
