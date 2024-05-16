@@ -31,7 +31,7 @@ const Saved = () => {
         <div class="card-header">You are not Signed in!</div>
         <div class="card-body">
           <h5 class="card-title">Authentication Required</h5>
-          <p class="card-text">Login or Signup to access your Bookmarked Items.</p>
+          <p class="card-text">Login or Signup as a buyer to access your Bookmarked Items.</p>
           <Link className='btn btn-primary' to="/login">Login</Link>
           <Link className='btn btn-primary mx-2' to="/signup">Signup</Link>
         </div>

@@ -8,26 +8,47 @@ const UserState = (props) => {
 
   const getUserData = async () => {
     try {
-          const response = await fetch(`${port}/api/auth/getuserdetails`,{
-      method: 'GET',
-      headers: {
-        "Content-type": "application/json",
-        "auth-token": localStorage.getItem('token')
+      const response = await fetch(`${port}/api/auth/getuserdetails`, {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "auth-token": localStorage.getItem('token')
+        }
+      });
+      const json = await response.json();
+      if (json.success) {
+        setUser(json.user);
+        localStorage.setItem('user', JSON.stringify(json.user));
       }
-    });
-    const json = await response.json();
-    if (json.success) {
-      setUser(json.user);
-      localStorage.setItem('user', JSON.stringify(json.user));
-    }
     } catch (error) {
       console.log(error);
     }
 
   }
 
+  const deleteUser = async () => {
+    try {
+      const response = await fetch(`${port}/api/auth/deleteuser`, {
+        method: 'DELETE',
+        headers: {
+          'auth-token': localStorage.getItem('token')
+        }
+      });
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        localStorage.removeItem('token');
+      }
+      else {
+        console.log(json);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <UserContext.Provider value={{ getUserData, user, setUser }}>
+    <UserContext.Provider value={{ getUserData, user, setUser, deleteUser }}>
       {props.children}
     </UserContext.Provider>
   )

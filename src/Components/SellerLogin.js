@@ -25,8 +25,6 @@ const SellerLogin = () => {
     if (json.success) {
       localStorage.setItem('sellerToken', json.authToken);
       fetchSellerDetails();
-
-
       navigate('/myshop');
     }
   }
