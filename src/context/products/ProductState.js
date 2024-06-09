@@ -14,22 +14,22 @@ const ProductState = (props) => {
 
   const port = 'http://localhost:5000';
   const fetchAllProducts = async () => {
-    setProgress(15);
+    props.setProgress(15);
     const response = await fetch(`${port}/api/products/fetchallproducts`, {
       method: 'GET',
       headers: {
         "content-type": "application/json"
       }
     });
-    setProgress(45);
+    props.setProgress(45);
     const json = await response.json();
-    setProgress(80);
+    props.setProgress(80);
     setProducts(json.allProducts);
-    setProgress(100);
+    props.setProgress(100);
   }
 
   const addProduct = async (name, imageUrl, description, rating, priceCents, keywords, condition, inStock) => {
-    setProgress(15);
+    props.setProgress(15);
     const product = { name, imageUrl, rating, priceCents, keywords, condition };
     const response = await fetch(`${port}/api/products/addproduct`, {
       method: 'POST',
@@ -48,9 +48,9 @@ const ProductState = (props) => {
         keywords: keywords
       })
     });
-    setProgress(45);
+    props.setProgress(45);
     const json = await response.json();
-    setProgress(80);
+    props.setProgress(80);
 
     if (json.added) {
       setProducts(products.concat(product));
@@ -62,21 +62,21 @@ const ProductState = (props) => {
     else if (json.error === 'No token found!') {
       displayAlert('danger', 'Product was not Added!');
     }
-    setProgress(100);
+    props.setProgress(100);
   }
 
   const fetchSellerProducts = async () => {
-    setProgress(15);
+    props.setProgress(15);
     const response = await fetch(`${port}/api/products/fetchsellerproducts`, {
       method: 'GET',
       headers: {
         "auth-token": localStorage.getItem('sellerToken')
       }
     });
-    setProgress(45);
+    props.setProgress(45);
 
     const json = await response.json();
-    setProgress(80);
+    props.setProgress(80);
 
     if (json.success) {
       setSellerProducts(json.products);
@@ -84,7 +84,7 @@ const ProductState = (props) => {
     else if (!json.success) {
       displayAlert('danger', 'An error occured while fetching your products');
     }
-    setProgress(100);
+    props.setProgress(100);
 
 
   }
@@ -138,7 +138,7 @@ const ProductState = (props) => {
   }
 
   const editStock = async (productId, newStockState) => {
-    setProgress(15);
+    props.setProgress(15);
 
     const response = await fetch(`${port}/api/products/editstock/${productId}`, {
       method: 'PUT',
@@ -148,16 +148,16 @@ const ProductState = (props) => {
       },
       body: JSON.stringify({ inStock: newStockState })
     });
-    setProgress(45);
+    props.setProgress(45);
     const json = await response.json();
-    setProgress(80);
+    props.setProgress(80);
     if (json.success) {
       displayAlert('info', 'Stock Updated SuccessFully!');
     }
     else {
       displayAlert('danger', 'Stock was not updated');
     }
-    setProgress(100);
+    props.setProgress(100);
 
   }
 

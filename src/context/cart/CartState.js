@@ -16,17 +16,22 @@ const CartState = (props) => {
   // FETCH CART ITEMS
 
   const fetchCartItems = async () => {
+    props.setProgress(15);
     const response = await fetch(`${port}/api/cartitems/fetchcartitems`, {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem('token')
       }
     });
+    props.setProgress(45);
     const json = await response.json();
+    props.setProgress(75);
     if (json.success) {
       setCartItems(json.allProducts)
       console.log(json);
     }
+    props.setProgress(100);
+
 
   }
 

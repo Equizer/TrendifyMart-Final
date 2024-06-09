@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css';
 import About from './Components/About';
 import Navbar from './Components/Navbar';
@@ -5,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Home from './Components/home/Home';
 import Profile from './Components/profile/Profile';
 import Sidebar from './Components/Sidebar';
+import LoadingBar from 'react-top-loading-bar'
 import ProgressState from './context/progress/ProgressState';
 import ProductState from './context/products/ProductState';
 import AlertState from './context/alert/AlertState';
@@ -27,16 +29,18 @@ import AlertButton from './Components/AlertButton'
 
 
 function App() {
+const [progress, setProgress] = useState(0);
   return (
     <AlertButtonState>
       <AlertState>
         <ProgressState>
-          <SellerState>
-            <UserState>
-              <ProductState>
-                <CartState>
-                  <BookmarkedState>
+          <SellerState setProgress={setProgress}>
+            <UserState setProgress={setProgress}>
+              <ProductState setProgress={setProgress}>
+                <CartState setProgress={setProgress}>
+                  <BookmarkedState setProgress={setProgress}>
                     <Router>
+                    <LoadingBar color="white" progress={progress} shadow="true" height={2.5} onLoaderFinished={() => {setProgress(0)}}/>
                       <Navbar />
                       <div className='d-flex justify-content-start'>
                         <div>

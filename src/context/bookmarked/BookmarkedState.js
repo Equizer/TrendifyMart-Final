@@ -10,17 +10,23 @@ const BookmarkedState = (props) => {
 
   
   const fetchUserBookmarkedItems = async () => {
+    props.setProgress(15);
     const response = await fetch(`${port}/api/bookmarkeditems/fetchuserbookmarkeditems`, {
       method: 'GET',
       headers: {
         'auth-token': localStorage.getItem('token')
       }
     });
+    props.setProgress(45);
     const json = await response.json();
+    props.setProgress(75);
+
     if (json.success) {
       setBookmarkedItems(json.allBookmarkedItems);
     }
     console.log(bookmarkedItems);
+    props.setProgress(100);
+
   }
 
   const addBookmark = async (productId, quantity) => {
