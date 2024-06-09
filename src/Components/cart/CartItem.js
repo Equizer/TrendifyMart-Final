@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import CartContext from '../../context/cart/CartContext'
 
 const CartItem = (props) => {
+   
     const cartContext = useContext(CartContext);
     const { deleteFromCart, fetchCartItems, editQuantity } = cartContext;
     const handleDeleteButton = async () => {

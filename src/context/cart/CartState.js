@@ -1,11 +1,15 @@
 import React, { useContext, useState } from 'react'
 import CartContext from './CartContext'
 import AlertContext from '../../context/alert/AlertContext'
+import AlertButtonContext from '../../context/alert/AlertButtonContext'
 
 const CartState = (props) => {
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
+  const alertButtonContext = useContext(AlertButtonContext);
+  const { displayAlertButton } = alertButtonContext;
   const [cartItems, setCartItems] = useState([]);
+  const [deletedProduct, setDeletedProduct] = useState(null);
 
   const port = 'http://localHost:5000';
 
@@ -36,7 +40,7 @@ const CartState = (props) => {
         'auth-token': localStorage.getItem('token')
       },
       body: JSON.stringify({ quantity: quantityState })
-      
+
     });
     const json = await response.json();
     if (json.success) {
@@ -60,7 +64,8 @@ const CartState = (props) => {
     });
     const json = await response.json();
     if (json.success) {
-      displayAlert('warning', 'Product Removed from Cart')
+      displayAlertButton('info', "You've deleted the item from the cart");
+      setDeletedProduct(json.product);
     }
   }
 
@@ -81,7 +86,7 @@ const CartState = (props) => {
 
 
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, fetchCartItems, addToCart, deleteFromCart, editQuantity }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, fetchCartItems, addToCart, deleteFromCart, editQuantity, deletedProduct, setDeletedProduct }}>
       {props.children}
     </CartContext.Provider>
   )

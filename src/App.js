@@ -21,48 +21,53 @@ import EditProfile from './Components/shop/EditProduct';
 import CartComponent from './Components/cart/CartComponent'
 import BookmarkedState from './context/bookmarked/BookmarkedState'
 import Saved from './Components/saved/Saved';
+import AlertButtonState from './context/alert/AlertButtonState'
+import AlertButton from './Components/AlertButton'
 
 
 
 function App() {
   return (
-    <AlertState>
-      <ProgressState>
-        <SellerState>
-          <UserState>
-            <ProductState>
-              <CartState>
-                <BookmarkedState>
-                <Router>
-                  <Navbar />
-                  <div className='d-flex justify-content-start'>
-                    <div>
-                      <Sidebar />
-                    </div>
-                    <div className='container'>
-                      <Alert />
-                      <Routes>
-                        <Route exact path='/home' element={<Home />} />
-                        <Route exact path='/about' element={<About />} />
-                        <Route exact path='/cart' element={<CartComponent />} />
-                        <Route exact path='/saved' element={<Saved/>} />
-                        <Route exact path='/profile' element={<Profile />} />
-                        <Route exact path='/signup' element={<Signup />} />
-                        <Route exact path='/login' element={<Login />} />
-                        <Route exact path='/myshop' element={<Shop />} />
-                        <Route exact path='/sellersignup' element={<SellerSignup />} />
-                        <Route exact path='/sellerlogin' element={<SellerLogin />} />
-                      </Routes>
-                    </div>
-                  </div>
-                </Router>
-                </BookmarkedState>
-              </CartState>
-            </ProductState>
-          </UserState>
-        </SellerState>
-      </ProgressState>
-    </AlertState>
+    <AlertButtonState>
+      <AlertState>
+        <ProgressState>
+          <SellerState>
+            <UserState>
+              <ProductState>
+                <CartState>
+                  <BookmarkedState>
+                    <Router>
+                      <Navbar />
+                      <div className='d-flex justify-content-start'>
+                        <div>
+                          <Sidebar />
+                        </div>
+                        <div className='container'>
+                          <AlertButton />
+                          <Alert />
+                          <Routes>
+                            <Route exact path='/home' element={<Home />} />
+                            <Route exact path='/about' element={<About />} />
+                            <Route exact path='/cart' element={<CartComponent />} />
+                            <Route exact path='/saved' element={<Saved />} />
+                            <Route exact path='/profile' element={<Profile />} />
+                            <Route exact path='/signup' element={<Signup />} />
+                            <Route exact path='/login' element={<Login />} />
+                            <Route exact path='/myshop' element={<Shop />} />
+                            <Route exact path='/sellersignup' element={<SellerSignup />} />
+                            <Route exact path='/sellerlogin' element={<SellerLogin />} />
+                          </Routes>
+                        </div>
+                      </div>
+                    </Router>
+                  </BookmarkedState>
+                </CartState>
+              </ProductState>
+            </UserState>
+          </SellerState>
+        </ProgressState>
+      </AlertState>
+    </AlertButtonState>
   );
 }
 

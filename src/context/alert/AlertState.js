@@ -11,10 +11,10 @@ const AlertState = (props) => {
     setTimeout(() => {
       setAlert(null);
     }, 1500);
-
   }
+
   return (
-    <AlertContext.Provider value={{ alert, setAlert, displayAlert }}>
+    <AlertContext.Provider value={{ alert, setAlert, displayAlert,}}>
       {props.children}
     </AlertContext.Provider>
   )
