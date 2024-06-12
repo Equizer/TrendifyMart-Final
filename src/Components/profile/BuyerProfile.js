@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import UserContext from '../../context/user/UserContext';
+import UserContext from '../../context/user/UserContext'
+import RatingStars from '../RatingStars';
 const BuyerProfile = () => {
   const [profileUser, setProfileUser] = useState({ name: "", email: "", dob: "", gender: "",dateJoined: null });
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const BuyerProfile = () => {
     })
   });
   return (
+    <>
     <div className="card mb-3 margin-top-88 container px-0" style={{ "maxWidth": "540px" }}>
       <div className="row g-0">
         <div className="col-md-4 d-flex flex-column align-items-center justify-content-center">
@@ -36,14 +38,16 @@ const BuyerProfile = () => {
             <h5 className="card-title">User Profile</h5>
             <p className="card-text">Name: {profileUser.name}</p>
             <p className="card-text">Email: {profileUser.email}</p>
-            <p className="card-text">Date Of Birth: {profileUser.dob}</p>
+            <p className="card-text">Date Of Birth: {new Date(profileUser.dob).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             <p className="card-text">Gender: {profileUser.gender}</p>
-            <p className="card-text">Date joined: {profileUser.dateJoined}</p>
+            <p className="card-text">Date joined: {new Date(profileUser.dateJoined).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             <p className="card-text"><small className="text-body-secondary">Last updated 3 mins ago</small></p>
           </div>
         </div>
       </div>
     </div>
+    <RatingStars />
+    </>
   )
 }
 
