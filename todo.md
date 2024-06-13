@@ -15,3 +15,5 @@
 15. add top loading bars - **DONE**
 16. currently in the ratings star component we need to find a way to turn the stars solid when a user clicks on a star so all the stars on left should turn solid - **DONE**
 17. make an API that will keep updating the ratings of the product whenever someone rates that product
+18. try to find a way so that in the middleware fetchuser we can find out by the token whether the token is of a seller or a buyer and storing it in like req.user.role  - *PENDING*
+19. made an endpoint for adding the star rating but rn it is not done correclty as it doesnot set it to the average of all the counts but it sets to whatever the last user sets it to so we have to do it next  - *PENDING*

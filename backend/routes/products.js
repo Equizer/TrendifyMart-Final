@@ -200,6 +200,34 @@ router.get('/fetchsellerproducts', fetchuser, checkSellerStatus, async (req, res
   }
 });
 
+// ROUTE 7: Accept and add user's ratings on a product: POST : '/api/products/addStars'' user login   ([ buyer only ] [ not for seller ])
+
+router.put('/addStars/:productId', fetchuser, async (req, res) => {
+  let success = false;
+  let star = req.body.stars
+  try {
+
+    if (!req.user.id) {
+      return res.status(400).json({ success, message: 'Not allowed' });
+    }
+
+    let product = await Product.findById(req.params.productId);
+    if(!product) {
+      return res.status(400).json({ success, message: 'Product not found!' });
+    }
+
+    const productStar = await Product.findByIdAndUpdate(req.params.productId, { $set: { 'rating.stars': req.body.stars } }, { new: true, runValidators: true })
+
+    success = true;
+
+    return res.json({ success, message: 'Thank you for rating the product!', productStar, star });
+
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success, errorMessage: 'Internal server error occured!' });
+  }
+});
+
 
 
 
