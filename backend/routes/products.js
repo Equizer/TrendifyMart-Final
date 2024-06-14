@@ -216,7 +216,7 @@ router.put('/addStars/:productId', fetchuser, async (req, res) => {
       return res.status(400).json({ success, message: 'Product not found!' });
     }
 
-    const productStar = await Product.findByIdAndUpdate(req.params.productId, { $set: { 'rating.stars': req.body.stars } }, { new: true, runValidators: true })
+    const productStar = await Product.findByIdAndUpdate(req.params.productId, { $push: { 'rating.stars': req.body.stars } }, { new: true, runValidators: true })
 
     success = true;
 

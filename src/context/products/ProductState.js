@@ -161,8 +161,27 @@ const ProductState = (props) => {
 
   }
 
+  const addRatingStars = async (productId, stars) => {
+    const response = await fetch(`${port}/api/products/addStars/${[productId]}`, {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        "auth-token": localStorage.getItem('token')
+      },
+      body: JSON.stringify({ stars })
+    });
+
+    const json = await response.json();
+    if (json.success) {
+      console.log("Thanks for reviewing the product", json);
+    }
+    else {
+      console.log('Something went wrong!', json)
+    }
+  }
+
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct }}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct, addRatingStars }}>
       {props.children}
     </ProductContext.Provider>
   );
