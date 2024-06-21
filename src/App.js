@@ -19,7 +19,7 @@ import CartState from './context/cart/CartState';
 import SellerSignup from './Components/SellerSignup'
 import SellerLogin from './Components/SellerLogin';
 import SellerState from './context/seller/SellerState';
-import EditProfile from './Components/shop/EditProduct';
+// import EditProfile from './Components/shop/EditProduct';
 import CartComponent from './Components/cart/CartComponent'
 import BookmarkedState from './context/bookmarked/BookmarkedState'
 import Saved from './Components/saved/Saved';

@@ -3,6 +3,8 @@ const router = express.Router();
 const fetchuser = require('../middleware/fetchuser');
 const checkSellerStatus = require('../middleware/checkSellerStatus');
 const Product = require('../models/Product');
+const BookmarkedItem = require('../models/BookmarkedItem')
+const CartItem = require('../models/CartItem');
 const { body, validationResult } = require('express-validator');
 
 
@@ -73,11 +75,12 @@ router.delete('/deleteproduct/:productId', fetchuser, checkSellerStatus, async (
     if (req.user.id !== productToDelete.sellerId) {
       return res.status(401).json({ success, error: 'Not allowed!' });
     }
-
+    const deleteFromBookmark = await  BookmarkedItem.deleteMany({ productId: req.params.productId });
+    const deleteFromCart = await CartItem.deleteMany({ productId: req.params.productId});
     productToDelete = await Product.findByIdAndDelete(req.params.productId);
     success = true;
 
-    return res.json({ success, message: 'Product Deleted', deletedProduct: productToDelete })
+    return res.json({ success, message: 'Product Deleted', deletedProduct: productToDelete, deleteFromBookmark, deleteFromCart });
 
 
   } catch (error) {
