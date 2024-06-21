@@ -12,7 +12,7 @@ const ProductState = (props) => {
   const [sellerProducts, setSellerProducts] = useState([]);
 
 
-  const port = 'http://localhost:5000';
+  const port = 'https://trendify-mart-final.vercel.app/';
   const fetchAllProducts = async () => {
     props.setProgress(15);
     const response = await fetch(`${port}/api/products/fetchallproducts`, {
