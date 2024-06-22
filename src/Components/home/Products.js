@@ -10,7 +10,7 @@ const Products = () => {
   const { bookmarkedItems, fetchUserBookmarkedItems, setBookmarkedItems } = bookmarkedContext;
 
   useEffect(() => {
-    fetchUserBookmarkedItems();
+    localStorage.getItem('token') && fetchUserBookmarkedItems();
   }, [])
   return (
     <div className='container my-5  mx-5'>

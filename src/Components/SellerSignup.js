@@ -10,7 +10,7 @@ const { fetchSellerDetails } = sellerContext;
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localHost:5000/api/auth/sellersignup', {
+    const response = await fetch('https://trendifymart-backend.onrender.com/api/auth/sellersignup', {
       method: "POST",
       headers: {
         "Content-type": "application/json",

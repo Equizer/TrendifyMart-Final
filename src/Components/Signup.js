@@ -14,7 +14,7 @@ const Signup = () => {
   const { fetchCartItems } = cartContext;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ name: '', email: '', password: '', gender: '', dob: '' });
-  const port = `http://localhost:5000`
+  const port = `https://trendifymart-backend.onrender.com`
 
 
   const onChange = (event) => {

@@ -14,7 +14,7 @@ const SellerLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localHost:5000/api/auth/sellerlogin', {
+    const response = await fetch('https://trendifymart-backend.onrender.com/api/auth/sellerlogin', {
       method: "POST",
       headers: {
         "Content-type": "application/json"
