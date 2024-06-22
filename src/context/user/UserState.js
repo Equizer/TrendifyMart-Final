@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const UserState = (props) => {
   const [user, setUser] = useState({});
 
-  const port = `http://localhost:5000`
+  const port = `https://trendifymart-backend.onrender.com`
 
   const getUserData = async () => {
     try {

@@ -4,7 +4,7 @@ import SellerContext from "./SellerContext";
 const SellerState = (props) => {
   const [seller, setSeller] = useState({});
 
-  const port = 'http://localHost:5000'
+  const port = 'https://trendifymart-backend.onrender.com'
 
   const fetchSellerDetails = async () => {
     const response = await fetch(`${port}/api/auth/fetchsellerdetails`, {

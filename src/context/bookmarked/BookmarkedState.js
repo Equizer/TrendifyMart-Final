@@ -6,7 +6,7 @@ const BookmarkedState = (props) => {
   const [bookmarkedItems, setBookmarkedItems] = useState([]);
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
-  const port = 'http://localHost:5000';
+  const port = 'https://trendifymart-backend.onrender.com';
 
   
   const fetchUserBookmarkedItems = async () => {

@@ -11,7 +11,7 @@ const CartState = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [deletedProduct, setDeletedProduct] = useState(null);
 
-  const port = 'http://localHost:5000';
+  const port = 'https://trendifymart-backend.onrender.com';
 
   // FETCH CART ITEMS
 
