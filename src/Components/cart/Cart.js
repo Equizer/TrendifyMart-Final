@@ -6,9 +6,7 @@ import CartContext from '../../context/cart/CartContext'
 const Cart = () => {
   const cartContext = useContext(CartContext);
   const { cartItems } = cartContext;
-  useEffect(() => {
-    console.log(cartItems);
-  })
+
   return (
     <div>
       <h2 className='container py-3 fw-bold pt-4'>Items:</h2>

@@ -20,7 +20,7 @@ function RatingStars() {
   return (
     <div>
       {printStars()}
-      <i class="fa-solid fa-trash mx-3" onClick={clearStars}></i>
+      <i className="fa-solid fa-trash mx-3" onClick={clearStars}></i>
     </div>
   )
 }

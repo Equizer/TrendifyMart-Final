@@ -24,7 +24,6 @@ const BookmarkedState = (props) => {
     if (json.success) {
       setBookmarkedItems(json.allBookmarkedItems);
     }
-    console.log(bookmarkedItems);
     props.setProgress(100);
 
   }
@@ -41,7 +40,6 @@ const BookmarkedState = (props) => {
     const json = await response.json();
     if (json.success) {
       setBookmarkedItems(bookmarkedItems.concat(json.addProduct));
-      console.log(bookmarkedItems);
       displayAlert('success', json.message);
     }
   }

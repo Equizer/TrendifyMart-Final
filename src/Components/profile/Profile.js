@@ -13,7 +13,7 @@ const Profile = () => {
     }
     else {
       return (
-        <div class="card text-bg-info mb-3 container margin-top-88" style={{ "max-width": "18rem" }}>
+        <div class="card text-bg-info mb-3 container margin-top-88" style={{ "maxWidth": "18rem" }}>
           <div class="card-header">You are not Signed in!</div>
           <div class="card-body">
             <h5 class="card-title">Authentication Required</h5>

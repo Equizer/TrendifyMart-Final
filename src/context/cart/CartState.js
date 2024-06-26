@@ -28,7 +28,6 @@ const CartState = (props) => {
     props.setProgress(75);
     if (json.success) {
       setCartItems(json.allProducts)
-      console.log(json);
     }
     props.setProgress(100);
 
@@ -51,7 +50,6 @@ const CartState = (props) => {
     if (json.success) {
       setCartItems(cartItems.concat(json.product));
       displayAlert('success', 'Product added to cart');
-      console.log(json);
     }
     else {
       displayAlert('warning', 'Product was not added to cart')
@@ -86,7 +84,6 @@ const CartState = (props) => {
       body: JSON.stringify({ quantity: quantity })
     });
     const json = await response.json();
-    console.log(json);
   }
 
 

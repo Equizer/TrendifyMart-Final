@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../../context/user/UserContext'
-import RatingStars from '../RatingStars';
 const BuyerProfile = () => {
   const [profileUser, setProfileUser] = useState({ name: "", email: "", dob: "", gender: "",dateJoined: null });
   const navigate = useNavigate();
@@ -21,7 +20,7 @@ const BuyerProfile = () => {
       gender: JSON.parse(localStorage.getItem('user')).gender || '',
       dateJoined: JSON.parse(localStorage.getItem('user')).dateJoined || ''
     })
-  });
+  }, []);
   return (
     <>
     <div className="card mb-3 margin-top-88 container px-0" style={{ "maxWidth": "540px" }}>
@@ -30,7 +29,7 @@ const BuyerProfile = () => {
           <img src="https://th.bing.com/th/id/OIP.hCfHyL8u8XAbreXuaiTMQgHaHZ?rs=1&pid=ImgDetMain" className="img-fluid rounded-start" alt="..." />
           <div className='mt-3 d-flex'>
           <button className='btn btn-sm btn-danger col-md-8 text-nowrap' onClick={handleDeleteUser}>Delete Account</button>
-          <button className='btn btn-sm btn-danger mx-2 disabled'><i class="fa-solid fa-eye-slash"></i></button>
+          <button className='btn btn-sm btn-danger mx-2 disabled'><i className="fa-solid fa-eye-slash"></i></button>
           </div>
         </div>
         <div className="col-md-8">
@@ -46,7 +45,6 @@ const BuyerProfile = () => {
         </div>
       </div>
     </div>
-    <RatingStars />
     </>
   )
 }

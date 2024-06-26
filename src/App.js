@@ -50,6 +50,7 @@ const [progress, setProgress] = useState(0);
                           <AlertButton />
                           <Alert />
                           <Routes>
+                            <Route exact path='/' element={<Home />} /> // we should make a landing page for this route 
                             <Route exact path='/home' element={<Home />} />
                             <Route exact path='/about' element={<About />} />
                             <Route exact path='/cart' element={<CartComponent />} />

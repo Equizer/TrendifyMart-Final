@@ -20,3 +20,6 @@
 20. Now still ratings is not completed as we need to find a way to let one user rate one product only one time and also a when a product is added to the database star is 0 so when the first rating of star is recieved even if 5 we would have [0, 5] so that would not reflect proper ratings *PENDING*
 21. If the seller deletes a product and that product is already in the saved of a buyer then it will still remain their and show even if the product does not exist anymore and I think the same thing is with the cart so when a user deletes a product we should also delete it from the cart and saved products of the all the users `DONE`
 22. add product popup doesnt reset it's field when a product is added as after adding if we click add a product button it will open previous product info already filled *PENDING*
+23. Make a Landing Page for TrendifyMart *PENDING*
+24. make the logout button appear in the sidebar only when user is logged in *PENDING*
+25. right now the problem we are dealing with right now is modal not opening and showing backdrop error one thing i noticed is that if we check in console the className has a product id with it and that is showing undefined for the saved page product but showing properl for the Product page `DONE`

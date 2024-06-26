@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProductItem from './ProductItem'
 import ProductContext from '../../context/products/ProductContext'
 import BookmarkedContext from '../../context/bookmarked/BookmarkedContext'
+import RatingStarModal from '../RatingStarModal'
 
 const Products = () => {
   const productContext = useContext(ProductContext);
   const { products } = productContext;
   const bookmarkedContext = useContext(BookmarkedContext);
   const { bookmarkedItems, fetchUserBookmarkedItems, setBookmarkedItems } = bookmarkedContext;
+  const [currentStarProductName, setCurrentProductName] = useState('');
 
   useEffect(() => {
     localStorage.getItem('token') && fetchUserBookmarkedItems();
@@ -17,9 +19,13 @@ const Products = () => {
       <div className='row'>
         {products.map((product) => {
           let isBookmarked = false;
-          console.log(bookmarkedItems);
           isBookmarked = bookmarkedItems.some(item => item && item.productId === product._id);
-          return (<ProductItem imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id} key={product._id} inStock={product.inStock} isBookmarked={isBookmarked} />)
+          return (
+            <React.Fragment key={product._id}>
+              <ProductItem imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id}  inStock={product.inStock} isBookmarked={isBookmarked} setCurrentProductName={ setCurrentProductName } currentStarProductName={ currentStarProductName } />
+              <RatingStarModal name={product.name}  id={product._id} currentStarProductName={ currentStarProductName } setCurrentProductName={setCurrentProductName}/>
+            </React.Fragment>
+          )
         })}
       </div>
     </div>

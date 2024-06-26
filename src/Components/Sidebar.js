@@ -127,7 +127,7 @@ const Sidebar = () => {
         </button>
       </Link>
 
-      <Link to="/login">
+      {<Link to="/login">
         <button className='btn btn-primary container sidebar-items my-2' onClick={logout}>
           <div className='sidebar-item-parent'>
             <div className="sidebar-icons">
@@ -136,8 +136,7 @@ const Sidebar = () => {
             <div className="sidebar-names">Log out</div>
           </div>
         </button>
-      </Link>
-
+      </Link>}
     </div>
 
 
