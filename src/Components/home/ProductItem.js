@@ -65,7 +65,7 @@ const ProductItem = (props) => {
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div className='d-flex justify-content-between align-items-center'>
-            <div onClick={ () => { props.setCurrentProductName(props.name); } } type="button" data-bs-toggle="modal" data-bs-target={`#ratingStar-${props.id}`} >
+            <div onClick={ () => { props.setCurrentProductName(props.name); props.setCurrentProductId(props.id) } } type="button" data-bs-toggle="modal" data-bs-target={`#ratingStar-${props.id}`} >
               <img src={require(`../../images/ratings/rating-${(calculateStarAvg(props.rating.stars) * 10)}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
               <span className='small-text mx-2'>{props.rating.count}</span>
             </div>

@@ -2,12 +2,14 @@ import React, { useContext, useState } from 'react'
 import ProductContext from './ProductContext';
 import ProgressContext from '../progress/ProgressContext';
 import AlertContext from '../../context/alert/AlertContext'
+// import BookmarkContext from '../bookmarked/BookmarkedContext'
 
 const ProductState = (props) => {
   const progressContext = useContext(ProgressContext);
   const { setProgress } = progressContext;
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
+  // const { fetchUserBookmarkedItems } = useContext(BookmarkContext); there is a issue here
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
 
@@ -162,7 +164,7 @@ const ProductState = (props) => {
   }
 
   const addRatingStars = async (productId, stars) => {
-    const response = await fetch(`${port}/api/products/addStars/${[productId]}`, {
+    const response = await fetch(`${port}/api/products/addStars/${productId}`, {
       method: 'PUT',
       headers: {
         "Content-type": "application/json",
@@ -173,6 +175,8 @@ const ProductState = (props) => {
 
     const json = await response.json();
     if (json.success) {
+      await fetchAllProducts();
+      // await fetchUserBookmarkedItems();
       console.log("Thanks for reviewing the product", json);
     }
     else {

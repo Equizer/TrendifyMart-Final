@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-function RatingStars() {
-  const [stars, setStars] = useState(0);
+function RatingStars(props) {
+  
   const findStarNumber = (number) => {
-    setStars(number);
+    props.setStars(number);
+    console.log(number)
   }
   const printStars = () => {
     let starsArr = [];
     for (let i = 0; i < 5; i++) {
-      starsArr.push(<i key={i} onClick={() => findStarNumber(i + 1)} className={`fa-${i < stars ? 'solid' : 'regular'} fa-star`}></i>) // passing i + 1 because i is initially 0 so clicking on to rate 2 star would actually give 1
+      starsArr.push(<i key={i} onClick={() => findStarNumber(i + 1)} className={`fa-${i < props.stars ? 'solid' : 'regular'} fa-star`}></i>) // passing i + 1 because i is initially 0 so clicking on to rate 2 star would actually give 1
     }
     return starsArr
   }
 
   const clearStars = () => {
-    setStars(0);
+    props.setStars(0);
   }
 
   return (

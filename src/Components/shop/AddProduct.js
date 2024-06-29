@@ -7,7 +7,7 @@ const AddProduct = () => {
 
   const [conditionState, setConditionState] = useState('new');
 
-  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 0, count: 0 }, priceCents: null, keywords: "", condition: conditionState, quantity: 1, inStock: true });
+  const [productDetails, setProductDetails] = useState({ name: "", imageUrl: "https://www.pickfu.com/blog/wp-content/uploads/2019/09/test3.jpeg", description: "", rating: { stars: 5, count: 0 }, priceCents: null, keywords: "", condition: conditionState, quantity: 1, inStock: true });
 
 
   const closeModalRef = useRef(null);

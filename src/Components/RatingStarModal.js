@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import RatingStars from "./RatingStars";
+import ProductContext from '../context/products/ProductContext'
+import BookmarkContext from '../context/bookmarked/BookmarkedContext'
 
 const RatingStar = (props) => {
+  const productContext = useContext(ProductContext);
+  const { addRatingStars, fetchAllProducts } = productContext;
+  const bookmarkContext = useContext(BookmarkContext);
+  const { fetchUserBookmarkedItems } = bookmarkContext
+  const [stars, setStars] = useState(0);
+  const submitReview = async () => {
+    await addRatingStars(props.currentStarProductId, stars);
+    await fetchAllProducts();
+    await fetchUserBookmarkedItems();
+  }
 
   return (
     <div className="modal fade" id={`ratingStar-${props.id}`} tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -13,11 +25,11 @@ const RatingStar = (props) => {
           </div>
           <div className="modal-body">
             <p>{props.currentStarProductName}</p>
-            <RatingStars />
+            <RatingStars stars={stars} setStars={setStars} />
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" className="btn btn-primary">Submit</button>
+            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={submitReview}>Submit</button>
           </div>
         </div>
       </div>

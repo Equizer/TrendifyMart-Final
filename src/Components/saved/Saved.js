@@ -9,11 +9,13 @@ const Saved = () => {
   const bookmarkedContext = useContext(BookmarkedContext);
   const { fetchUserBookmarkedItems, bookmarkedItems } = bookmarkedContext;
   const [currentStarProductName, setCurrentProductName] = useState('');
+  const [currentStarProductId, setCurrentProductId] = useState('');
 
   const fetchUserBookmarkedItemsFunc = async () => {
     fetchUserBookmarkedItems();
   }
 
+  
   useEffect(() => {
     fetchUserBookmarkedItemsFunc();
   }, []);
@@ -25,9 +27,9 @@ const Saved = () => {
         <div className="row">
           {bookmarkedItems.length === 0 ? <div><h3>No Bookmarked Items</h3><h5 className="mt-4">Go to <Link to="/home" className="btn btn-primary">Home</Link> to add bookmarks</h5></div> : bookmarkedItems.map((item) => {
             return item && <React.Fragment key={item._id}>
-              <ProductItem name={item.name} imageUrl={item.imageUrl} description={item.description} rating={item.rating} priceCents={item.priceCents} keywords={item.keywords} id={item.productId}  inStock={item.inStock} isBookmarked={true} currentStarProductName={currentStarProductName} setCurrentProductName={setCurrentProductName} />
+              <ProductItem name={item.name} imageUrl={item.imageUrl} description={item.description} rating={item.rating} priceCents={item.priceCents} keywords={item.keywords} id={item.productId}  inStock={item.inStock} isBookmarked={true} currentStarProductName={currentStarProductName} setCurrentProductName={setCurrentProductName} currentStarProductId={ currentStarProductId } setCurrentProductId={setCurrentProductId}/>
               {/* One thing to note here is now we are sending item.productId instead of item._id as we search with the product's id before adding to the cart and in this case the product's id is productId unlike in the file Product.js where the product's id was _id */}
-              <RatingStarModal currentStarProductName={currentStarProductName} setCurrentProductName={setCurrentProductName} id={item.productId} name={item.name} />
+              <RatingStarModal currentStarProductName={currentStarProductName} setCurrentProductName={setCurrentProductName} id={item.productId} name={item.name} currentStarProductId={ currentStarProductId } setCurrentProductId={setCurrentProductId}/>
             </React.Fragment>
           })}
         </div>
