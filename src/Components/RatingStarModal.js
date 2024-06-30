@@ -13,6 +13,7 @@ const RatingStar = (props) => {
     await addRatingStars(props.currentStarProductId, stars);
     await fetchAllProducts();
     await fetchUserBookmarkedItems();
+    setStars(0);
   }
 
   return (
@@ -29,7 +30,7 @@ const RatingStar = (props) => {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={submitReview}>Submit</button>
+            <button type="button" className="btn btn-primary" data-bs-dismiss="modal" disabled={stars === 0} onClick={submitReview}>Submit</button>
           </div>
         </div>
       </div>
