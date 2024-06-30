@@ -177,7 +177,7 @@ const ProductState = (props) => {
     if (json.success) {
       await fetchAllProducts();
       // await fetchUserBookmarkedItems();
-      console.log("Thanks for reviewing the product", json);
+      console.log(json.message, json);
     }
     else {
       console.log('Something went wrong!', json)
