@@ -44,6 +44,15 @@ const SellerProductItem = (props) => {
     fetchSellerProducts();
   }
 
+  const calculateStarAvg = (starArr) => {
+    let starSum = 0;
+    starArr.forEach((star) => {
+      starSum += star;
+    });
+    const avg = starSum / starArr.length;
+    return Math.round(avg * 2) / 2
+  }
+
   // we used useEffect hook becuz we want the stock to display what the stock is passed to the SellerProductItem from SellerProduct when the page first mounts/loads
   // in the dependency array sellerProducts is mentioned so whenever that state changes the component should setStockState again to the latest stock status or else while navigating back to shop component shows wrong stock status
   useEffect(() => {
@@ -60,7 +69,7 @@ const SellerProductItem = (props) => {
             <h5 className="card-title">{limitWords(props.name)}</h5>
             <div className='d-flex justify-content-between'>
               <div>
-                <img src={require(`../../images/ratings/rating-${(props.rating.stars) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
+                <img src={require(`../../images/ratings/rating-${(calculateStarAvg(props.rating.stars || [0])) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
                 <span className='small-text mx-2'>{props.rating.count}</span>
               </div>
               <p className='card-text font-size-13'>{props.condition === 'new' ? '' : capitaliseFirstletter(props.condition)}</p>
@@ -122,10 +131,6 @@ SellerProductItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  rating: PropTypes.shape({
-    stars: PropTypes.array.isRequired,
-    count: PropTypes.number.isRequired
-  }).isRequired,
   priceCents: PropTypes.number.isRequired,
 }
 

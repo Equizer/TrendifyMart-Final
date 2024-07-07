@@ -23,7 +23,7 @@ const Products = () => {
           isBookmarked = bookmarkedItems.some(item => item && item.productId === product._id);
           return (
             <React.Fragment key={product._id}>
-              <ProductItem imageUrl={product.imageUrl} name={product.name} description={product.description} rating={product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id}  inStock={product.inStock} isBookmarked={isBookmarked} setCurrentProductName={ setCurrentProductName } currentStarProductName={ currentStarProductName } currentStarProductId={ currentStarProductId } setCurrentProductId={setCurrentProductId}/>
+              <ProductItem imageUrl={product.imageUrl} name={product.name} description={product.description} rating={!product.rating ? {stars: [0], count: 0} : product.rating} priceCents={product.priceCents} keywords={product.keywords} id={product._id}  inStock={product.inStock} isBookmarked={isBookmarked} setCurrentProductName={ setCurrentProductName } currentStarProductName={ currentStarProductName } currentStarProductId={ currentStarProductId } setCurrentProductId={setCurrentProductId}/>
               <RatingStarModal name={product.name}  id={product._id} currentStarProductName={ currentStarProductName } setCurrentProductName={setCurrentProductName}  currentStarProductId={ currentStarProductId } setCurrentProductId={setCurrentProductId}/>
             </React.Fragment>
           )
