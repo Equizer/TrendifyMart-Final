@@ -111,7 +111,7 @@ SellerProductItem.defaultProps = {
   name: '',
   description: '',
   ratings: {
-    stars: 0,
+    stars: [],
     count: 0
   },
   priceCents: 0,
@@ -123,7 +123,7 @@ SellerProductItem.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   rating: PropTypes.shape({
-    stars: PropTypes.number.isRequired,
+    stars: PropTypes.array.isRequired,
     count: PropTypes.number.isRequired
   }).isRequired,
   priceCents: PropTypes.number.isRequired,
