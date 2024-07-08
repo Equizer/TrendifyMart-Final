@@ -119,7 +119,7 @@ const SellerProductItem = (props) => {
 SellerProductItem.defaultProps = {
   name: '',
   description: '',
-  ratings: {
+  rating: {
     stars: [],
     count: 0
   },
