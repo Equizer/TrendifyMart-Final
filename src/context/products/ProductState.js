@@ -12,6 +12,7 @@ const ProductState = (props) => {
   // const { fetchUserBookmarkedItems } = useContext(BookmarkContext); there is a issue here
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
+  const [reviewStatus, setReviewStatus] = useState(false);
 
 
   const port = 'https://trendifymart-backend.onrender.com';
@@ -184,8 +185,25 @@ const ProductState = (props) => {
     }
   }
 
+  const CheckUserReviewStatus = async (productId) => {
+    const response = await fetch(`${port}/api/products/checkuserreviewstatus/${productId}`, {
+      method: 'GET',
+      headers: {
+        "auth-token": localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+
+    if(json.reviewed) {
+      setReviewStatus(true);
+    }
+    else {
+      setReviewStatus(false);
+    }
+  }
+
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct, addRatingStars }}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct, addRatingStars, CheckUserReviewStatus, reviewStatus, setReviewStatus}}>
       {props.children}
     </ProductContext.Provider>
   );

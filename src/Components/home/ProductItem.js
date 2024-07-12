@@ -4,6 +4,7 @@ import checkmarkImage from '../../images/checkmark.png'
 import CartContext from '../../context/cart/CartContext'
 import AlertContext from '../../context/alert/AlertContext'
 import BookmarkedContext from '../../context/bookmarked/BookmarkedContext'
+import ProductContext from '../../context/products/ProductContext'
 
 const ProductItem = (props) => {
   const cartContext = useContext(CartContext);
@@ -12,6 +13,8 @@ const ProductItem = (props) => {
   const { displayAlert } = alertContext;
   const bookmarkedContext = useContext(BookmarkedContext);
   const { addBookmark, bookmarkState, fetchUserBookmarkedItems } = bookmarkedContext;
+  const productContext = useContext(ProductContext);
+  const { CheckUserReviewStatus } = productContext;
   const [quantityState, setQuantityState] = useState(1);
 
 
@@ -43,7 +46,9 @@ const ProductItem = (props) => {
     });
     avg = (avg / starArr.length);
     const roundedAvg = Math.round(avg * 2) / 2;
-    return roundedAvg;
+    console.log(roundedAvg);
+    return roundedAvg ? roundedAvg : 0;
+    
   }
 
   // useEffect(() => {
@@ -58,6 +63,12 @@ const ProductItem = (props) => {
     const word = name.slice(0, 30);
     return name.length > 30 ? `${word}...` : word
   }
+
+  const handleRatingClick = async () => {
+    props.setCurrentProductName(props.name); props.setCurrentProductId(props.id);
+    await CheckUserReviewStatus(props.id);
+  }
+
   return (
     <div className='col-md-3 col-12 mb-4'>
       <div className="card">
@@ -65,7 +76,7 @@ const ProductItem = (props) => {
         <div className="card-body">
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div className='d-flex justify-content-between align-items-center'>
-            <div onClick={ () => { props.setCurrentProductName(props.name); props.setCurrentProductId(props.id) } } type="button" data-bs-toggle="modal" data-bs-target={`#ratingStar-${props.id}`} >
+            <div onClick={handleRatingClick} type="button" data-bs-toggle="modal" data-bs-target={`#ratingStar-${props.id}`} >
               <img src={require(`../../images/ratings/rating-${(calculateStarAvg(props.rating.stars || [0]) * 10)}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
               <span className='small-text mx-2'>{props.rating.count}</span>
             </div>
