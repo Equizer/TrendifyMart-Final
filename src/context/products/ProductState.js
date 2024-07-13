@@ -3,12 +3,15 @@ import ProductContext from './ProductContext';
 import ProgressContext from '../progress/ProgressContext';
 import AlertContext from '../../context/alert/AlertContext'
 // import BookmarkContext from '../bookmarked/BookmarkedContext'
+import LoadingContext from '../loading/LoadingContext';
 
 const ProductState = (props) => {
   const progressContext = useContext(ProgressContext);
   const { setProgress } = progressContext;
   const alertContext = useContext(AlertContext);
   const { displayAlert } = alertContext;
+  const loadingContext = useContext(LoadingContext);
+  const { loading, setLoading } = loadingContext;
   // const { fetchUserBookmarkedItems } = useContext(BookmarkContext); there is a issue here
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
@@ -186,6 +189,7 @@ const ProductState = (props) => {
   }
 
   const CheckUserReviewStatus = async (productId) => {
+    setLoading(true);
     const response = await fetch(`${port}/api/products/checkuserreviewstatus/${productId}`, {
       method: 'GET',
       headers: {
@@ -193,7 +197,7 @@ const ProductState = (props) => {
       }
     });
     const json = await response.json();
-
+    setLoading(false);
     if(json.reviewed) {
       setReviewStatus(true);
     }

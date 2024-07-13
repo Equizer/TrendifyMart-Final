@@ -49,7 +49,10 @@
   font-size: 18px;
 }
 
-
+.custom-icon {
+  width: 24px; /* Adjust the width as needed */
+  height: 24px; /* Adjust the height as needed */
+}
 
 .sidebar-item-parent {
   display: grid;

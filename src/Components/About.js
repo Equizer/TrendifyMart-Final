@@ -1,8 +1,10 @@
 import React from 'react'
+import Loader from './Loader'
 const About = () => {
   return (
     <>
     <div>Hello</div>
+    <Loader />
     </>
     // <div className='container mx-5 my-5'>
     //   <div class="offcanvas offcanvas-start" id="demo">

@@ -25,54 +25,57 @@ import BookmarkedState from './context/bookmarked/BookmarkedState'
 import Saved from './Components/saved/Saved';
 import AlertButtonState from './context/alert/AlertButtonState'
 import AlertButton from './Components/AlertButton'
+import LoadingState from './context/loading/LoadingState';
 
 
 
 function App() {
-const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
   return (
-    <AlertButtonState>
-      <AlertState>
-        <ProgressState>
-          <SellerState setProgress={setProgress}>
-            <UserState setProgress={setProgress}>
-              <ProductState setProgress={setProgress}>
-                <CartState setProgress={setProgress}>
-                  <BookmarkedState setProgress={setProgress}>
-                    <Router>
-                    <LoadingBar color="white" progress={progress} shadow="true" height={2.5} onLoaderFinished={() => {setProgress(0)}}/>
-                      <Navbar />
-                      <div className='d-flex justify-content-start'>
-                        <div>
-                          <Sidebar />
+    <LoadingState>
+      <AlertButtonState>
+        <AlertState>
+          <ProgressState>
+            <SellerState setProgress={setProgress}>
+              <UserState setProgress={setProgress}>
+                <ProductState setProgress={setProgress}>
+                  <CartState setProgress={setProgress}>
+                    <BookmarkedState setProgress={setProgress}>
+                      <Router>
+                        <LoadingBar color="white" progress={progress} shadow="true" height={2.5} onLoaderFinished={() => { setProgress(0) }} />
+                        <Navbar />
+                        <div className='d-flex justify-content-start'>
+                          <div>
+                            <Sidebar />
+                          </div>
+                          <div className='container'>
+                            <AlertButton />
+                            <Alert />
+                            <Routes>
+                              <Route exact path='/' element={<Home />} /> // we should make a landing page for this route
+                              <Route exact path='/home' element={<Home />} />
+                              <Route exact path='/about' element={<About />} />
+                              <Route exact path='/cart' element={<CartComponent />} />
+                              <Route exact path='/saved' element={<Saved />} />
+                              <Route exact path='/profile' element={<Profile />} />
+                              <Route exact path='/signup' element={<Signup />} />
+                              <Route exact path='/login' element={<Login />} />
+                              <Route exact path='/myshop' element={<Shop />} />
+                              <Route exact path='/sellersignup' element={<SellerSignup />} />
+                              <Route exact path='/sellerlogin' element={<SellerLogin />} />
+                            </Routes>
+                          </div>
                         </div>
-                        <div className='container'>
-                          <AlertButton />
-                          <Alert />
-                          <Routes>
-                            <Route exact path='/' element={<Home />} /> // we should make a landing page for this route 
-                            <Route exact path='/home' element={<Home />} />
-                            <Route exact path='/about' element={<About />} />
-                            <Route exact path='/cart' element={<CartComponent />} />
-                            <Route exact path='/saved' element={<Saved />} />
-                            <Route exact path='/profile' element={<Profile />} />
-                            <Route exact path='/signup' element={<Signup />} />
-                            <Route exact path='/login' element={<Login />} />
-                            <Route exact path='/myshop' element={<Shop />} />
-                            <Route exact path='/sellersignup' element={<SellerSignup />} />
-                            <Route exact path='/sellerlogin' element={<SellerLogin />} />
-                          </Routes>
-                        </div>
-                      </div>
-                    </Router>
-                  </BookmarkedState>
-                </CartState>
-              </ProductState>
-            </UserState>
-          </SellerState>
-        </ProgressState>
-      </AlertState>
-    </AlertButtonState>
+                      </Router>
+                    </BookmarkedState>
+                  </CartState>
+                </ProductState>
+              </UserState>
+            </SellerState>
+          </ProgressState>
+        </AlertState>
+      </AlertButtonState>
+    </LoadingState>
   );
 }
 
