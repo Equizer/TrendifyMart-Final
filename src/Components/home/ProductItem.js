@@ -47,8 +47,7 @@ const ProductItem = (props) => {
     avg = (avg / starArr.length);
     const roundedAvg = Math.round(avg * 2) / 2;
     console.log(roundedAvg);
-    return roundedAvg ? roundedAvg : 0;
-    
+    return roundedAvg ? roundedAvg > 5 ? 5 : roundedAvg : 0;
   }
 
   // useEffect(() => {
