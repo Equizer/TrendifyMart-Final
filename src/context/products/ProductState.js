@@ -214,6 +214,7 @@ const ProductState = (props) => {
     const json = await response.json();
 
     if(json.success){ 
+      // console.log(json.average)
       return json.average;
     }
     else{ 

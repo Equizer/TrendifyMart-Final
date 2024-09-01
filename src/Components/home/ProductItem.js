@@ -51,7 +51,8 @@ const ProductItem = (props) => {
   }
 
   // useEffect(() => {
-  //   limitDescriptionLetters(props.description)
+  //   // limitDescriptionLetters(props.description)
+  //   console.log(fetchProductStarAvg(props.id))
   // }, [])
 
   const changeQuantity = (event) => {
