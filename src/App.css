@@ -186,3 +186,22 @@ display: inline-block;
   right: -14px;
   font-size: 13px;
 }
+
+@media (max-width: 880px) {
+  .sidebar-class-query{ 
+    display: none;
+  }
+
+  .hide-off-canvas-query{ 
+    display: block;
+  }
+}
+
+@media (width > 880px) {
+  .sidebar-class-query{ 
+    display: block;
+  }
+  .hide-off-canvas-query{ 
+    display: none
+  }
+}

@@ -19,10 +19,9 @@ const Navbar = () => {
             <OffCanvas />
             <nav className="navbar navbar-expand-lg bg-primary container-fluid" style={{ position: 'fixed', zIndex: 1000 }}>
                 <div className="container-fluid">
-                    <button className="btn btn-lg btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <button className="btn btn-lg btn-primary hide-off-canvas-query" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
                     <i className="fa-solid fa-bars"></i>
                     </button>
-                    
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>

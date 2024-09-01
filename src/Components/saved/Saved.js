@@ -18,6 +18,7 @@ const Saved = () => {
   
   useEffect(() => {
     fetchUserBookmarkedItemsFunc();
+
   }, []);
 
   return (

@@ -42,6 +42,9 @@ const Login = () => {
       displayAlert('danger', 'You do not have an account, Sign up to continue');
       navigate('/signup');
     }
+    else if (json.error === "Invalid password") {
+      displayAlert('danger', 'Invalid password, please try again');
+    }
   }
   return (
     <form className='form-margin' onSubmit={handleSubmit}>

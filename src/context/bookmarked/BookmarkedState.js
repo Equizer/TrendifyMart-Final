@@ -29,6 +29,7 @@ const BookmarkedState = (props) => {
   }
 
   const addBookmark = async (productId, quantity) => {
+    props.setProgress(15);
     const response = await fetch(`${port}/api/bookmarkeditems/addbookmark/${productId}`, {
       method: 'POST',
       headers: {
@@ -37,11 +38,15 @@ const BookmarkedState = (props) => {
       },
       body: JSON.stringify({ quantity })
     });
+    props.setProgress(45);
     const json = await response.json();
+    props.setProgress(75);
     if (json.success) {
       setBookmarkedItems(bookmarkedItems.concat(json.addProduct));
       displayAlert('success', json.message);
     }
+    props.setProgress(100);
+
   }
 
   return (<BookmarkedContext.Provider value={{ bookmarkedItems, addBookmark, fetchUserBookmarkedItems, setBookmarkedItems }}>

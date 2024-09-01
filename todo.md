@@ -23,6 +23,7 @@
 23. Make a Landing Page for TrendifyMart *PENDING*
 24. make the logout button appear in the sidebar only when user is logged in *PENDING*
 25. right now the problem we are dealing with right now is modal not opening and showing backdrop error one thing i noticed is that if we check in console the className has a product id with it and that is showing undefined for the saved page product but showing properl for the Product page `DONE`
-26. Now we can add stars ratings from the front end that means a user can add a star rating but we still need to figure out a way that one user can only rate one product only once *PENDING*
+26. Now we can add stars ratings from the front end that means a user can add a star rating but we still need to figure out a way that one user can only rate one product only once `DONE`
 27. Now the reason why we can't see the correct star ratings displayed  in the bookmark page is because in the backend when a bookmark is done we create a new document in a different folder for that so we should either find a way to attach the ratings in the product documents to the bookmarked document respectively *PENDING*
-28. RN if someone clicks on a product they have reviewed then close and quickly open a product that they havent reviewed the content in the modal delays and shows the content changing in a moment which is not good UX so we need to add a spinner when the data is being fetched 
+28. RN if someone clicks on a product they have reviewed then close and quickly open a product that they havent reviewed the content in the modal delays and shows the content changing in a moment which is not good UX so we need to add a spinner when the data is being fetched `DONE`
+29. make the keywords functional totally from the frontend to backend the seller should be able to add upto 5 keywords and atleast 1 keyword is mandatory *PENDING*

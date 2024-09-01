@@ -14,7 +14,7 @@ const ProductItem = (props) => {
   const bookmarkedContext = useContext(BookmarkedContext);
   const { addBookmark, bookmarkState, fetchUserBookmarkedItems } = bookmarkedContext;
   const productContext = useContext(ProductContext);
-  const { CheckUserReviewStatus } = productContext;
+  const { CheckUserReviewStatus, fetchProductStarAvg } = productContext;
   const [quantityState, setQuantityState] = useState(1);
 
 
@@ -51,7 +51,7 @@ const ProductItem = (props) => {
   }
 
   // useEffect(() => {
-  //   calculateStarAvg(props.rating.stars);
+  //   limitDescriptionLetters(props.description)
   // }, [])
 
   const changeQuantity = (event) => {
@@ -66,6 +66,11 @@ const ProductItem = (props) => {
   const handleRatingClick = async () => {
     props.setCurrentProductName(props.name); props.setCurrentProductId(props.id);
     await CheckUserReviewStatus(props.id);
+  }
+  let limitedDescription = '';
+  const limitDescriptionLetters = (description) => {
+    limitedDescription = description.slice(0, 31);
+    return description.length > 31 ? limitedDescription + '...' : limitedDescription ;
   }
 
   return (
@@ -102,7 +107,7 @@ const ProductItem = (props) => {
               Verified Seller
             </div>
           </div>
-          <p className="card-text">{props.description}</p>
+          <p className="card-text">{limitDescriptionLetters(props.description)}</p>
           <div className='d-flex justify-content-between'>
             <div className={`text-${props.inStock ? 'success' : 'danger'} mt-2`} style={{ textWrap: 'nowrap' }}>
               {props.inStock ? 'In Stock' : 'Out of Stock'}

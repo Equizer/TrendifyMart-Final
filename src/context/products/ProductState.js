@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import ProductContext from './ProductContext';
 import ProgressContext from '../progress/ProgressContext';
 import AlertContext from '../../context/alert/AlertContext'
-// import BookmarkContext from '../bookmarked/BookmarkedContext'
+import BookmarkedContext from '../bookmarked/BookmarkedContext';
 import LoadingContext from '../loading/LoadingContext';
 
 const ProductState = (props) => {
@@ -12,7 +12,8 @@ const ProductState = (props) => {
   const { displayAlert } = alertContext;
   const loadingContext = useContext(LoadingContext);
   const { loading, setLoading } = loadingContext;
-  // const { fetchUserBookmarkedItems } = useContext(BookmarkContext); there is a issue here
+  const bookmarkedContext = useContext(BookmarkedContext);
+  const { fetchUserBookmarkedItems } = bookmarkedContext;
   const [products, setProducts] = useState([]);
   const [sellerProducts, setSellerProducts] = useState([]);
   const [reviewStatus, setReviewStatus] = useState(false);
@@ -180,7 +181,7 @@ const ProductState = (props) => {
     const json = await response.json();
     if (json.success) {
       await fetchAllProducts();
-      // await fetchUserBookmarkedItems();
+      await fetchUserBookmarkedItems();
       console.log(json.message, json);
     }
     else {
@@ -206,8 +207,23 @@ const ProductState = (props) => {
     }
   }
 
+  const fetchProductStarAvg = async (productId) => {
+    const response = await fetch(`${port}/api/products/fetchproductstaravg/${productId}`, {
+      method: 'GET',
+    });
+    const json = await response.json();
+
+    if(json.success){ 
+      return json.average;
+    }
+    else{ 
+      return 0
+    }
+  }
+
+
   return (
-    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct, addRatingStars, CheckUserReviewStatus, reviewStatus, setReviewStatus}}>
+    <ProductContext.Provider value={{ products, fetchAllProducts, addProduct, fetchSellerProducts, sellerProducts, deleteProduct, editStock, editProduct, addRatingStars, CheckUserReviewStatus, reviewStatus, setReviewStatus, fetchProductStarAvg}}>
       {props.children}
     </ProductContext.Provider>
   );

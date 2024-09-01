@@ -38,14 +38,14 @@ function App() {
           <ProgressState>
             <SellerState setProgress={setProgress}>
               <UserState setProgress={setProgress}>
+              <BookmarkedState setProgress={setProgress}>
                 <ProductState setProgress={setProgress}>
                   <CartState setProgress={setProgress}>
-                    <BookmarkedState setProgress={setProgress}>
                       <Router>
                         <LoadingBar color="white" progress={progress} shadow="true" height={2.5} onLoaderFinished={() => { setProgress(0) }} />
                         <Navbar />
                         <div className='d-flex justify-content-start'>
-                          <div>
+                          <div className="sidebar-class-query">
                             <Sidebar />
                           </div>
                           <div className='container'>
@@ -67,9 +67,9 @@ function App() {
                           </div>
                         </div>
                       </Router>
-                    </BookmarkedState>
                   </CartState>
                 </ProductState>
+                </BookmarkedState>
               </UserState>
             </SellerState>
           </ProgressState>

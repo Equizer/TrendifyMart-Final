@@ -44,7 +44,7 @@ const Sidebar = () => {
 
 
   return (
-    <div className="text-dark bg-primary" style={{ top: '55px', bottom: '0px', position: 'fixed', width: '135px' }}>
+    <div className="text-dark bg-primary sidebar" style={{ top: '55px',left: "0px", bottom: '0px', position: 'fixed', width: '135px' }}>
 
       <Link to='/home'>
         <button className='btn btn-primary container sidebar-items my-2'>
