@@ -182,6 +182,7 @@ const ProductState = (props) => {
     if (json.success) {
       await fetchAllProducts();
       await fetchUserBookmarkedItems();
+      await fetchProductStarAvg(productId);
       console.log(json.message, json);
     }
     else {
@@ -214,7 +215,7 @@ const ProductState = (props) => {
     const json = await response.json();
 
     if(json.success){ 
-      // console.log(json.average)
+      console.log(json.average)
       return json.average;
     }
     else{ 

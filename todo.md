@@ -27,3 +27,6 @@
 27. Now the reason why we can't see the correct star ratings displayed  in the bookmark page is because in the backend when a bookmark is done we create a new document in a different folder for that so we should either find a way to attach the ratings in the product documents to the bookmarked document respectively *PENDING*
 28. RN if someone clicks on a product they have reviewed then close and quickly open a product that they havent reviewed the content in the modal delays and shows the content changing in a moment which is not good UX so we need to add a spinner when the data is being fetched `DONE`
 29. make the keywords functional totally from the frontend to backend the seller should be able to add upto 5 keywords and atleast 1 keyword is mandatory *PENDING*
+30. make an endpoint to fetch products star ratings so that there is no issue while displaying it either in products or bookmarks page `DONE`
+31. put a loading placeholder when the products are loading in bookmark and home page until they are fetches
+32. now whenever we rate the product the star image doesnt refresh until we fetch again by re loading page it just doesnt happen automatically *PENDING* 

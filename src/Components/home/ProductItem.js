@@ -16,6 +16,7 @@ const ProductItem = (props) => {
   const productContext = useContext(ProductContext);
   const { CheckUserReviewStatus, fetchProductStarAvg } = productContext;
   const [quantityState, setQuantityState] = useState(1);
+  const [starRatingState, setStarRatingState] = useState(0);
 
 
 
@@ -50,6 +51,13 @@ const ProductItem = (props) => {
     return roundedAvg ? roundedAvg > 5 ? 5 : roundedAvg : 0;
   }
 
+  useEffect(() => {
+    const fetchStarRatingFunction = async () => {
+      setStarRatingState(await fetchProductStarAvg(props.id));
+    }
+    fetchStarRatingFunction();
+  }, []);
+
   // useEffect(() => {
   //   // limitDescriptionLetters(props.description)
   //   console.log(fetchProductStarAvg(props.id))
@@ -71,7 +79,7 @@ const ProductItem = (props) => {
   let limitedDescription = '';
   const limitDescriptionLetters = (description) => {
     limitedDescription = description.slice(0, 31);
-    return description.length > 31 ? limitedDescription + '...' : limitedDescription ;
+    return description.length > 31 ? limitedDescription + '...' : limitedDescription;
   }
 
   return (
@@ -82,7 +90,7 @@ const ProductItem = (props) => {
           <h5 className="card-title">{limitWords(props.name)}</h5>
           <div className='d-flex justify-content-between align-items-center'>
             <div onClick={handleRatingClick} type="button" data-bs-toggle="modal" data-bs-target={`#ratingStar-${props.id}`} >
-              <img src={require(`../../images/ratings/rating-${fetchProductStarAvg(props.id) * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
+              <img src={require(`../../images/ratings/rating-${starRatingState * 10}.png`)} alt="Count" style={{ width: '100px', height: '20px' }} />
               <span className='small-text mx-2'>{props.rating.count}</span>
             </div>
             <div><button className='btn btn-white' onClick={handleBookmark}><i className={`fa-${props.isBookmarked ? 'solid' : 'regular'} fa-bookmark`}></i></button></div>
