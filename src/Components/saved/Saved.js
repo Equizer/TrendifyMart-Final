@@ -12,7 +12,7 @@ const Saved = () => {
   const [currentStarProductId, setCurrentProductId] = useState('');
 
   const fetchUserBookmarkedItemsFunc = async () => {
-    fetchUserBookmarkedItems();
+    await fetchUserBookmarkedItems();
   }
 
   
